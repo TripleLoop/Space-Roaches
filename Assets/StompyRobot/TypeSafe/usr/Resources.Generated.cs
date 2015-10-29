@@ -1466,8 +1466,15 @@ public sealed class SRResources {
             }
         }
         
+        public static global::TypeSafe.PrefabResource UserInput {
+            get {
+                return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
+            }
+        }
+        
         private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
-                    new global::TypeSafe.PrefabResource("BaseCamera", "Base/BaseCamera")});
+                    new global::TypeSafe.PrefabResource("BaseCamera", "Base/BaseCamera"),
+                    new global::TypeSafe.PrefabResource("UserInput", "Base/UserInput")});
         
         /// <summary>
         /// Return a list of all resources in this folder.

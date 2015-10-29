@@ -6,12 +6,13 @@ public class SpaceRoaches : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        this.InitalizeCamera()
-            .InitalizeBackgorund()
-            .InitalizeForeGround();
+        this.InitializeCamera()
+            .InitializeUserInput()
+            .InitializeBackgorund()
+            .InitializeForeGround();
     }
 
-    private SpaceRoaches InitalizeCamera()
+    private SpaceRoaches InitializeCamera()
     {
         GameObject mainCamera = SRResources.Base.BaseCamera.Instantiate();
         mainCamera.name = "mainCamera";
@@ -19,7 +20,15 @@ public class SpaceRoaches : MonoBehaviour {
         return this;
     }
 
-    private SpaceRoaches InitalizeBackgorund()
+    private SpaceRoaches InitializeUserInput()
+    {
+        GameObject userInput = SRResources.Base.UserInput.Instantiate();
+        userInput.name = "userInput";
+        userInput.transform.parent = this.gameObject.transform;
+        return this;
+    }
+
+    private SpaceRoaches InitializeBackgorund()
     {
         GameObject background = SRResources.Environment.background.Instantiate();
         background.name = "background";
@@ -27,7 +36,7 @@ public class SpaceRoaches : MonoBehaviour {
         return this;
     }
 
-    private SpaceRoaches InitalizeForeGround()
+    private SpaceRoaches InitializeForeGround()
     {
         GameObject gameWalls = SRResources.Environment.gameWalls.Instantiate();
         gameWalls.name = "gameWalls";
