@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class SpaceRoaches : MonoBehaviour {
+public class SpaceRoaches : MonoBehaviour
+{
+    private Camera _mainCamera;
+    private UserInput _userInput;
 
-    // Use this for initialization
-    void Start ()
+    void Start()
     {
         this.InitializeCamera()
             .InitializeUserInput()
             .InitializeBackgorund()
-            .InitializeForeGround();
+            .InitializeForeGround()
+            .StartGame();
+    }
+
+
+    private SpaceRoaches StartGame()
+    {
+        _userInput.EnableInput();
+        return this;
     }
 
     private SpaceRoaches InitializeCamera()
@@ -17,6 +28,7 @@ public class SpaceRoaches : MonoBehaviour {
         GameObject mainCamera = SRResources.Base.BaseCamera.Instantiate();
         mainCamera.name = "mainCamera";
         mainCamera.transform.parent = this.gameObject.transform;
+        _mainCamera = mainCamera.GetComponent<Camera>();
         return this;
     }
 
@@ -25,6 +37,7 @@ public class SpaceRoaches : MonoBehaviour {
         GameObject userInput = SRResources.Base.UserInput.Instantiate();
         userInput.name = "userInput";
         userInput.transform.parent = this.gameObject.transform;
+        _userInput = userInput.GetComponent<UserInput>().SetCamera(_mainCamera);
         return this;
     }
 
@@ -43,5 +56,4 @@ public class SpaceRoaches : MonoBehaviour {
         gameWalls.transform.parent = this.gameObject.transform;
         return this;
     }
-
 }
