@@ -4,7 +4,7 @@ using System.Collections;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
-public class UserInput : MonoBehaviour
+public class UserInput : MonoBehaviourEx
 {
 
     private bool _inputEnabled = false;
@@ -40,31 +40,34 @@ public class UserInput : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            DetectInput();
+            var position = DetectInput();
+            Messenger.Publish(new UserInputMessage(position));
         }
 
 #elif UNITY_ANDROID
 
     if(Input.touchCount > 0){
-            DetectInput();
+            var position =  DetectInput();
+            Messenger.Publish(new UserInputMessage(position));
     }
 
 #endif
 
     }
 
-    private void DetectInput()
+    private Vector2 DetectInput()
     {
         if (!_mainCamera)
         {
             Debug.Log("Prevented crash in userInput");
-            return;
+            return new Vector2();
         }
 
 #if UNITY_STANDALONE
 
         var position = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Debug.Log("input detected ===>" + position);
+        return position;
 
 #else
         foreach (Touch touch in Input.touches)
@@ -81,6 +84,7 @@ public class UserInput : MonoBehaviour
             //}
             var position = _mainCamera.ScreenToWorldPoint(touch.position);
             Debug.Log("touch input detected ===>" + position);
+            return position;
         }
 
 #endif
