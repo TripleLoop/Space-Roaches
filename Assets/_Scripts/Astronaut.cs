@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Astronaut : MonoBehaviour
+public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 {
 
     #region Variables
@@ -26,7 +26,7 @@ public class Astronaut : MonoBehaviour
 
     #region state machine
 
-    public void SetState(State state)
+    private void SetState(State state)
     {
         stateExit(CurrentStateName);
         CurrentStateName = state;
@@ -51,7 +51,7 @@ public class Astronaut : MonoBehaviour
         }
     }
 
-    public void stateExit(State state)
+    private void stateExit(State state)
     {
         switch (state)
         {
@@ -80,7 +80,7 @@ public class Astronaut : MonoBehaviour
 
         private void Idle()
         {
-        
+            
         }
 
         private void Pulse()
@@ -104,12 +104,17 @@ public class Astronaut : MonoBehaviour
     void Start()
     {
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
-        CurrentStateName = State.Idle;
+        _currentState = Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
         _currentState();
+    }
+
+    public void Handle(UserInputMessage message)
+    {
+        Debug.Log(message.Location);
     }
 }
