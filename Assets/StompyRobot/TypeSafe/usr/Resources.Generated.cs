@@ -1874,13 +1874,27 @@ public sealed class SRResources {
         private Characters() {
         }
         
-        public static global::TypeSafe.PrefabResource Astronaut {
+        public static global::TypeSafe.PrefabResource Spikeball {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[0]));
             }
         }
         
+        public static global::TypeSafe.PrefabResource Roach {
+            get {
+                return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
+            }
+        }
+        
+        public static global::TypeSafe.PrefabResource Astronaut {
+            get {
+                return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
+            }
+        }
+        
         private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
+                    new global::TypeSafe.PrefabResource("Spikeball", "Characters/Spikeball"),
+                    new global::TypeSafe.PrefabResource("Roach", "Characters/Roach"),
                     new global::TypeSafe.PrefabResource("Astronaut", "Characters/Astronaut")});
         
         /// <summary>
