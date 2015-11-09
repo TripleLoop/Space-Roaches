@@ -14,16 +14,16 @@ public class SpaceRoaches : MonoBehaviour
             .InitializeBackgorund()
             .InitializeForeGround()
             .InitializeAstronaut()
+            .InitializeRoachPool()
             .StartGame();
     }
-
 
     private SpaceRoaches StartGame()
     {
         _userInput.EnableInput();
         return this;
     }
-
+    
     private SpaceRoaches InitializeCamera()
     {
         GameObject mainCamera = SRResources.Base.BaseCamera.Instantiate();
@@ -63,6 +63,13 @@ public class SpaceRoaches : MonoBehaviour
         GameObject astronaut = SRResources.Characters.Astronaut.Instantiate();
         astronaut.name = "Astronaut";
         astronaut.transform.parent = this.gameObject.transform;
+        return this;
+    }
+
+
+    private SpaceRoaches InitializeRoachPool()
+    {
+        
         return this;
     }
 }
