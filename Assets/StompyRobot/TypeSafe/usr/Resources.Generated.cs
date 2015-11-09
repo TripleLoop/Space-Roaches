@@ -40,15 +40,22 @@ public sealed class SRResources {
             }
         }
         
-        public static global::TypeSafe.PrefabResource Game {
+        public static global::TypeSafe.PrefabResource Roach_Pool {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
+            }
+        }
+        
+        public static global::TypeSafe.PrefabResource Game {
+            get {
+                return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
             }
         }
         
         private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
                     new global::TypeSafe.PrefabResource("BaseCamera", "Base/BaseCamera"),
                     new global::TypeSafe.PrefabResource("UserInput", "Base/UserInput"),
+                    new global::TypeSafe.PrefabResource("Roach_Pool", "Base/Roach_Pool"),
                     new global::TypeSafe.PrefabResource("Game", "Base/Game")});
         
         /// <summary>

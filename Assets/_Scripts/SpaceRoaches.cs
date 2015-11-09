@@ -18,6 +18,7 @@ public class SpaceRoaches : MonoBehaviour
             .InitializeBackgorund()
             .InitializeForeGround()
             .InitializeAstronaut()
+            .InitializeRoachPool()
             .SetReferences()
             .StartGame();
     }
@@ -44,7 +45,7 @@ public class SpaceRoaches : MonoBehaviour
         GameObject userInput = SRResources.Base.UserInput.Instantiate();
         userInput.name = "userInput";
         userInput.transform.parent = this.gameObject.transform;
-        _userInput = userInput.GetComponent<UserInput>().SetCamera(_mainCamera);
+        _userInput = userInput.GetComponent<UserInput>();
         return this;
     }
 
@@ -73,15 +74,20 @@ public class SpaceRoaches : MonoBehaviour
         return this;
     }
 
+    private SpaceRoaches InitializeRoachPool()
+    {
+        GameObject roachPool = SRResources.Base.Roach_Pool.Instantiate();
+        roachPool.name = "Roach_Pool";
+        roachPool.transform.parent = this.gameObject.transform;
+        return this;
+    }
+
     private SpaceRoaches SetReferences()
     {
         _smoothFollow.SetCameraTarget(_astronaut);
-
+        _userInput.SetCamera(_mainCamera);
         return this;
     }
 
-    private SpaceRoaches InitializeRoachPool()
-    {
-        return this;
-    }
+   
 }
