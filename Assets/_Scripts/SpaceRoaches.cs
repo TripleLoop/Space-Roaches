@@ -7,6 +7,9 @@ public class SpaceRoaches : MonoBehaviour
     private Camera _mainCamera;
     private UserInput _userInput;
 
+    private Transform _astronaut;
+    private Smooth_Follow _smoothFollow;
+
     void Start()
     {
         this.InitializeCamera()
@@ -30,6 +33,7 @@ public class SpaceRoaches : MonoBehaviour
         mainCamera.name = "mainCamera";
         mainCamera.transform.parent = this.gameObject.transform;
         _mainCamera = mainCamera.GetComponent<Camera>();
+        _smoothFollow = mainCamera.GetComponent<Smooth_Follow>();
         return this;
     }
 
@@ -63,9 +67,15 @@ public class SpaceRoaches : MonoBehaviour
         GameObject astronaut = SRResources.Characters.Astronaut.Instantiate();
         astronaut.name = "Astronaut";
         astronaut.transform.parent = this.gameObject.transform;
+        _astronaut = astronaut.transform;
         return this;
     }
 
+    private SpaceRoaches SetCameraTrack()
+    {
+        _smoothFollow.target = _astronaut;
+        return this;
+    }
 
     private SpaceRoaches InitializeRoachPool()
     {
