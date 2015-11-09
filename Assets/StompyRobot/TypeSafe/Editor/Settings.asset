@@ -15,7 +15,7 @@ MonoBehaviour:
   ClassNamePrefix: SR
   ClassNameSuffix: 
   EnableWaiting: 1
-  EnableWhitelist: 0
+  EnableWhitelist: 1
   HasShownWelcome: 1
   IncludeNonActiveScenes: 0
   MinimumBuildTime: 10
@@ -26,4 +26,5 @@ MonoBehaviour:
   TriggerOnLayerChange: 1
   TriggerOnResourceChange: 1
   TriggerOnSceneChange: 1
-  Whitelist: []
+  Whitelist:
+  - Assets/_DynamicAssets
