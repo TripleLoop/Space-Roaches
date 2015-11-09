@@ -5,12 +5,14 @@ public class Smooth_Follow : MonoBehaviour {
 
     public float dampTime = 0.05f;
     private Vector3 velocity = Vector3.zero;
-    public Transform target;
+    private Transform target;
+
+    private bool _enable = true;
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (target)
+        if (target && _enable)
         {
             //Vector3 point = camera.WorldToViewportPoint(target.position);
             var delta = target.position - GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, transform.position.z)); //(new Vector3(0.5, 0.5, point.z));
@@ -20,12 +22,15 @@ public class Smooth_Follow : MonoBehaviour {
 
     }
 
-    IEnumerator FastRelocationPhase()
+    public Smooth_Follow SetCameraTarget(GameObject tempTarget)
     {
-        dampTime = 20000;
-        yield return null;
-        yield return null;
-        yield return null;
-        dampTime = 0.05f;
+        target = tempTarget.transform;
+        return this;
+    }
+
+    public Smooth_Follow Enable(bool tempEnable)
+    {
+        _enable = tempEnable;
+        return this;
     }
 }
