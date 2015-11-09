@@ -12,6 +12,7 @@ GameObject:
   - 124: {fileID: 12432872}
   - 92: {fileID: 9202606}
   - 81: {fileID: 8145736}
+  - 114: {fileID: 11443354}
   m_Layer: 0
   m_Name: BaseCamera
   m_TagString: Untagged
@@ -47,7 +48,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -5
+  near clip plane: -15
   far clip plane: 10
   field of view: 5
   orthographic: 1
@@ -79,6 +80,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190298}
   m_Enabled: 1
+--- !u!114 &11443354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a71e855b56922244a876fb77304e6af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampTime: 1
+  target: {fileID: 0}
 --- !u!124 &12432872
 Behaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: near clip plane
-      value: -5
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: far clip plane
@@ -116,6 +130,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: orthographic size
       value: 3.70000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: dampTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
