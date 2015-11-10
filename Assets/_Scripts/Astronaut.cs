@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 {
+    private Coroutine _slowDown;
+    private bool _enableSlowDown = false;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -21,7 +23,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     public enum State
     {
         Idle,
-        Pulse,
+        Dash,
         Moving,
         Die,
     }
@@ -38,7 +40,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
             case State.Idle:
                 _currentState = Idle;
                 break;
-            case State.Pulse:
+            case State.Dash:
                 _currentState = Pulse;
                 
                 _animatorAst.SetInteger("State", 1);
@@ -50,12 +52,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
                 //transform.rotation = Quaternion.Euler(0, 0, Quaternion.Angle(Quaternion.identity, Quaternion.Euler(new Vector3(_location.x, _location.y, 0)))); 
                 //Mathf.Rad2Deg * Mathf.Cos(1 / _direction.x));
 
-                _boost = 4.0f;
-                StartCoroutine(SlowDown());
+                if(_enableSlowDown) StopCoroutine(_slowDown); _enableSlowDown = false;
+                _slowDown = StartCoroutine(SlowDown());
                 break;
             case State.Moving:
                 _currentState = Moving;
                 _animatorAst.SetInteger("State", 0);
+                Debug.Log("MOVING");
                 break;
             case State.Die:
                 _currentState = Die;
@@ -74,7 +77,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
             case State.Idle:
 
                 break;
-            case State.Pulse:
+            case State.Dash:
                 
                 break;
             case State.Moving:
@@ -124,11 +127,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
         Debug.Log(_direction);
 
-        SetState(State.Pulse);
+        SetState(State.Dash);
     }
 
     private IEnumerator SlowDown()
     {
+        _enableSlowDown = true;
+        _boost = 4.0f;
         yield return new WaitForSeconds(1);
         while (_boost > 1)
         {
