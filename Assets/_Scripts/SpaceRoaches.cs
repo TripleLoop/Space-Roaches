@@ -5,11 +5,11 @@ using System;
 public class SpaceRoaches : MonoBehaviour
 {
     private Camera _mainCamera;
-    private UserInput _userInput;
-
     private GameObject _astronaut;
-    private Smooth_Follow _smoothFollow;
 
+    private UserInput _userInput;
+    private Smooth_Follow _smoothFollow;
+    private EntitySpawner _entitySpawner;
 
     void Start()
     {
@@ -18,15 +18,15 @@ public class SpaceRoaches : MonoBehaviour
             .InitializeBackgorund()
             .InitializeForeGround()
             .InitializeAstronaut()
-            .InitializeRoachPool()
+            .InitializeEntitySpawner()
             .SetReferences()
             .StartGame();
     }
 
-
     private SpaceRoaches StartGame()
     {
         _userInput.EnableInput();
+        _entitySpawner.RandomSpawnRoaches(10);
         return this;
     }
 
@@ -74,14 +74,6 @@ public class SpaceRoaches : MonoBehaviour
         return this;
     }
 
-    private SpaceRoaches InitializeRoachPool()
-    {
-        GameObject roachPool = SRResources.Base.Roach_Pool.Instantiate();
-        roachPool.name = "Roach_Pool";
-        roachPool.transform.parent = this.gameObject.transform;
-        return this;
-    }
-
     private SpaceRoaches SetReferences()
     {
         _smoothFollow.SetCameraTarget(_astronaut);
@@ -89,5 +81,13 @@ public class SpaceRoaches : MonoBehaviour
         return this;
     }
 
-   
+    private SpaceRoaches InitializeEntitySpawner()
+    {
+        GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
+        entitySpawner.name = "entitySpawner";
+        entitySpawner.transform.parent = this.gameObject.transform;
+        _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
+        return this;
+    }
+
 }
