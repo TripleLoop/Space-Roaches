@@ -27,22 +27,29 @@ public sealed class SRSortingLayers {
         }
     }
     
-    public static global::TypeSafe.SortingLayer background {
+    public static global::TypeSafe.SortingLayer Background {
         get {
             return __all[1];
         }
     }
     
-    public static global::TypeSafe.SortingLayer foreground {
+    public static global::TypeSafe.SortingLayer Foreground {
         get {
             return __all[2];
         }
     }
     
+    public static global::TypeSafe.SortingLayer Entities {
+        get {
+            return __all[3];
+        }
+    }
+    
     private static global::System.Collections.Generic.IList<global::TypeSafe.SortingLayer> __all = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.SortingLayer>(new global::TypeSafe.SortingLayer[] {
                 new global::TypeSafe.SortingLayer("Default", 0),
-                new global::TypeSafe.SortingLayer("background", -986088133),
-                new global::TypeSafe.SortingLayer("foreground", 111083535)});
+                new global::TypeSafe.SortingLayer("Background", -986088133),
+                new global::TypeSafe.SortingLayer("Foreground", 111083535),
+                new global::TypeSafe.SortingLayer("Entities", 836349807)});
     
     public static global::System.Collections.Generic.IList<global::TypeSafe.SortingLayer> All {
         get {

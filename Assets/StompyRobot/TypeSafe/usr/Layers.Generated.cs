@@ -51,9 +51,21 @@ public sealed class SRLayers {
         }
     }
     
-    public static global::TypeSafe.Layer obstacle {
+    public static global::TypeSafe.Layer Obstacle {
         get {
             return __all[5];
+        }
+    }
+    
+    public static global::TypeSafe.Layer Enemy {
+        get {
+            return __all[6];
+        }
+    }
+    
+    public static global::TypeSafe.Layer Player {
+        get {
+            return __all[7];
         }
     }
     
@@ -63,7 +75,9 @@ public sealed class SRLayers {
                 new global::TypeSafe.Layer("Ignore Raycast", 2),
                 new global::TypeSafe.Layer("Water", 4),
                 new global::TypeSafe.Layer("UI", 5),
-                new global::TypeSafe.Layer("obstacle", 8)});
+                new global::TypeSafe.Layer("Obstacle", 8),
+                new global::TypeSafe.Layer("Enemy", 9),
+                new global::TypeSafe.Layer("Player", 10)});
     
     public static global::System.Collections.Generic.IList<global::TypeSafe.Layer> All {
         get {

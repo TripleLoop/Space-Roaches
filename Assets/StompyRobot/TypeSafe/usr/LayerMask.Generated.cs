@@ -35,5 +35,9 @@ public sealed class SRLayerMask {
     
     public const int UI = 32;
     
-    public const int obstacle = 256;
+    public const int Obstacle = 256;
+    
+    public const int Enemy = 512;
+    
+    public const int Player = 1024;
 }

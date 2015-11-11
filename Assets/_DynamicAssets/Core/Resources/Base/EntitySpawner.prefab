@@ -39,13 +39,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49c08cf6d9b75747b8d6a7f4d93ff06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _avoidSpawnInLayers:
+    serializedVersion: 2
+    m_Bits: 1792
+  _originPosition: {x: -4.44000006, y: 2.32999992}
+  _endPosition: {x: 4.55000019, y: -2.48000002}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: _avoidSpawnInLayers.m_Bits
+      value: 1792
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _originPosition.x
+      value: -4.44000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _originPosition.y
+      value: 2.32999992
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _endPosition.x
+      value: 4.55000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _endPosition.y
+      value: -2.48000002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 170516}

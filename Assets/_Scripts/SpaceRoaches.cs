@@ -26,7 +26,7 @@ public class SpaceRoaches : MonoBehaviour
     private SpaceRoaches StartGame()
     {
         _userInput.EnableInput();
-        _entitySpawner.RandomSpawnRoaches(10);
+        _entitySpawner.RandomSpawnRoaches(20);
         return this;
     }
 
@@ -87,6 +87,7 @@ public class SpaceRoaches : MonoBehaviour
         entitySpawner.name = "entitySpawner";
         entitySpawner.transform.parent = this.gameObject.transform;
         _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
+        _entitySpawner.InitializeSpawner();
         return this;
     }
 
