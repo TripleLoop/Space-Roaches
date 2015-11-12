@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 93cf887fb0e6d9b4d8bac7d09cf7c81b
-timeCreated: 1444847468
+guid: 506259f22e1d4604eae4590b8d9d6929
+timeCreated: 1447361933
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: astronaut_Idle_0
-    21300002: astronaut_Idle_1
-    21300004: astronaut_Idle_2
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -33,7 +30,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -41,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,37 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: astronaut_Idle_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 161
-        width: 92
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: astronaut_Idle_1
-      rect:
-        serializedVersion: 2
-        x: 92
-        y: 161
-        width: 92
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: astronaut_Idle_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 66
-        width: 92
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
