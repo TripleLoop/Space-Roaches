@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Random = UnityEngine.Random;
 
 public class SpaceRoaches : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class SpaceRoaches : MonoBehaviour
     private SpaceRoaches StartGame()
     {
         _userInput.EnableInput();
-        _entitySpawner.RandomSpawnRoaches(20);
+        int number = Random.Range(5, 16);
+        _entitySpawner.EntitySpawn(number);
         return this;
     }
 

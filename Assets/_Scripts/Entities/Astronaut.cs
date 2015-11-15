@@ -117,7 +117,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     public void Handle(UserInputMessage message)
     {
-        Debug.Log(message.Location);
+        //Debug.Log(message.Location);
 
         _location = message.Location;
 
@@ -125,7 +125,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         _direction.y = _location.y - transform.position.y;
         _direction.Normalize();
 
-        Debug.Log(_direction);
+        //Debug.Log(_direction);
 
         SetState(State.Dash);
     }
