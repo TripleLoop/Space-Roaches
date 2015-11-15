@@ -11,12 +11,14 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     private Vector2 _location;
     private Vector2 _direction;
+    private Vector2 _bouncePosition;
 
-    public float Intensity;
-    private float _tempIntensity;
-    private float _boost;
+    private float _intensity = 4.0f;
+    private float _breakIntensity = 2.0f;
 
     private Animator _animatorAst;
+
+    private int _scale = 1;
 
     //Define Stats Machine's variables
 
@@ -41,24 +43,30 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
                 _currentState = Idle;
                 break;
             case State.Dash:
-                _currentState = Pulse;
+                _currentState = Dash;
                 
                 _animatorAst.SetInteger("State", 1);
 
                 //Quaternion.Euler(0, 30, 0);
-
+                
                 transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
+
+                _rigidbody2D.velocity = Vector2.zero;
+                //_rigidbody2D.angularVelocity = 0;
+                _rigidbody2D.AddForce(_direction * _intensity, ForceMode2D.Impulse);
+                FlipChar();
 
                 //transform.rotation = Quaternion.Euler(0, 0, Quaternion.Angle(Quaternion.identity, Quaternion.Euler(new Vector3(_location.x, _location.y, 0)))); 
                 //Mathf.Rad2Deg * Mathf.Cos(1 / _direction.x));
 
-                if(_enableSlowDown) StopCoroutine(_slowDown); _enableSlowDown = false;
+                if (_enableSlowDown) StopCoroutine(_slowDown); _enableSlowDown = false;
                 _slowDown = StartCoroutine(SlowDown());
                 break;
             case State.Moving:
                 _currentState = Moving;
+
                 _animatorAst.SetInteger("State", 0);
-                Debug.Log("MOVING");
+
                 break;
             case State.Die:
                 _currentState = Die;
@@ -97,17 +105,15 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
             
     }
 
-    private void Pulse()
+    private void Dash()
     {
-        _tempIntensity = Intensity * _boost;
-        //transform.Translate(_direction * Time.deltaTime * _tempIntensity);
-        transform.Translate(Vector2.right * Time.deltaTime * _tempIntensity);
+        //transform.Translate(Vector2.right * Time.deltaTime * _tempIntensity);
+        _rigidbody2D.AddForce(-_direction * _breakIntensity);
     }
 
     private void Moving()
     {
-        //transform.Translate(_direction * Time.deltaTime * Intensity);
-        transform.Translate(Vector2.right * Time.deltaTime * Intensity);
+        //transform.Translate(_direction * Time.deltaTime * _intensity);
     }
 
     private void Die()
@@ -117,30 +123,58 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     public void Handle(UserInputMessage message)
     {
-        Debug.Log(message.Location);
-
         _location = message.Location;
 
         _direction.x = _location.x - transform.position.x;
         _direction.y = _location.y - transform.position.y;
         _direction.Normalize();
-
-        Debug.Log(_direction);
-
+        
         SetState(State.Dash);
+    }
+
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
+        StartCoroutine(BounceDirection(bouncePos));
     }
 
     private IEnumerator SlowDown()
     {
         _enableSlowDown = true;
-        _boost = 4.0f;
         yield return new WaitForSeconds(1);
-        while (_boost > 1)
-        {
-            _boost -= 0.5f;
-            yield return new WaitForSeconds(0.2f);
-        }
         SetState(State.Moving);
+    }
+
+    private void FlipChar()
+    {
+        Debug.Log(_direction);
+        if (_direction.x < 0)
+        {
+            _scale = -1;
+        }
+        else
+        {
+            _scale = 1;
+        }
+        Debug.Log(transform.rotation.y);
+        if (transform.rotation.y == 1)
+        {
+            _scale = -_scale;
+        }
+        transform.localScale = new Vector3(1, _scale, 1);
+    }
+
+    private IEnumerator BounceDirection(Vector2 bPos)
+    {
+        yield return null;
+        Vector2 tempPos = new Vector2(transform.position.x, transform.position.y);
+
+        Debug.Log(tempPos + " - " + bPos);
+
+        _direction = tempPos - bPos;
+        
+        transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
+        FlipChar();
     }
 
     // Update is called once per frame
@@ -154,7 +188,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     {
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         _animatorAst = gameObject.GetComponent<Animator>();
-        Intensity = 0.5f;
         _currentState = Idle;
     }
 }
