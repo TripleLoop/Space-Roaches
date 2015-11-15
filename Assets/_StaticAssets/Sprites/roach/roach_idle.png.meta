@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d71c68129bc547547b44de999e44b9a5
-timeCreated: 1444848092
+timeCreated: 1447599712
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -61,71 +61,71 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 83
-        height: 84
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: roach_idle_1
       rect:
         serializedVersion: 2
-        x: 83
-        y: 300
-        width: 83
-        height: 84
+        x: 128
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: roach_idle_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 216
-        width: 83
-        height: 84
+        x: 256
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: roach_idle_3
       rect:
         serializedVersion: 2
-        x: 83
-        y: 216
-        width: 83
-        height: 84
+        x: 384
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: roach_idle_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 132
-        width: 83
-        height: 84
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: roach_idle_5
       rect:
         serializedVersion: 2
-        x: 83
-        y: 132
-        width: 83
-        height: 84
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: roach_idle_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 83
-        height: 84
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

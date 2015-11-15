@@ -52,7 +52,7 @@ Camera:
   far clip plane: 10
   field of view: 5
   orthographic: 1
-  orthographic size: 3.70000005
+  orthographic size: 4.4000001
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dampTime: 1
-  target: {fileID: 0}
 --- !u!124 &12432872
 Behaviour:
   m_ObjectHideFlags: 1
@@ -129,7 +128,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: orthographic size
-      value: 3.70000005
+      value: 4.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: dampTime

@@ -13,7 +13,7 @@ GameObject:
   - 58: {fileID: 5830924}
   m_Layer: 9
   m_Name: Roach
-  m_TagString: Untagged
+  m_TagString: Roach
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.09858823, y: 3.58543205, z: 0}
+  m_LocalPosition: {x: -2.24678922, y: 2.52671528, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,9 +40,9 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -0, y: .0299999993}
+  m_Offset: {x: 0, y: .0199999996}
   serializedVersion: 2
-  m_Radius: .379999995
+  m_Radius: .550000012
 --- !u!95 &9593228
 Animator:
   serializedVersion: 3
