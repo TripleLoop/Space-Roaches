@@ -295,13 +295,20 @@ public sealed class SRResources {
         private Pools() {
         }
         
-        public static global::TypeSafe.PrefabResource Roach_Pool {
+        public static global::TypeSafe.PrefabResource SpikeBall_Pool {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[0]));
             }
         }
         
+        public static global::TypeSafe.PrefabResource Roach_Pool {
+            get {
+                return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
+            }
+        }
+        
         private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
+                    new global::TypeSafe.PrefabResource("SpikeBall_Pool", "Pools/SpikeBall_Pool"),
                     new global::TypeSafe.PrefabResource("Roach_Pool", "Pools/Roach_Pool")});
         
         /// <summary>

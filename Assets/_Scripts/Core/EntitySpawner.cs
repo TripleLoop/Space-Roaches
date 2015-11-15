@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using PathologicalGames;
+using System;
+using Random = UnityEngine.Random;
 
-public class EntitySpawner : MonoBehaviour
+public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>
 {
     [SerializeField]
     private LayerMask _avoidSpawnInLayers;
@@ -55,6 +57,12 @@ public class EntitySpawner : MonoBehaviour
         }
     }
 
+    private EntitySpawner DespawnObject(SpawnPool pool, GameObject target)
+    {
+        pool.Despawn(target.transform);
+        return this;
+    }
+
     private Vector2 RandomPosition()
     {
         float xPosition = Random.Range(_originPosition.x, _endPosition.x);
@@ -71,7 +79,8 @@ public class EntitySpawner : MonoBehaviour
         return this;
     }
 
-
-
-
+    public void Handle(RoachDeathMessage message)
+    {
+        this.DespawnObject(_roachPool,message.Roach);
+    }
 }

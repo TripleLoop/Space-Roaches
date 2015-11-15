@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Roach : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class Roach : MonoBehaviourEx
+{
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if (otherCollider.CompareTag(SRTags.Player))
+        {
+            Messenger.Publish(new RoachDeathMessage(gameObject));
+            return;
+        }
+    }
 }
