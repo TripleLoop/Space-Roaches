@@ -66,7 +66,7 @@ public class UserInput : MonoBehaviourEx
 #if UNITY_STANDALONE
 
         var position = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("input detected ===>" + position);
+        //Debug.Log("input detected ===>" + position);
         return position;
 
 #else
