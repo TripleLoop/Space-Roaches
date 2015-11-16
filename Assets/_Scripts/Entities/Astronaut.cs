@@ -123,7 +123,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     public void Handle(UserInputMessage message)
     {
-
         _location = message.Location;
 
         _direction.x = _location.x - transform.position.x;
