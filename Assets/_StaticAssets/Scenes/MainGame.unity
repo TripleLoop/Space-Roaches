@@ -160,34 +160,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClearID: 0
-  IDs: 2e0000003c0000004300000044000000450000004d00000098000000cd000000ce000000d8000000db000000e6000000f3000000f4000000fa000000fb000000fc000000fd000000fe000000ff000000020100000301000004010000060100000701000008010000090100000a010000
+  IDs: 2e0000003c0000004300000044000000450000004d00000098000000
   OBJs:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 729098079}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!4 &1522154384
@@ -239,7 +218,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443156, guid: 94fcfb1f38a95054190118f95c46cbcb, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94fcfb1f38a95054190118f95c46cbcb, type: 2}

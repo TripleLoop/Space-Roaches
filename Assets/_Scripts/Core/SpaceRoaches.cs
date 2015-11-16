@@ -20,7 +20,6 @@ public class SpaceRoaches : MonoBehaviour
             .InitializeForeGround()
             .InitializeAstronaut()
             .InitializeEntitySpawner()
-            .InitializeCanvas()
             .SetReferences()
             .StartGame();
     }
@@ -91,14 +90,6 @@ public class SpaceRoaches : MonoBehaviour
         entitySpawner.transform.parent = this.gameObject.transform;
         _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
         _entitySpawner.InitializeSpawner();
-        return this;
-    }
-
-    private SpaceRoaches InitializeCanvas()
-    {
-        GameObject canvas = SRResources.Base.Canvas.Instantiate();
-        canvas.name = "Canvas";
-        canvas.transform.parent = this.gameObject.transform;
         return this;
     }
 
