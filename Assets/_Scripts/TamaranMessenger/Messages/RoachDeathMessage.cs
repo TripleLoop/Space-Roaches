@@ -7,6 +7,7 @@ public class RoachDeathMessage
     public RoachDeathMessage(GameObject roach)
     {
         this.Roach = roach;
+        Debug.Log("DEAD ROACH");
     }
 }
 
