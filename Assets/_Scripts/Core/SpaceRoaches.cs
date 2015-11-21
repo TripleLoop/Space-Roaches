@@ -102,7 +102,7 @@ public class SpaceRoaches : MonoBehaviour
     {
         GameObject canvas = SRResources.Base.Canvas.Instantiate();
         canvas.name = "Canvas";
-        canvas.transform.parent = this.gameObject.transform;
+        canvas.transform.SetParent(this.gameObject.transform, false);;
         _canvas = canvas.GetComponent<Canvas>();
         return this;
     }

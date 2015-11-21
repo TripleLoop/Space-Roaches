@@ -46,10 +46,15 @@ public class UserInput : MonoBehaviourEx
 
 #elif UNITY_ANDROID
 
-    if(Input.touchCount > 0){
-            var position =  DetectInput();
+        if (Input.touchCount > 0)
+        {
+            if (!IsTouchPhaseBegan())
+            {
+                return;
+            }
+            var position = DetectInput();
             Messenger.Publish(new UserInputMessage(position));
-    }
+        }
 
 #endif
 
@@ -86,10 +91,22 @@ public class UserInput : MonoBehaviourEx
             Debug.Log("touch input detected ===>" + position);
             return position;
         }
-
+        return new Vector2();
 #endif
 
     }
 
-
+#if UNITY_ANDROID
+    private bool IsTouchPhaseBegan()
+    {
+        foreach (Touch touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+#endif
 }

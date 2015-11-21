@@ -147,7 +147,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     private void FlipChar()
     {
-        Debug.Log(_direction);
+        //Debug.Log(_direction);
         if (_direction.x < 0)
         {
             _scale = -1;
@@ -156,7 +156,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         {
             _scale = 1;
         }
-        Debug.Log(transform.rotation.y);
+        //Debug.Log(transform.rotation.y);
         if (transform.rotation.y == 1)
         {
             _scale = -_scale;
@@ -169,7 +169,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         yield return null;
         Vector2 tempPos = new Vector2(transform.position.x, transform.position.y);
 
-        Debug.Log(tempPos + " - " + bPos);
+        //Debug.Log(tempPos + " - " + bPos);
 
         _direction = tempPos - bPos;
         
