@@ -8,7 +8,7 @@ public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>
 
     public void Handle(RoachDeathMessage message)
     {
-        Debug.Log("HELO");
+        //Debug.Log("HELO");
         DeadCount++;
         GetComponent<Text>().text = ""+DeadCount;
     }
