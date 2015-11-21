@@ -8,9 +8,12 @@ public class SpaceRoaches : MonoBehaviour
     private Camera _mainCamera;
     private GameObject _astronaut;
 
+
     private UserInput _userInput;
     private Smooth_Follow _smoothFollow;
     private EntitySpawner _entitySpawner;
+    private Canvas _canvas;
+
 
     void Start()
     {
@@ -27,9 +30,17 @@ public class SpaceRoaches : MonoBehaviour
 
     private SpaceRoaches StartGame()
     {
-        _userInput.EnableInput();
         int number = Random.Range(5, 16);
         _entitySpawner.EntitySpawn(number);
+        _userInput.EnableInput();
+        return this;
+    }
+
+    private SpaceRoaches SetReferences()
+    {
+        _smoothFollow.SetCameraTarget(_astronaut);
+        _userInput.SetCamera(_mainCamera);
+        _canvas.worldCamera = _mainCamera;
         return this;
     }
 
@@ -77,13 +88,6 @@ public class SpaceRoaches : MonoBehaviour
         return this;
     }
 
-    private SpaceRoaches SetReferences()
-    {
-        _smoothFollow.SetCameraTarget(_astronaut);
-        _userInput.SetCamera(_mainCamera);
-        return this;
-    }
-
     private SpaceRoaches InitializeEntitySpawner()
     {
         GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
@@ -99,6 +103,7 @@ public class SpaceRoaches : MonoBehaviour
         GameObject canvas = SRResources.Base.Canvas.Instantiate();
         canvas.name = "Canvas";
         canvas.transform.parent = this.gameObject.transform;
+        _canvas = canvas.GetComponent<Canvas>();
         return this;
     }
 
