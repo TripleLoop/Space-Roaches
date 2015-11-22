@@ -14,7 +14,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     private Vector2 _bouncePosition;
 
     private float _intensity = 4.0f;
-    private float _breakIntensity = 2.0f;
+    private float _breakIntensity = 3.8f;
 
     private Animator _animatorAst;
 
@@ -59,7 +59,11 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
                 //transform.rotation = Quaternion.Euler(0, 0, Quaternion.Angle(Quaternion.identity, Quaternion.Euler(new Vector3(_location.x, _location.y, 0)))); 
                 //Mathf.Rad2Deg * Mathf.Cos(1 / _direction.x));
 
-                if (_enableSlowDown) StopCoroutine(_slowDown); _enableSlowDown = false;
+                if (_enableSlowDown)
+                {
+                    StopCoroutine(_slowDown);
+                    _enableSlowDown = false;
+                }
                 _slowDown = StartCoroutine(SlowDown());
                 break;
             case State.Moving:
@@ -108,7 +112,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     private void Dash()
     {
         //transform.Translate(Vector2.right * Time.deltaTime * _tempIntensity);
-        _rigidbody2D.AddForce(-_direction * _breakIntensity);
+        //Debug.Log("Vector direction" + _direction);
     }
 
     private void Moving()
@@ -135,13 +139,20 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     void OnCollisionExit2D(Collision2D coll)
     {
         Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
-        StartCoroutine(BounceDirection(bouncePos));
+        //StartCoroutine(BounceDirection(bouncePos));
     }
 
     private IEnumerator SlowDown()
     {
         _enableSlowDown = true;
-        yield return new WaitForSeconds(1);
+        Debug.Log("entro");
+        yield return new WaitForSeconds(0.5f);
+        while (_rigidbody2D.velocity.magnitude > 2.0f)
+        {
+            yield return new WaitForSeconds(0.1f);
+            _rigidbody2D.velocity *= 0.9f;
+        }
+        
         SetState(State.Moving);
     }
 
@@ -164,7 +175,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         transform.localScale = new Vector3(1, _scale, 1);
     }
 
-    private IEnumerator BounceDirection(Vector2 bPos)
+    /*private IEnumerator BounceDirection(Vector2 bPos)
     {
         yield return null;
         Vector2 tempPos = new Vector2(transform.position.x, transform.position.y);
@@ -172,15 +183,20 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         //Debug.Log(tempPos + " - " + bPos);
 
         _direction = tempPos - bPos;
+
+        _direction.Normalize();
+
+        Debug.Log("Vector rebote:" + _direction);
         
         transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
         FlipChar();
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
     {
         _currentState();
+        Debug.Log("Vector: " + _rigidbody2D.velocity + "|| Magnitude: " + _rigidbody2D.velocity.magnitude);
     }
 
     // Use this for initialization
