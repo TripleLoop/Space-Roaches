@@ -2,10 +2,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
+public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesAnswers>
 {
     private Coroutine _slowDown;
     private bool _enableSlowDown = false;
+    private bool _canDash;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -14,7 +15,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     private Vector2 _bouncePosition;
 
     private float _intensity = 4.0f;
-    private float _breakIntensity = 3.8f;
+    private float _breakIntensity = 0.9f;
 
     private Animator _animatorAst;
 
@@ -127,6 +128,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     public void Handle(UserInputMessage message)
     {
+        Messenger.Publish(new ChargesQuestion());
+
+        if (!_canDash)
+        {
+            return;
+        }
+
         _location = message.Location;
 
         _direction.x = _location.x - transform.position.x;
@@ -138,7 +146,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
 
     void OnCollisionExit2D(Collision2D coll)
     {
-        Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
+        //Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
         //StartCoroutine(BounceDirection(bouncePos));
     }
 
@@ -150,7 +158,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         while (_rigidbody2D.velocity.magnitude > 2.0f)
         {
             yield return new WaitForSeconds(0.1f);
-            _rigidbody2D.velocity *= 0.9f;
+            _rigidbody2D.velocity *= _breakIntensity;
         }
         
         SetState(State.Moving);
@@ -196,7 +204,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
     void Update()
     {
         _currentState();
-        Debug.Log("Vector: " + _rigidbody2D.velocity + "|| Magnitude: " + _rigidbody2D.velocity.magnitude);
+        //Debug.Log("Vector: " + _rigidbody2D.velocity + "|| Magnitude: " + _rigidbody2D.velocity.magnitude);
     }
 
     // Use this for initialization
@@ -205,5 +213,10 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         _animatorAst = gameObject.GetComponent<Animator>();
         _currentState = Idle;
+    }
+
+    public void Handle(ChargesAnswers message)
+    {
+        _canDash = message.Answer;
     }
 }
