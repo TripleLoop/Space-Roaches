@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 
-public class Pizza : MonoBehaviour {
+public class Pizza : MonoBehaviourEx {
 
     private Rigidbody2D _rigidbody2D;
 
@@ -76,6 +76,9 @@ public class Pizza : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-
+        if (coll.gameObject.CompareTag(SRTags.Player))
+        {
+            Messenger.Publish(new PizzaEatenMessage(gameObject));
+        }
     }
 }
