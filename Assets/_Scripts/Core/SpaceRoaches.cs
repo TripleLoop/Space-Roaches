@@ -28,11 +28,20 @@ public class SpaceRoaches : MonoBehaviour
             .StartGame();
     }
 
+    private IEnumerator WaveCycle()
+    {
+        while (true)
+        {
+            int number = Random.Range(5, 16);
+            _entitySpawner.EntitySpawn(number);
+            yield return new WaitForSeconds(10f);
+        }
+    }
+
     private SpaceRoaches StartGame()
     {
-        int number = Random.Range(5, 16);
-        _entitySpawner.EntitySpawn(number);
         _userInput.EnableInput();
+        StartCoroutine(WaveCycle());
         return this;
     }
 
