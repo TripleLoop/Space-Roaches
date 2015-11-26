@@ -130,7 +130,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     public void Handle(ChargesQuestion message)
     {
-        //Debug.Log("handle"+_charges);
+        Debug.Log("handle"+_charges);
         if (_charges == 0)
         {
             Messenger.Publish(new ChargesAnswers(false));

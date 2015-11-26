@@ -33,6 +33,7 @@ public class SpaceRoaches : MonoBehaviour
         while (true)
         {
             int number = Random.Range(5, 16);
+            _entitySpawner.EntitySpawn(number);
             yield return new WaitForSeconds(10f);
         }
     }

@@ -153,7 +153,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     private IEnumerator SlowDown()
     {
         _enableSlowDown = true;
-        //Debug.Log("entro");
+        Debug.Log("entro");
         yield return new WaitForSeconds(0.5f);
         while (_rigidbody2D.velocity.magnitude > 2.0f)
         {
