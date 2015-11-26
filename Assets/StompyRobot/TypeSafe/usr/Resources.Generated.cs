@@ -8,7 +8,7 @@
 // Any changes to this file may be lost when it is regenerated.
 // https://www.stompyrobot.uk/tools/typesafe
 // 
-// TypeSafe Version: 1.2.0-Unity5
+// TypeSafe Version: 1.2.1-Unity5
 // 
 // ------------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ public sealed class SRResources {
     private SRResources() {
     }
     
-    private const string _tsInternal = "1.2.0-Unity5";
+    private const string _tsInternal = "1.2.1-Unity5";
     
     private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[0]);
     

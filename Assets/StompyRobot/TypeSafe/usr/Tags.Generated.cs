@@ -8,7 +8,7 @@
 // Any changes to this file may be lost when it is regenerated.
 // https://www.stompyrobot.uk/tools/typesafe
 // 
-// TypeSafe Version: 1.2.0-Unity5
+// TypeSafe Version: 1.2.1-Unity5
 // 
 // ------------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ public sealed class SRTags {
     private SRTags() {
     }
     
-    private const string _tsInternal = "1.2.0-Unity5";
+    private const string _tsInternal = "1.2.1-Unity5";
     
     public const string Untagged = "Untagged";
     
