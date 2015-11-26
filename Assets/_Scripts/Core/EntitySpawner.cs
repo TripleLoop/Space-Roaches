@@ -18,16 +18,6 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         return this;
     }
 
-    public void Handle(RoachDeathMessage message)
-    {
-        this.DespawnObject(_roachPool, message.Roach);
-    }
-
-    public void Handle(PizzaEatenMessage message)
-    {
-        this.DespawnObject(_pizzaPool, message.Pizza);
-    }
-
     private EntitySpawner DespawnObject(SpawnPool pool, GameObject target)
     {
         pool.Despawn(target.transform);
@@ -72,5 +62,15 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
     public void Handle(SpikeBallDeathMessage message)
     {
         this.DespawnObject(_spikeBallPool, message.SpikeBall);
+    }
+
+    public void Handle(RoachDeathMessage message)
+    {
+        this.DespawnObject(_roachPool, message.Roach);
+    }
+
+    public void Handle(PizzaEatenMessage message)
+    {
+        this.DespawnObject(_pizzaPool, message.Pizza);
     }
 }
