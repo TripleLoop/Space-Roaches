@@ -198,32 +198,39 @@ public sealed class SRResources {
             }
         }
         
-        public static global::TypeSafe.PrefabResource UserInput {
+        public static global::TypeSafe.PrefabResource WaveManager {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
             }
         }
         
-        public static global::TypeSafe.PrefabResource Canvas {
+        public static global::TypeSafe.PrefabResource UserInput {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
             }
         }
         
-        public static global::TypeSafe.PrefabResource EntitySpawner {
+        public static global::TypeSafe.PrefabResource Canvas {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
             }
         }
         
-        public static global::TypeSafe.PrefabResource Game {
+        public static global::TypeSafe.PrefabResource EntitySpawner {
             get {
                 return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
             }
         }
         
+        public static global::TypeSafe.PrefabResource Game {
+            get {
+                return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
+            }
+        }
+        
         private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
                     new global::TypeSafe.PrefabResource("BaseCamera", "Base/BaseCamera"),
+                    new global::TypeSafe.PrefabResource("WaveManager", "Base/WaveManager"),
                     new global::TypeSafe.PrefabResource("UserInput", "Base/UserInput"),
                     new global::TypeSafe.PrefabResource("Canvas", "Base/Canvas"),
                     new global::TypeSafe.PrefabResource("EntitySpawner", "Base/EntitySpawner"),
