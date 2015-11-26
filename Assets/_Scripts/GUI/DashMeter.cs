@@ -10,7 +10,6 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     [SerializeField]
     private int _charges;
-    private float _minSize;
 
     public Sprite ChargeActive;
     public Sprite ChargeInactive;
@@ -42,7 +41,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private void Dash()
     {
-        if (_charges >= 0)
+        if (_charges > 0)
         {
             _scrollbar.size -= 0.15f;
             UseCharge(_charges);
@@ -119,7 +118,6 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     void Start ()
     {
 	    _scrollbar = GetComponent<Scrollbar>();
-        _minSize = _scrollbar.size;
         _loadBar = StartCoroutine(LoadBar());
 	}
 	

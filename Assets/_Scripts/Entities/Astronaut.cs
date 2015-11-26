@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesAnswers>
+public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesAnswers>, IHandle<PizzaEatenMessage>
 {
     private Coroutine _slowDown;
     private bool _enableSlowDown = false;
@@ -20,6 +20,8 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     private Animator _animatorAst;
 
     private int _scale = 1;
+
+    private bool _immortal = false;
 
     //Define Stats Machine's variables
 
@@ -75,6 +77,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
                 break;
             case State.Die:
                 _currentState = Die;
+                Messenger.Publish(new AstronautDeathMessage(true));
                 break;
             default:
                 Debug.Log("unrecognized state");
@@ -123,7 +126,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private void Die()
     {
-        
+        Debug.Log("Die");
     }
 
     public void Handle(UserInputMessage message)
@@ -144,8 +147,17 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         SetState(State.Dash);
     }
 
-    void OnCollisionExit2D(Collision2D coll)
+    void OnCollisionEnter2D(Collision2D otherCollision)
     {
+        if (otherCollision.collider.CompareTag(SRTags.Spikeball))
+        {
+            if (_immortal)
+            {
+                Messenger.Publish(new SpikeBallDeathMessage(otherCollision.gameObject));
+                return;
+            }
+            SetState(State.Die);
+        }
         //Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
         //StartCoroutine(BounceDirection(bouncePos));
     }
@@ -183,6 +195,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         transform.localScale = new Vector3(1, _scale, 1);
     }
 
+    private IEnumerator Immortal()
+    {
+        _immortal = true;
+        yield return new WaitForSeconds(3.0f);
+        _immortal = false;
+    }
+
     /*private IEnumerator BounceDirection(Vector2 bPos)
     {
         yield return null;
@@ -218,5 +237,10 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     public void Handle(ChargesAnswers message)
     {
         _canDash = message.Answer;
+    }
+
+    public void Handle(PizzaEatenMessage message)
+    {
+        StartCoroutine(Immortal());
     }
 }
