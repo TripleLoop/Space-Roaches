@@ -4,7 +4,7 @@ using PathologicalGames;
 using System;
 using Random = UnityEngine.Random;
 
-public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<PizzaEatenMessage>
+public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<PizzaEatenMessage>, IHandle<SpikeBallDeathMessage>
 {
     private SpawnPool _roachPool;
     private SpawnPool _spikeBallPool;
@@ -67,5 +67,10 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
             .InitializeSpikeBallPool()
             .InitializePizzaPool();
         return this;
+    }
+
+    public void Handle(SpikeBallDeathMessage message)
+    {
+        this.DespawnObject(_spikeBallPool, message.SpikeBall);
     }
 }
