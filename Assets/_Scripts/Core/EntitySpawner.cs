@@ -4,7 +4,7 @@ using PathologicalGames;
 using System;
 using Random = UnityEngine.Random;
 
-public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<PizzaEatenMessage>
+public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<PizzaEatenMessage>, IHandle<SpikeBallDeathMessage>
 {
     [SerializeField]
     private LayerMask _avoidSpawnInLayers;
@@ -147,5 +147,10 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
     public void Handle(PizzaEatenMessage message)
     {
         this.DespawnObject(_pizzaPool, message.Pizza);
+    }
+
+    public void Handle(SpikeBallDeathMessage message)
+    {
+        this.DespawnObject(_spikeBallPool, message.SpikeBall);
     }
 }
