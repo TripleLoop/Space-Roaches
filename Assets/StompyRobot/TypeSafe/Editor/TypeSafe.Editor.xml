@@ -129,6 +129,16 @@
             <param name="baseName"></param>
             <returns>A string in the format {prefix}{baseName}{suffix}</returns>
         </member>
+        <member name="M:TypeSafe.Editor.TypeSafeApi.OpenSettingsWindow">
+            <summary>
+            Open the TypeSafe settings window.
+            </summary>
+        </member>
+        <member name="M:TypeSafe.Editor.TypeSafeApi.OpenWelcomeWindow">
+            <summary>
+            Open the TypeSafe welcome window.
+            </summary>
+        </member>
         <member name="P:TypeSafe.Editor.TypeSafeController.ItemsCompleted">
             <summary>
             Number of items in the current operation completed
@@ -339,6 +349,13 @@
             <summary>
             Handles displaying TypeSafe state to the user
             </summary>
+        </member>
+        <member name="M:TypeSafe.Editor.Unity.UnityUtility.IsUserAssemblyType(System.Type)">
+            <summary>
+            Checks if a Type is defined in one of the Unity-generated user assemblies.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
         </member>
         <member name="M:TypeSafe.Editor.Unity.UnityUtility.IsEditorType(System.Type)">
             <summary>

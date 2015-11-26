@@ -10,9 +10,14 @@ public class WaveManager : MonoBehaviourEx
     private Vector2 _originPosition;
     private Vector2 _endPosition;
 
-    public WaveManager EntitySpawn(int spawnNumber)
+    private EntitySpawner _entitySpawner;
+
+    private List<EntityWeight> _standardWeights = new List<EntityWeight>();  
+
+    public WaveManager EntitySpawn()
     {
-        StartCoroutine(SpawnRoutine(spawnNumber));
+        int number = Random.Range(5, 16);
+        StartCoroutine(SpawnRoutine(number));
         return this;
     }
 
@@ -36,30 +41,13 @@ public class WaveManager : MonoBehaviourEx
         return entityWeights.First();
     }
 
-    private WaveManager RandomSpawnEntity(Vector2 position)
-    {
-        float randomNumber = Random.Range(0f, 1f);
-        if (randomNumber <= 0.75f)
-        {
-            return this;
-        }
-        if (randomNumber > 0.75f)
-        {
-            return this;
-        }
-        if (randomNumber > 0.98f)
-        {
-            return this;
-        }
-        return this;
-    }
-
     private IEnumerator SpawnRoutine(int spawnNumber)
     {
         for (int i = 0; i < spawnNumber; i++)
         {
             Vector2 tempPosition = GetAvaliablePosition();
-            this.RandomSpawnEntity(tempPosition);
+            EntityWeight tempChosen = this.RandomWeightedChooser(_standardWeights);
+            _entitySpawner.SpawnEntity(tempChosen.Name,tempPosition);
             yield return null;
         }
     }
@@ -98,11 +86,32 @@ public class WaveManager : MonoBehaviourEx
         float yPosition = Random.Range(_originPosition.y, _endPosition.y);
         return new Vector2(xPosition, yPosition);
     }
-    
+
+
     public WaveManager InitializeWaveManager()
     {
         _originPosition = new Vector2(-6.07f, 3.26f);
         _endPosition = new Vector2(5.81f, -3.12f);
+        InitializeEntitySpawner()
+        .InitializeWeights();
+        return this;
+    }
+
+    private WaveManager InitializeEntitySpawner()
+    {
+        GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
+        entitySpawner.name = "entitySpawner";
+        entitySpawner.transform.parent = this.gameObject.transform;
+        _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
+        _entitySpawner.InitializeSpawner();
+        return this;
+    }
+
+    private WaveManager InitializeWeights()
+    {
+        _standardWeights.Add(new EntityWeight("roach", 75));
+        _standardWeights.Add(new EntityWeight("spikeball", 23));
+        _standardWeights.Add(new EntityWeight("pizza", 2));
         return this;
     }
 

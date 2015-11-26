@@ -24,6 +24,13 @@ namespace PathologicalGames
 	/// Return false to block a target from being detected.
 	/// </summary>
 	public delegate bool OnNewDetectedDelegate(TargetTracker source, Target target);
+	
+	/// <summary>
+	/// TargetTrackers with Areas should provide this event for Areas to trigger. 
+	/// Triggered everytime a target leaves an area. Targets already recieve a callback 
+	/// targetable.OnNotDetected()
+	/// </summary>
+	public delegate void OnNotDetectedDelegate(TargetTracker source, Target target);
 
 	/// <summary>
 	/// TargetTracker event that Runs when there is a change to the TargetTracker's target list 
@@ -433,7 +440,7 @@ namespace PathologicalGames
         }
         #endregion OnTargetsChangedDelegates Add/Set/Remove
 		
-        #region OnDetectedDelegatess
+        #region OnDetectedDelegates
 		internal protected OnNewDetectedDelegate onNewDetectedDelegates;  // Executed by Area
 
         /// <summary>
@@ -470,6 +477,45 @@ namespace PathologicalGames
             this.onNewDetectedDelegates -= del;
         }
         #endregion OnDetectedDelegates
+
+		#region OnNotDetectedDelegates
+		internal protected OnNotDetectedDelegate onNotDetectedDelegates;  // Executed by Area
+
+		/// <summary>
+		/// Add a new delegate to be triggered when a target is first found by an Area.
+		/// The delegate signature is:  bool delegate(TargetTracker source, Target target)
+		/// Return true to have no effect on the TargetTracker functioning
+		/// Return false to cause the TargetTracker to ignore the new target entirely.
+		/// **This will only allow a delegate to be added once.**
+		/// </summary>
+		/// <param name="del"></param>
+		public void AddOnNotDetectedDelegate(OnNotDetectedDelegate del)
+		{
+			this.onNotDetectedDelegates -= del;  // Cheap way to ensure unique (add only once)
+			this.onNotDetectedDelegates += del;
+		}
+		
+		/// <summary>
+		/// This replaces all older delegates rather than adding a new one to the list.
+		/// See docs for AddOnNotDetectedDelegate()
+		/// </summary>
+		/// <param name="del"></param>
+		public void SetOnNotDetectedDelegate(OnNotDetectedDelegate del)
+		{
+			this.onNotDetectedDelegates = del;
+		}
+		
+		/// <summary>
+		/// Removes a OnNotDetectedDelegate 
+		/// See docs for AddOnNotDetectedDelegate()
+		/// </summary>
+		/// <param name="del"></param>
+		public void RemoveOnNotDetectedDelegate(OnNotDetectedDelegate del)
+		{
+			this.onNotDetectedDelegates -= del;
+		}
+		#endregion OnNotDetectedDelegates
+
 		#endregion Delegates
 
 

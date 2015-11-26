@@ -26,7 +26,7 @@ public class LineOfSightModifierInspector : Editor
 		this.fireControllerLayerMask = this.serializedObject.FindProperty("fireControllerLayerMask");
 		this.targetTrackerLayerMask = this.serializedObject.FindProperty("targetTrackerLayerMask");
 		this.testMode = this.serializedObject.FindProperty("testMode");
-    }
+	}
 
 	public override void OnInspectorGUI()
     {
@@ -147,10 +147,10 @@ public class LineOfSightModifierInspector : Editor
         GUILayout.Space(6);
 
 		content = new GUIContent
-		(
-			"LOS Test Mode", 
-			"Choose a test mode."
-		);
+			(
+				"LOS Test Mode", 
+				"Choose a test mode."
+				);
 		EditorGUILayout.PropertyField(this.testMode, content);
 
 		GUILayout.Space(4);

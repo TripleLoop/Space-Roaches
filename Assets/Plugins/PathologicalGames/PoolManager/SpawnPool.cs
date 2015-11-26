@@ -281,11 +281,15 @@ namespace PathologicalGames
 
             this.StopAllCoroutines();
 
+
             // We don't need the references to spawns which are about to be destroyed
             this._spawned.Clear();
 
-            // Clean-up
-            foreach (PrefabPool pool in this._prefabPools) pool.SelfDestruct();
+			// Clean-up
+            foreach (PrefabPool pool in this._prefabPools) 
+			{
+				pool.SelfDestruct();
+			}
 
             // Probably overkill, and may not do anything at all, but...
             this._prefabPools.Clear();
@@ -734,7 +738,7 @@ namespace PathologicalGames
                             	 Vector3 pos, Quaternion rot,
                             	 Transform parent)
         {
-            // Instance using the standard method before doing particle stuff
+            // Instance using the standard method before doing audio stuff
             Transform inst = Spawn(prefab.transform, pos, rot, parent);
 
             // Can happen if limit was used
@@ -1096,8 +1100,18 @@ namespace PathologicalGames
             // Safer to wait a frame before testing if playing.
             yield return null;
 
+			GameObject srcGameObject = src.gameObject;
             while (src.isPlaying)
+			{
                 yield return null;
+			}
+
+			// Handle despawed while still playing
+			if (!srcGameObject.activeInHierarchy)
+			{
+				src.Stop();
+				yield break;
+			}
 
             this.Despawn(src.transform);
         }
@@ -1457,10 +1471,10 @@ namespace PathologicalGames
         /// </summary>
         internal void SelfDestruct()
         {
-            // Probably overkill but no harm done
-            this.prefab = null;
-            this.prefabGO = null;
-            this.spawnPool = null;
+			if (this.logMessages)
+				Debug.Log(string.Format(
+					"SpawnPool {0}: Cleaning up PrefabPool for {1}...", this.spawnPool.poolName, this.prefabGO.name
+				));
 
             // Go through both lists and destroy everything
             foreach (Transform inst in this._despawned)
@@ -1473,6 +1487,11 @@ namespace PathologicalGames
 
             this._spawned.Clear();
             this._despawned.Clear();
+
+			// Probably overkill but no harm done
+			this.prefab = null;
+			this.prefabGO = null;
+			this.spawnPool = null;
         }
         #endregion Constructor and Self-Destruction
 

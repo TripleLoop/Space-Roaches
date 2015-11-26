@@ -1,3 +1,14 @@
+1.2.1
+----------
+
+Changes:
+- Menu items are no longer specified in the .dll file, instead are located in TypeSafe/Editor/MenuItems.cs to allow for user customisation.
+- No longer aborts compile process if a C#-safe name for a resource cannot be found, instead skips and prints a compile error.
+- Added "Start Scan" button to settings window.
+
+Fixes:
+- Resources with a custom type that is 'private' are now declared as 'internal' to prevent "Inconsistent accessibility" errors.
+
 1.2.0
 ----------
 

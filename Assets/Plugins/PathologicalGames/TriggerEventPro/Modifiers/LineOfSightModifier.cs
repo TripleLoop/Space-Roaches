@@ -117,19 +117,32 @@ namespace PathologicalGames
             Vector3 toPos;
             bool isNotLOS;
             var iterTargets = new List<Target>(targets);
+
+			Collider2D targetColl2D;
 			Collider targetColl;
+			Vector3 ext;
+			bool use2d;
             foreach (Target target in iterTargets)
             {
-                isNotLOS = false;
+				use2d = target.targetable.coll2D != null;
+				isNotLOS = false;
 
                 if (this.testMode == TEST_MODE.BoundingBox)
                 {
-					targetColl = target.targetable.coll;
-					
+					if (use2d)
+					{
+						targetColl2D = target.targetable.coll2D;			    
+						ext = targetColl2D.bounds.extents * 0.5f;
+					}
+					else
+					{
+						targetColl = target.targetable.coll;
+						ext = targetColl.bounds.extents * 0.5f;
+					}
+
 					// This solution works with rotation pretty well
 				    Matrix4x4 mtx = target.targetable.transform.localToWorldMatrix;
 				   
-				    Vector3 ext = targetColl.bounds.extents * 0.5f;
 					var bboxPnts = new Vector3[8];
 				    bboxPnts[0] = mtx.MultiplyPoint3x4(ext);
 				    bboxPnts[1] = mtx.MultiplyPoint3x4(new Vector3(-ext.x, ext.y, ext.z));
@@ -142,7 +155,10 @@ namespace PathologicalGames
 
 					for (int i = 0; i < bboxPnts.Length; i++)
 					{
-						isNotLOS = Physics.Linecast(fromPos, bboxPnts[i], mask);
+						if (use2d)
+							isNotLOS = Physics2D.Linecast(fromPos, bboxPnts[i], mask);
+						else
+							isNotLOS = Physics.Linecast(fromPos, bboxPnts[i], mask);
 
                         // Quit loop at first positive test
                         if (isNotLOS)
@@ -160,7 +176,11 @@ namespace PathologicalGames
                 else
                 {
                 	toPos = target.targetable.transform.position;
-					isNotLOS = Physics.Linecast(fromPos, toPos, mask);
+					if (use2d)
+						isNotLOS = Physics2D.Linecast(fromPos, toPos, mask);
+					else
+						isNotLOS = Physics.Linecast(fromPos, toPos, mask);
+
 #if UNITY_EDITOR
                     if (isNotLOS && this.debugLevel > DEBUG_LEVELS.Off)
                         Debug.DrawLine(fromPos, toPos, debugLineColor, 0.01f);

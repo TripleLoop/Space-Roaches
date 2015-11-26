@@ -290,8 +290,11 @@ namespace PathologicalGames
 #endif
 
             // Trigger the delegate execution for this event
-            target.targetable.OnNotDetected(this.targetTracker);
-									
+            if (this.targetTracker.onNotDetectedDelegates != null)
+				this.targetTracker.onNotDetectedDelegates(this.targetTracker, target);
+
+			target.targetable.OnNotDetected(this.targetTracker);
+
             // Trigger target update: Sorting, filtering, events.
 			//	 This uses AddRange internally to copy the targets so '=' is safe			
             this.targetTracker.targets = this.targets;
@@ -321,7 +324,12 @@ namespace PathologicalGames
         {
             // Trigger the delegate execution for this event
             foreach (Target target in this.targets)
+			{
+				if (this.targetTracker.onNotDetectedDelegates != null)
+					this.targetTracker.onNotDetectedDelegates(this.targetTracker, target);
+
                 target.targetable.OnNotDetected(this.targetTracker);
+			}
 
             this.targets.Clear();
 

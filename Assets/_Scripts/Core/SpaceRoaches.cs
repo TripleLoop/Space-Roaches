@@ -8,12 +8,10 @@ public class SpaceRoaches : MonoBehaviour
     private Camera _mainCamera;
     private GameObject _astronaut;
 
-
     private UserInput _userInput;
     private Smooth_Follow _smoothFollow;
-    private EntitySpawner _entitySpawner;
     private Canvas _canvas;
-
+    private WaveManager _waveManager;
 
     void Start()
     {
@@ -22,8 +20,8 @@ public class SpaceRoaches : MonoBehaviour
             .InitializeBackgorund()
             .InitializeForeGround()
             .InitializeAstronaut()
-            .InitializeEntitySpawner()
             .InitializeCanvas()
+            .InitializeWaveManager()
             .SetReferences()
             .StartGame();
     }
@@ -32,7 +30,7 @@ public class SpaceRoaches : MonoBehaviour
     {
         while (true)
         {
-            int number = Random.Range(5, 16);
+            _waveManager.EntitySpawn();
             yield return new WaitForSeconds(10f);
         }
     }
@@ -96,22 +94,22 @@ public class SpaceRoaches : MonoBehaviour
         return this;
     }
 
-    private SpaceRoaches InitializeEntitySpawner()
-    {
-        GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
-        entitySpawner.name = "entitySpawner";
-        entitySpawner.transform.parent = this.gameObject.transform;
-        _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
-        _entitySpawner.InitializeSpawner();
-        return this;
-    }
-
     private SpaceRoaches InitializeCanvas()
     {
         GameObject canvas = SRResources.Base.Canvas.Instantiate();
         canvas.name = "Canvas";
         canvas.transform.SetParent(this.gameObject.transform, false);;
         _canvas = canvas.GetComponent<Canvas>();
+        return this;
+    }
+
+    private SpaceRoaches InitializeWaveManager()
+    {
+        GameObject waveManager = SRResources.Base.WaveManager.Instantiate();
+        waveManager.name = "WaveManager";
+        waveManager.transform.SetParent(this.gameObject.transform, false); ;
+        _waveManager = waveManager.GetComponent<WaveManager>();
+        _waveManager.InitializeWaveManager();
         return this;
     }
 
