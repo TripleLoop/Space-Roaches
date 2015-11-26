@@ -6,96 +6,15 @@ using Random = UnityEngine.Random;
 
 public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<PizzaEatenMessage>, IHandle<SpikeBallDeathMessage>
 {
-    [SerializeField]
-    private LayerMask _avoidSpawnInLayers;
-    [SerializeField]
-    private Vector2 _originPosition;
-    [SerializeField]
-    private Vector2 _endPosition;
-
     private SpawnPool _roachPool;
     private SpawnPool _spikeBallPool;
     private SpawnPool _pizzaPool;
 
-   private bool _pizzaInWave = false;
-
-    public EntitySpawner InitializeSpawner()
+    public EntitySpawner SpawnEntity(Vector2 position)
     {
-        this.InitializeRoachPool()
-            .InitializeSpikeBallPool()
-            .InitializePizzaPool();
-        return this;
-    }
-
-    public EntitySpawner EntitySpawn(int spawnNumber)
-    {
-        StartCoroutine(SpawnRoutine(spawnNumber));
-        return this;
-    }
-
-    private Vector2 GetAvaliablePosition()
-    {
-        int colliderCount;
-        int tries = 0;
-        Vector2 testedPosition;
-        Collider2D[] collidersDetected = new Collider2D[2];
-        float radius = 0.3f;
-        do
-        {
-            testedPosition = RandomPosition();
-            colliderCount = Physics2D.OverlapCircleNonAlloc(testedPosition, radius, collidersDetected, _avoidSpawnInLayers);
-            tries++;
-            if (tries >= 15)
-            {
-                Debug.Log("Didn't find position after " + tries + " tries, reducing radius");
-                if (radius >= 0.1)
-                {
-                    radius -= 0.1f;
-                    tries = 0;
-                    continue;
-                }
-                Debug.Log("Failed default position returned");
-                return new Vector2();
-            }
-        } while (colliderCount != 0);
-        return testedPosition;
-    }
-
-    private IEnumerator SpawnRoutine(int spawnNumber)
-    {
-        _pizzaInWave = false;
-        for (int i = 0; i < spawnNumber; i++)
-        {
-            Vector2 tempPosition = GetAvaliablePosition();
-            this.RandomSpawnEntity(tempPosition);
-            yield return null;
-        }
-    }
-
-    private EntitySpawner RandomSpawnEntity(Vector2 position)
-    {
-        float randomNumber = Random.Range(0f, 1f);
-        float upperlimit = 0.98f;
-        if (_pizzaInWave)
-        {
-            upperlimit = 1f;
-        }
-        if (randomNumber <= 0.75f)
-        {
-            _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
-            return this;
-        }
-        if (randomNumber > 0.75f && randomNumber <= upperlimit)
-        {
-            _spikeBallPool.Spawn(SRResources.Characters.Spikeball, position, Quaternion.identity);
-            return this;
-        }
-        if (randomNumber > 0.98f)
-        {
-            _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
-            _pizzaInWave = true;
-            return this;
-        }
+        _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
+        _spikeBallPool.Spawn(SRResources.Characters.Spikeball, position, Quaternion.identity);
+        _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
         return this;
     }
 
@@ -103,13 +22,6 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
     {
         pool.Despawn(target.transform);
         return this;
-    }
-
-    private Vector2 RandomPosition()
-    {
-        float xPosition = Random.Range(_originPosition.x, _endPosition.x);
-        float yPosition = Random.Range(_originPosition.y, _endPosition.y);
-        return new Vector2(xPosition, yPosition);
     }
 
     private EntitySpawner InitializeRoachPool()
@@ -139,18 +51,26 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         return this;
     }
 
-    public void Handle(RoachDeathMessage message)
+    public EntitySpawner InitializeSpawner()
     {
-        this.DespawnObject(_roachPool,message.Roach);
-    }
-
-    public void Handle(PizzaEatenMessage message)
-    {
-        this.DespawnObject(_pizzaPool, message.Pizza);
+        this.InitializeRoachPool()
+            .InitializeSpikeBallPool()
+            .InitializePizzaPool();
+        return this;
     }
 
     public void Handle(SpikeBallDeathMessage message)
     {
         this.DespawnObject(_spikeBallPool, message.SpikeBall);
+    }
+
+    public void Handle(RoachDeathMessage message)
+    {
+        this.DespawnObject(_roachPool, message.Roach);
+    }
+
+    public void Handle(PizzaEatenMessage message)
+    {
+        this.DespawnObject(_pizzaPool, message.Pizza);
     }
 }
