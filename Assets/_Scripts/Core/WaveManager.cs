@@ -7,12 +7,14 @@ public class WaveManager : MonoBehaviourEx
 {
     [SerializeField]
     private LayerMask _avoidSpawnInLayers;
+    private EntitySpawner _entitySpawner;
+
     private Vector2 _originPosition;
     private Vector2 _endPosition;
 
-    private EntitySpawner _entitySpawner;
-
-    private List<EntityWeight> _standardWeights = new List<EntityWeight>();  
+    private int _pizzaCount;
+    private int _roachCount;
+    private int _spikeBallCount;
 
     public WaveManager EntitySpawn()
     {
@@ -45,9 +47,10 @@ public class WaveManager : MonoBehaviourEx
     {
         for (int i = 0; i < spawnNumber; i++)
         {
+            EntityWeight tempChosen = this.RandomWeightedChooser(GetCustomWeights());
+            CountEntity(tempChosen.Name);
             Vector2 tempPosition = GetAvaliablePosition();
-            EntityWeight tempChosen = this.RandomWeightedChooser(_standardWeights);
-            _entitySpawner.SpawnEntity(tempChosen.Name,tempPosition);
+            _entitySpawner.SpawnEntity(tempChosen.Name, tempPosition);
             yield return null;
         }
     }
@@ -87,13 +90,11 @@ public class WaveManager : MonoBehaviourEx
         return new Vector2(xPosition, yPosition);
     }
 
-
     public WaveManager InitializeWaveManager()
     {
         _originPosition = new Vector2(-6.07f, 3.26f);
         _endPosition = new Vector2(5.81f, -3.12f);
-        InitializeEntitySpawner()
-        .InitializeWeights();
+        InitializeEntitySpawner();
         return this;
     }
 
@@ -103,15 +104,63 @@ public class WaveManager : MonoBehaviourEx
         entitySpawner.name = "entitySpawner";
         entitySpawner.transform.parent = this.gameObject.transform;
         _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
-        _entitySpawner.InitializeSpawner();
+        _entitySpawner.InitializeSpawner(this);
         return this;
     }
 
-    private WaveManager InitializeWeights()
+    private WaveManager CountEntity(string entity)
     {
-        _standardWeights.Add(new EntityWeight("roach", 75));
-        _standardWeights.Add(new EntityWeight("spikeball", 23));
-        _standardWeights.Add(new EntityWeight("pizza", 2));
+        if (entity == "roach")
+        {
+            _roachCount++;
+            return this;
+        }
+        if (entity == "spikeball")
+        {
+            _spikeBallCount++;
+            return this;
+        }
+        if (entity == "pizza")
+        {
+            _pizzaCount++;
+            return this;
+        }
+        return this;
+    }
+
+    private List<EntityWeight> GetCustomWeights()
+    {
+        List<EntityWeight> tempweights = new List<EntityWeight>();
+        if (_spikeBallCount <= 4)
+        {
+            tempweights.Add(new EntityWeight("spikeball", 23));
+        }
+        if (_pizzaCount == 0)
+        {
+            tempweights.Add(new EntityWeight("pizza", 2));
+        }
+        tempweights.Add(new EntityWeight("roach", 75));
+        return tempweights;
+    }
+
+
+    public WaveManager DiscountEntity(string entity)
+    {
+        if (entity == "roach")
+        {
+            _roachCount--;
+            return this;
+        }
+        if (entity == "spikeball")
+        {
+            _spikeBallCount--;
+            return this;
+        }
+        if (entity == "pizza")
+        {
+            _pizzaCount--;
+            return this;
+        }
         return this;
     }
 
