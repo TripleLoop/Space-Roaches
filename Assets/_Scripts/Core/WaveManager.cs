@@ -16,6 +16,8 @@ public class WaveManager : MonoBehaviourEx
     private int _roachCount;
     private int _spikeBallCount;
 
+    private bool _inPizzaCooldown;
+
     public WaveManager EntitySpawn()
     {
         int number = Random.Range(5, 16);
@@ -135,7 +137,7 @@ public class WaveManager : MonoBehaviourEx
         {
             tempweights.Add(new EntityWeight("spikeball", 23));
         }
-        if (_pizzaCount == 0)
+        if (_pizzaCount == 0 && !_inPizzaCooldown)
         {
             tempweights.Add(new EntityWeight("pizza", 2));
         }
@@ -143,6 +145,12 @@ public class WaveManager : MonoBehaviourEx
         return tempweights;
     }
 
+    private IEnumerator PizzaCooldown()
+    {
+        _inPizzaCooldown = true;
+        yield return new WaitForSeconds(30f);
+        _inPizzaCooldown = false;
+    }
 
     public WaveManager DiscountEntity(string entity)
     {
@@ -158,6 +166,7 @@ public class WaveManager : MonoBehaviourEx
         }
         if (entity == "pizza")
         {
+            StartCoroutine(PizzaCooldown());
             _pizzaCount--;
             return this;
         }

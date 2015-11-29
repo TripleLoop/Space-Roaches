@@ -75,8 +75,9 @@ public class Pizza : MonoBehaviourEx {
         }
     }
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
     }
 
