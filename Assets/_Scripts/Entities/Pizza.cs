@@ -67,18 +67,22 @@ public class Pizza : MonoBehaviourEx {
         _currentState();
     }
 
-    private void Start()
-    {
-        _rigidbody2D = this.GetComponent<Rigidbody2D>();
-        _currentState = Idle;
-        SetState(State.Moving);
-    }
-
     private void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.CompareTag(SRTags.Player))
         {
             Messenger.Publish(new PizzaEatenMessage(gameObject));
         }
+    }
+
+    private void Awake()
+    {
+        _rigidbody2D = this.GetComponent<Rigidbody2D>();
+    }
+
+    void OnEnable()
+    {
+        _currentState = Idle;
+        SetState(State.Moving);
     }
 }

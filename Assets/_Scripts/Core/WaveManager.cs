@@ -131,7 +131,7 @@ public class WaveManager : MonoBehaviourEx
     private List<EntityWeight> GetCustomWeights()
     {
         List<EntityWeight> tempweights = new List<EntityWeight>();
-        if (_spikeBallCount <= 4)
+        if (_spikeBallCount < 4)
         {
             tempweights.Add(new EntityWeight("spikeball", 23));
         }

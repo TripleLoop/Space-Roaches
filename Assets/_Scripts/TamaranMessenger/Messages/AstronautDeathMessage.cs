@@ -6,6 +6,6 @@ public class AstronautDeathMessage
 
     public AstronautDeathMessage(bool death)
     {
-        this.Death = Death;
+        this.Death = death;
     }
 }
