@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviourEx
 {
@@ -49,7 +51,12 @@ public class WaveManager : MonoBehaviourEx
     {
         for (int i = 0; i < spawnNumber; i++)
         {
-            EntityWeight tempChosen = this.RandomWeightedChooser(GetCustomWeights());
+            List<EntityWeight> weights = GetCustomWeights();
+            if (weights.Count == 0)
+            {
+                continue;
+            }
+            EntityWeight tempChosen = this.RandomWeightedChooser(weights);
             CountEntity(tempChosen.Name);
             Vector2 tempPosition = GetAvaliablePosition();
             _entitySpawner.SpawnEntity(tempChosen.Name, tempPosition);
@@ -141,7 +148,10 @@ public class WaveManager : MonoBehaviourEx
         {
             tempweights.Add(new EntityWeight("pizza", 2));
         }
-        tempweights.Add(new EntityWeight("roach", 75));
+        if (_roachCount < 15)
+        {
+           tempweights.Add(new EntityWeight("roach", 75));
+        }
         return tempweights;
     }
 
