@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using Random = UnityEngine.Random;
 
-public class SpaceRoaches : MonoBehaviour
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 {
     private Camera _mainCamera;
     private GameObject _astronaut;
@@ -12,6 +12,10 @@ public class SpaceRoaches : MonoBehaviour
     private Smooth_Follow _smoothFollow;
     private Canvas _canvas;
     private WaveManager _waveManager;
+
+    private int _secondsToNextWave;
+    private int _waveCount;
+    private bool _astronautDead;
 
     void Start()
     {
@@ -26,13 +30,39 @@ public class SpaceRoaches : MonoBehaviour
             .StartGame();
     }
 
+    public SpaceRoaches FasterWaveCycle()
+    {
+        if (_secondsToNextWave > 3)
+        {
+            _secondsToNextWave = 3;
+        }
+        return this;
+    }
+
+    public void Handle(AstronautDeathMessage message)
+    {
+        _astronautDead = true;
+        _userInput.DisableInput();
+    }
+
     private IEnumerator WaveCycle()
     {
         yield return new WaitForSeconds(3f);
+        _secondsToNextWave = 10;
         while (true)
         {
+            if (_astronautDead)
+            {
+                break;
+            }
+            _waveCount++;
             _waveManager.EntitySpawn();
-            yield return new WaitForSeconds(10f);
+            while (_secondsToNextWave > 0)
+            {
+                yield return new WaitForSeconds(1f);
+                _secondsToNextWave--;
+            }
+            _secondsToNextWave = 10;
         }
     }
 
@@ -47,6 +77,7 @@ public class SpaceRoaches : MonoBehaviour
     {
         _smoothFollow.SetCameraTarget(_astronaut);
         _userInput.SetCamera(_mainCamera);
+        _waveManager.SetSpaceRoaches(this);
         _canvas.worldCamera = _mainCamera;
         return this;
     }
@@ -113,5 +144,4 @@ public class SpaceRoaches : MonoBehaviour
         _waveManager.InitializeWaveManager();
         return this;
     }
-
 }

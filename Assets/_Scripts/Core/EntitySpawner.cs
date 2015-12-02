@@ -32,6 +32,33 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         return this;
     }
 
+    public void Handle(SpikeBallDeathMessage message)
+    {
+        _waveManager.DiscountEntity("spikeball");
+        this.DespawnObject(_spikeBallPool, message.SpikeBall);
+    }
+
+    public void Handle(RoachDeathMessage message)
+    {
+        _waveManager.DiscountEntity("roach");
+        this.DespawnObject(_roachPool, message.Roach);
+    }
+
+    public void Handle(PizzaEatenMessage message)
+    {
+        _waveManager.DiscountEntity("pizza");
+        this.DespawnObject(_pizzaPool, message.Pizza);
+    }
+
+    public EntitySpawner InitializeSpawner(WaveManager waveManager)
+    {
+        this.InitializeRoachPool()
+            .InitializeSpikeBallPool()
+            .InitializePizzaPool();
+        _waveManager = waveManager;
+        return this;
+    }
+
     private EntitySpawner DespawnObject(SpawnPool pool, GameObject target)
     {
         pool.Despawn(target.transform);
@@ -63,32 +90,5 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         pizzaPool.transform.parent = this.gameObject.transform;
         _pizzaPool = pizzaPool.GetComponent<SpawnPool>();
         return this;
-    }
-
-    public EntitySpawner InitializeSpawner(WaveManager waveManager)
-    {
-        this.InitializeRoachPool()
-            .InitializeSpikeBallPool()
-            .InitializePizzaPool();
-        _waveManager = waveManager;
-        return this;
-    }
-
-    public void Handle(SpikeBallDeathMessage message)
-    {
-        _waveManager.DiscountEntity("spikeball");
-        this.DespawnObject(_spikeBallPool, message.SpikeBall);
-    }
-
-    public void Handle(RoachDeathMessage message)
-    {
-        _waveManager.DiscountEntity("roach");
-        this.DespawnObject(_roachPool, message.Roach);
-    }
-
-    public void Handle(PizzaEatenMessage message)
-    {
-        _waveManager.DiscountEntity("pizza");
-        this.DespawnObject(_pizzaPool, message.Pizza);
     }
 }

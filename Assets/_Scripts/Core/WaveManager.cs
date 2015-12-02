@@ -3,13 +3,16 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviourEx
 {
+    private SpaceRoaches _spaceRoaches;
+    private EntitySpawner _entitySpawner;
+
     [SerializeField]
     private LayerMask _avoidSpawnInLayers;
-    private EntitySpawner _entitySpawner;
 
     private Vector2 _originPosition;
     private Vector2 _endPosition;
@@ -25,6 +28,39 @@ public class WaveManager : MonoBehaviourEx
         int number = Random.Range(5, 16);
         StartCoroutine(SpawnRoutine(number));
         return this;
+    }
+
+    public WaveManager DiscountEntity(string entity)
+    {
+        switch (entity)
+        {
+            case "roach":
+                _roachCount--;
+                break;
+            case "spikeball":
+                _spikeBallCount--;
+                break;
+            case "pizza":
+                StartCoroutine(PizzaCooldown());
+                _pizzaCount--;
+                break;
+        }
+        if (CurrentElementCount() == 0)
+        {
+            _spaceRoaches.FasterWaveCycle();
+        }
+        return this;
+    }
+
+    public WaveManager SetSpaceRoaches(SpaceRoaches spaceRoaches)
+    {
+        _spaceRoaches = spaceRoaches;
+        return this;
+    }
+
+    private int CurrentElementCount()
+    {
+        return _roachCount + _spikeBallCount + _pizzaCount;
     }
 
     private EntityWeight RandomWeightedChooser(List<EntityWeight> entityWeights)
@@ -160,27 +196,6 @@ public class WaveManager : MonoBehaviourEx
         _inPizzaCooldown = true;
         yield return new WaitForSeconds(30f);
         _inPizzaCooldown = false;
-    }
-
-    public WaveManager DiscountEntity(string entity)
-    {
-        if (entity == "roach")
-        {
-            _roachCount--;
-            return this;
-        }
-        if (entity == "spikeball")
-        {
-            _spikeBallCount--;
-            return this;
-        }
-        if (entity == "pizza")
-        {
-            StartCoroutine(PizzaCooldown());
-            _pizzaCount--;
-            return this;
-        }
-        return this;
     }
 
 }
