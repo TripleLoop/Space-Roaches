@@ -70,7 +70,7 @@ public class WaveManager : MonoBehaviourEx
         int tries = 0;
         Vector2 testedPosition;
         Collider2D[] collidersDetected = new Collider2D[2];
-        float radius = 0.3f;
+        float radius = 0.45f;
         do
         {
             testedPosition = RandomPosition();
