@@ -23,6 +23,8 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private bool _immortal = false;
 
+    private bool _astronautDie = false;
+
     //Define Stats Machine's variables
 
     public enum State
@@ -77,7 +79,9 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
                 break;
             case State.Die:
                 _currentState = Die;
-                Messenger.Publish(new AstronautDeathMessage(true));
+                Messenger.Publish(new AstronautDeathMessage(gameObject));
+                _astronautDie = true;
+                Debug.Log("Die");
                 break;
             default:
                 Debug.Log("unrecognized state");
@@ -126,25 +130,28 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private void Die()
     {
-        Debug.Log("Die");
+        
     }
 
     public void Handle(UserInputMessage message)
     {
-        Messenger.Publish(new ChargesQuestion());
-
-        if (!_canDash)
+        if (!_astronautDie)
         {
-            return;
+            Messenger.Publish(new ChargesQuestion());
+
+            if (!_canDash)
+            {
+                return;
+            }
+
+            _location = message.Location;
+
+            _direction.x = _location.x - transform.position.x;
+            _direction.y = _location.y - transform.position.y;
+            _direction.Normalize();
+
+            SetState(State.Dash);
         }
-
-        _location = message.Location;
-
-        _direction.x = _location.x - transform.position.x;
-        _direction.y = _location.y - transform.position.y;
-        _direction.Normalize();
-
-        SetState(State.Dash);
     }
 
     void OnCollisionEnter2D(Collision2D otherCollision)

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesQuestion>
+public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesQuestion>, IHandle<AstronautDeathMessage>
 {
 
     public Image[] Charges;
@@ -15,18 +15,6 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     public Sprite ChargeInactive;
 
     private Coroutine _loadBar;
-
-    public void Handle(UserInputMessage message)
-    {
-        Dash();
-        /*StartCoroutine(Handler());*/
-    }
-
-    /*private IEnumerator Handler()
-    {
-        yield return StartCoroutine(Dash());
-        yield return StartCoroutine(LoadBar());
-    }*/
 
     private IEnumerator LoadBar()
     {
@@ -49,6 +37,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
         StopCoroutine(_loadBar);
         _loadBar = StartCoroutine(LoadBar());
+        
         /*float tempSize = _scrollbar.size;
         while (tempSize - _scrollbar.size  < 0.15f)
         {
@@ -126,6 +115,18 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         
     }
 
+    public void Handle(UserInputMessage message)
+    {
+        Dash();
+        /*StartCoroutine(Handler());*/
+    }
+
+    /*private IEnumerator Handler()
+    {
+        yield return StartCoroutine(Dash());
+        yield return StartCoroutine(LoadBar());
+    }*/
+
     public void Handle(ChargesQuestion message)
     {
         //Debug.Log("handle"+_charges);
@@ -138,5 +139,10 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
             Messenger.Publish(new ChargesAnswers(true));
         }
         
+    }
+
+    public void Handle(AstronautDeathMessage message)
+    {
+        StopAllCoroutines();
     }
 }

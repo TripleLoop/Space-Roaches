@@ -2,10 +2,10 @@
 
 public class AstronautDeathMessage
 {
-    public bool Death;
+    public GameObject Astronaut;
 
-    public AstronautDeathMessage(bool death)
+    public AstronautDeathMessage(GameObject astronaut)
     {
-        this.Death = death;
+        this.Astronaut = astronaut;
     }
 }
