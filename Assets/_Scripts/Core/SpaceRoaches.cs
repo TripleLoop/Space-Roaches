@@ -28,6 +28,7 @@ public class SpaceRoaches : MonoBehaviour
 
     private IEnumerator WaveCycle()
     {
+        yield return new WaitForSeconds(3f);
         while (true)
         {
             _waveManager.EntitySpawn();
