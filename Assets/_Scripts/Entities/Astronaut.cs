@@ -223,7 +223,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
         _direction.Normalize();
 
-        Debug.Log("Vector rebote:" + _direction);
+        //Debug.Log("Vector rebote:" + _direction);
         
         transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
         FlipChar();

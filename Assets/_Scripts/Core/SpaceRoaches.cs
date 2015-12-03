@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using Random = UnityEngine.Random;
 
-public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>
 {
     private Camera _mainCamera;
     private GameObject _astronaut;
@@ -15,7 +15,9 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     private int _secondsToNextWave;
     private int _waveCount;
+    private int _roachDeathCount;
     private bool _astronautDead;
+    private readonly int[] _speedMarks = new int[]{15,40,100,250,600};
 
     void Start()
     {
@@ -43,6 +45,23 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         _astronautDead = true;
         _userInput.DisableInput();
+        Time.timeScale = 1f;
+        Debug.Log("Speed normalized, current speed: " + Time.timeScale);
+        _astronaut.SetActive(false);
+    }
+
+    public void Handle(RoachDeathMessage message)
+    {
+        _roachDeathCount++;
+        if (Time.timeScale >= 3f)
+        {
+            return;
+        }
+        if (Array.Exists(_speedMarks, element => element == _roachDeathCount))
+        {
+            Time.timeScale += 0.3f;
+            Debug.Log("Speed increased, current speed: " + Time.timeScale);
+        }
     }
 
     private IEnumerator WaveCycle()
