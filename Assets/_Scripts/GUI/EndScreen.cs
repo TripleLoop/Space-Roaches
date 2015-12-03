@@ -40,13 +40,13 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
         while (true)
         {
-            yield return new WaitForSeconds(0.5f);
-            scoreCount++;
-            _text.text = ""+scoreCount;
             if (scoreCount >= numDeathRoaches)
             {
                 break;
             }
+            yield return new WaitForSeconds(0.05f);
+            scoreCount++;
+            _text.text = ""+scoreCount;
         }
     }
 
