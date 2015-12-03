@@ -165,8 +165,11 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
             }
             SetState(State.Die);
         }
-        //Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
-        //StartCoroutine(BounceDirection(bouncePos));
+        if (_currentState == Dash)
+        {
+            Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
+            StartCoroutine(BounceDirection(bouncePos));
+        }
     }
 
     private IEnumerator SlowDown()
@@ -209,7 +212,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         _immortal = false;
     }
 
-    /*private IEnumerator BounceDirection(Vector2 bPos)
+    private IEnumerator BounceDirection(Vector2 bPos)
     {
         yield return null;
         Vector2 tempPos = new Vector2(transform.position.x, transform.position.y);
@@ -224,7 +227,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         
         transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
         FlipChar();
-    }*/
+    }
 
     // Update is called once per frame
     void Update()
