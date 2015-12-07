@@ -911,7 +911,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 22449650}
   m_Direction: 1
   m_Value: 0
-  m_Size: .25999999
+  m_Size: .98299998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1516,7 +1516,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Size
+      value: .98299998
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 192990}

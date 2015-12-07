@@ -19,7 +19,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private Animator _animatorAst;
 
-    private int _scale = 1;
+    private float _scale;
 
     private bool _immortal = false;
 
@@ -188,21 +188,22 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private void FlipChar()
     {
+        float scale;
         //Debug.Log(_direction);
         if (_direction.x < 0)
         {
-            _scale = -1;
+            scale = -_scale;
         }
         else
         {
-            _scale = 1;
+            scale = _scale;
         }
         //Debug.Log(transform.rotation.y);
-        if (transform.rotation.y == 1)
+        if (transform.rotation.y >= 1)
         {
-            _scale = -_scale;
+            scale = -scale;
         }
-        transform.localScale = new Vector3(1, _scale, 1);
+        transform.localScale = new Vector3(_scale, scale, _scale);
     }
 
     private IEnumerator Immortal()
@@ -242,6 +243,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         _animatorAst = gameObject.GetComponent<Animator>();
         _currentState = Idle;
+        _scale = transform.localScale.y;
     }
 
     public void Handle(ChargesAnswers message)
