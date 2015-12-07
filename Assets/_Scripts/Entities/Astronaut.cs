@@ -23,7 +23,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private bool _immortal = false;
 
-    private bool _astronautDie = false;
+    private bool _astronautDead = false;
 
     //Define Stats Machine's variables
 
@@ -80,7 +80,10 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
             case State.Die:
                 _currentState = Die;
                 Messenger.Publish(new AstronautDeathMessage(gameObject));
-                _astronautDie = true;
+                _astronautDead = true;
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<Collider2D>().enabled = false;
+                GetComponent<Rigidbody2D>().isKinematic = true;
                 Debug.Log("Die");
                 break;
             default:
@@ -135,7 +138,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     public void Handle(UserInputMessage message)
     {
-        if (!_astronautDie)
+        if (!_astronautDead)
         {
             Messenger.Publish(new ChargesQuestion());
 
@@ -242,7 +245,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     {
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         _animatorAst = gameObject.GetComponent<Animator>();
-        _currentState = Idle;
+        SetState(State.Idle);
         _scale = transform.localScale.y;
     }
 
@@ -255,4 +258,19 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     {
         StartCoroutine(Immortal());
     }
+
+    public Astronaut Reset()
+    {
+        //set stating values
+        SetState(State.Idle);
+        _scale = transform.localScale.y;
+        _astronautDead = false;
+        transform.position = new Vector2(0, 0);
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().isKinematic = false;
+        return this;
+    }
+
+
 }

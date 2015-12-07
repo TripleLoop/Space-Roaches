@@ -12,11 +12,20 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
 
     private WaveManager _waveManager;
 
+    public EntitySpawner InitializeSpawner(WaveManager waveManager)
+    {
+        this.InitializeRoachPool()
+            .InitializeSpikeBallPool()
+            .InitializePizzaPool();
+        _waveManager = waveManager;
+        return this;
+    }
+
     public EntitySpawner SpawnEntity(string entity, Vector2 position)
     {
         if (entity == "roach")
         {
-           _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
+            _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
             return this;
         }
         if (entity == "spikeball")
@@ -26,9 +35,17 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         }
         if (entity == "pizza")
         {
-           _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
+            _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
             return this;
         }
+        return this;
+    }
+
+    public EntitySpawner Reset()
+    {
+        _roachPool.DespawnAll();
+        _spikeBallPool.DespawnAll();
+        _pizzaPool.DespawnAll();
         return this;
     }
 
@@ -48,15 +65,6 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
     {
         _waveManager.DiscountEntity("pizza");
         this.DespawnObject(_pizzaPool, message.Pizza);
-    }
-
-    public EntitySpawner InitializeSpawner(WaveManager waveManager)
-    {
-        this.InitializeRoachPool()
-            .InitializeSpikeBallPool()
-            .InitializePizzaPool();
-        _waveManager = waveManager;
-        return this;
     }
 
     private EntitySpawner DespawnObject(SpawnPool pool, GameObject target)
@@ -91,4 +99,5 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         _pizzaPool = pizzaPool.GetComponent<SpawnPool>();
         return this;
     }
+
 }

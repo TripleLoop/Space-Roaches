@@ -3,21 +3,24 @@ using System.Collections;
 using System;
 using Random = UnityEngine.Random;
 
-public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>
 {
     private Camera _mainCamera;
-    private GameObject _astronaut;
+    private GameObject _astronautObject;
+    private Canvas _canvasObject;
 
     private UserInput _userInput;
     private Smooth_Follow _smoothFollow;
-    private Canvas _canvas;
     private WaveManager _waveManager;
+    private Astronaut _astronaut;
+    private CanvasManager _canvasManager;
 
+    private IEnumerator _waveCycle;
     private int _secondsToNextWave;
     private int _waveCount;
     private int _roachDeathCount;
     private bool _astronautDead;
-    private readonly int[] _speedMarks = new int[]{15,40,100,250,600};
+    private readonly int[] _speedMarks = new int[] { 15, 40, 100, 250, 600 };
 
     void Start()
     {
@@ -47,7 +50,22 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _userInput.DisableInput();
         Time.timeScale = 1f;
         Debug.Log("Speed normalized, current speed: " + Time.timeScale);
-        _astronaut.SetActive(false);
+        //_astronautObject.SetActive(false);
+    }
+
+    public void Handle(RestartGameMessage message)
+    {
+        if (_astronautDead)
+        {
+            this.Reset()
+                .StartGame();
+        }
+        else
+        {
+            Debug.Log("Shoudl not restart!");
+        }
+
+
     }
 
     public void Handle(RoachDeathMessage message)
@@ -88,16 +106,31 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private SpaceRoaches StartGame()
     {
         _userInput.EnableInput();
-        StartCoroutine(WaveCycle());
+        _waveCycle = WaveCycle();
+        StartCoroutine(_waveCycle);
+        return this;
+    }
+
+    private SpaceRoaches Reset()
+    {
+        _secondsToNextWave = 0;
+        _waveCount = 0;
+        _roachDeathCount = 0;
+        _astronautDead = false;
+        StopCoroutine(_waveCycle);
+        _waveManager.Reset();
+        _astronaut.Reset();
+        _canvasManager.Reset();
+        StartGame();
         return this;
     }
 
     private SpaceRoaches SetReferences()
     {
-        _smoothFollow.SetCameraTarget(_astronaut);
+        _smoothFollow.SetCameraTarget(_astronautObject);
         _userInput.SetCamera(_mainCamera);
         _waveManager.SetSpaceRoaches(this);
-        _canvas.worldCamera = _mainCamera;
+        _canvasObject.worldCamera = _mainCamera;
         return this;
     }
 
@@ -141,7 +174,8 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         GameObject astronaut = SRResources.Characters.Astronaut.Instantiate();
         astronaut.name = "Astronaut";
         astronaut.transform.parent = this.gameObject.transform;
-        _astronaut = astronaut;
+        _astronaut = astronaut.GetComponent<Astronaut>();
+        _astronautObject = astronaut;
         return this;
     }
 
@@ -149,8 +183,9 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         GameObject canvas = SRResources.Base.Canvas.Instantiate();
         canvas.name = "Canvas";
-        canvas.transform.SetParent(this.gameObject.transform, false);;
-        _canvas = canvas.GetComponent<Canvas>();
+        canvas.transform.SetParent(this.gameObject.transform, false); ;
+        _canvasObject = canvas.GetComponent<Canvas>();
+        _canvasManager = canvas.GetComponent<CanvasManager>();
         return this;
     }
 
@@ -163,4 +198,5 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _waveManager.InitializeWaveManager();
         return this;
     }
+
 }

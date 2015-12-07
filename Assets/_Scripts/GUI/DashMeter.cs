@@ -16,6 +16,42 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private Coroutine _loadBar;
 
+    // Use this for initialization
+    void Start()
+    {
+        _scrollbar = GetComponent<Scrollbar>();
+        _loadBar = StartCoroutine(LoadBar());
+    }
+
+    public DashMeter Reset()
+    {
+        _loadBar = StartCoroutine(LoadBar());
+        return this;
+    }
+
+    public void Handle(UserInputMessage message)
+    {
+        Dash();
+        /*StartCoroutine(Handler());*/
+    }
+
+    /*private IEnumerator Handler()
+    {
+        yield return StartCoroutine(Dash());
+        yield return StartCoroutine(LoadBar());
+    }*/
+
+    public void Handle(ChargesQuestion message)
+    {
+        //Debug.Log("handle"+_charges);
+        Messenger.Publish(_charges == 0 ? new ChargesAnswers(false) : new ChargesAnswers(true));
+    }
+
+    public void Handle(AstronautDeathMessage message)
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator LoadBar()
     {
         while (_scrollbar.size < 1f)
@@ -103,46 +139,4 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         }
     }
 
-    // Use this for initialization
-    void Start ()
-    {
-	    _scrollbar = GetComponent<Scrollbar>();
-        _loadBar = StartCoroutine(LoadBar());
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
-    }
-
-    public void Handle(UserInputMessage message)
-    {
-        Dash();
-        /*StartCoroutine(Handler());*/
-    }
-
-    /*private IEnumerator Handler()
-    {
-        yield return StartCoroutine(Dash());
-        yield return StartCoroutine(LoadBar());
-    }*/
-
-    public void Handle(ChargesQuestion message)
-    {
-        //Debug.Log("handle"+_charges);
-        if (_charges == 0)
-        {
-            Messenger.Publish(new ChargesAnswers(false));
-        }
-        else
-        {
-            Messenger.Publish(new ChargesAnswers(true));
-        }
-        
-    }
-
-    public void Handle(AstronautDeathMessage message)
-    {
-        StopAllCoroutines();
-    }
 }

@@ -5,23 +5,23 @@ using UnityEngine.UI;
 public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>
 {
     public int DeadCount = 0;
+    private Text _text;
+
+    private  void Start()
+    {
+        _text = GetComponent<Text>();
+    }
 
     public void Handle(RoachDeathMessage message)
     {
-        //Debug.Log("HELO");
         DeadCount++;
-        GetComponent<Text>().text = ""+DeadCount;
+        _text.text = DeadCount.ToString();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public RoachCount Reset()
     {
-
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
+        DeadCount = 0;
+        _text.text = DeadCount.ToString();
+        return this;
     }
 }

@@ -9,32 +9,57 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     [SerializeField]
     private Text _roachesDeath;
 
-    private bool _astronautDie = false;
+    private bool _isInCountUp;
+    private IEnumerator _countUp;
+
+    private bool _astronautDead = false;
 
 
-	// Use this for initialization
 	void Start ()
 	{
-	    _text = gameObject.GetComponentInChildren<Text>();
+	    _text = GetComponentsInChildren<Text>(true)[0];
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public EndScreen Reset()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        if (_isInCountUp)
+        {
+            StopCoroutine(_countUp);
+        }
+        return this;
+    }
+
+    public void Menu()
+    {
+        Debug.Log("Menu");
+    }
+
+    public void Restart()
+    {
+        Messenger.Publish(new RestartGameMessage());
+    }
 
     public void Handle(AstronautDeathMessage message)
     {
-        if (!_astronautDie)
+        if (!_astronautDead)
         {
-            _astronautDie = true;
-            gameObject.GetComponent<CanvasGroup>().alpha = 1;
-            StartCoroutine(CountUp());
+            _astronautDead = true;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+            _countUp = CountUp();
+            StartCoroutine(_countUp);
         }
     }
 
     private IEnumerator CountUp()
     {
+        _isInCountUp = true;
         int scoreCount = 0;
         int numDeathRoaches = int.Parse(_roachesDeath.text);
 
@@ -48,15 +73,8 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             scoreCount++;
             _text.text = ""+scoreCount;
         }
+        _isInCountUp = false;
     }
 
-    public void Restart()
-    {
-        Debug.Log("Restart");
-    }
-
-    public void Menu()
-    {
-        Debug.Log("Menu");
-    }
+    
 }

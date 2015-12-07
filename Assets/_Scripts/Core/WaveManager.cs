@@ -22,10 +22,20 @@ public class WaveManager : MonoBehaviourEx
     private int _spikeBallCount;
 
     private bool _inPizzaCooldown;
+    private IEnumerator _pizzaCooldown;
+
+    public WaveManager InitializeWaveManager()
+    {
+        _originPosition = new Vector2(-6.07f, 3.26f);
+        _endPosition = new Vector2(5.81f, -3.12f);
+        InitializeEntitySpawner();
+        return this;
+    }
 
     public WaveManager EntitySpawn()
     {
         int number = Random.Range(5, 16);
+        _pizzaCooldown = SpawnRoutine(number);
         StartCoroutine(SpawnRoutine(number));
         return this;
     }
@@ -52,9 +62,17 @@ public class WaveManager : MonoBehaviourEx
         return this;
     }
 
-    public WaveManager SetSpaceRoaches(SpaceRoaches spaceRoaches)
+    public WaveManager Reset()
     {
-        _spaceRoaches = spaceRoaches;
+        _pizzaCount = 0;
+        _roachCount = 0;
+        _spikeBallCount = 0;
+        if (_inPizzaCooldown)
+        {
+            StopCoroutine(_pizzaCooldown);
+            _inPizzaCooldown = false;
+        }
+        _entitySpawner.Reset();
         return this;
     }
 
@@ -135,23 +153,6 @@ public class WaveManager : MonoBehaviourEx
         return new Vector2(xPosition, yPosition);
     }
 
-    public WaveManager InitializeWaveManager()
-    {
-        _originPosition = new Vector2(-6.07f, 3.26f);
-        _endPosition = new Vector2(5.81f, -3.12f);
-        InitializeEntitySpawner();
-        return this;
-    }
-
-    private WaveManager InitializeEntitySpawner()
-    {
-        GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
-        entitySpawner.name = "entitySpawner";
-        entitySpawner.transform.parent = this.gameObject.transform;
-        _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
-        _entitySpawner.InitializeSpawner(this);
-        return this;
-    }
 
     private WaveManager CountEntity(string entity)
     {
@@ -186,7 +187,7 @@ public class WaveManager : MonoBehaviourEx
         }
         if (_roachCount < 15)
         {
-           tempweights.Add(new EntityWeight("roach", 75));
+            tempweights.Add(new EntityWeight("roach", 75));
         }
         return tempweights;
     }
@@ -196,6 +197,22 @@ public class WaveManager : MonoBehaviourEx
         _inPizzaCooldown = true;
         yield return new WaitForSeconds(30f);
         _inPizzaCooldown = false;
+    }
+
+    public WaveManager SetSpaceRoaches(SpaceRoaches spaceRoaches)
+    {
+        _spaceRoaches = spaceRoaches;
+        return this;
+    }
+
+    private WaveManager InitializeEntitySpawner()
+    {
+        GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
+        entitySpawner.name = "entitySpawner";
+        entitySpawner.transform.parent = this.gameObject.transform;
+        _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
+        _entitySpawner.InitializeSpawner(this);
+        return this;
     }
 
 }
