@@ -26,7 +26,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     private bool _astronautDead = false;
 
     //Define Stats Machine's variables
-
     public enum State
     {
         Idle,
@@ -38,9 +37,60 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     private Action _currentState;
     public State CurrentStateName;
 
+    // Use this for initialization
+    private void Start()
+    {
+        _rigidbody2D = this.GetComponent<Rigidbody2D>();
+        _animatorAst = gameObject.GetComponent<Animator>();
+        SetState(State.Idle);
+        _scale = transform.localScale.y;
+    }
+
+    public void Handle(UserInputMessage message)
+    {
+        if (!_astronautDead)
+        {
+            Messenger.Publish(new ChargesQuestion());
+
+            if (!_canDash)
+            {
+                return;
+            }
+
+            _location = message.Location;
+
+            _direction.x = _location.x - transform.position.x;
+            _direction.y = _location.y - transform.position.y;
+            _direction.Normalize();
+
+            SetState(State.Dash);
+        }
+    }
+
+    public void Handle(ChargesAnswers message)
+    {
+        _canDash = message.Answer;
+    }
+
+    public void Handle(PizzaEatenMessage message)
+    {
+        StartCoroutine(Immortal());
+    }
+
+    public Astronaut Reset()
+    {
+        //set stating values
+        SetState(State.Idle);
+        _astronautDead = false;
+        transform.position = new Vector2(0, 0);
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().isKinematic = false;
+        return this;
+    }
+
     private void SetState(State state)
     {
-        stateExit(CurrentStateName);
         CurrentStateName = state;
         switch (state)
         {
@@ -84,7 +134,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
                 GetComponent<SpriteRenderer>().enabled = false;
                 GetComponent<Collider2D>().enabled = false;
                 GetComponent<Rigidbody2D>().isKinematic = true;
-                Debug.Log("Die");
                 break;
             default:
                 Debug.Log("unrecognized state");
@@ -93,71 +142,15 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         }
     }
 
-    private void stateExit(State state)
-    {
-        switch (state)
-        {
-            case State.Idle:
+    private void Idle(){}
 
-                break;
-            case State.Dash:
-                
-                break;
-            case State.Moving:
+    private void Dash(){}
 
-                break;
-            case State.Die:
-                
-                break;
-            default:
-                Debug.Log("unrecognized state");
-                break;
-        }
-    }
+    private void Moving(){}
 
-    private void Idle()
-    {
-            
-    }
+    private void Die(){}
 
-    private void Dash()
-    {
-        //transform.Translate(Vector2.right * Time.deltaTime * _tempIntensity);
-        //Debug.Log("Vector direction" + _direction);
-    }
-
-    private void Moving()
-    {
-        //transform.Translate(_direction * Time.deltaTime * _intensity);
-    }
-
-    private void Die()
-    {
-        
-    }
-
-    public void Handle(UserInputMessage message)
-    {
-        if (!_astronautDead)
-        {
-            Messenger.Publish(new ChargesQuestion());
-
-            if (!_canDash)
-            {
-                return;
-            }
-
-            _location = message.Location;
-
-            _direction.x = _location.x - transform.position.x;
-            _direction.y = _location.y - transform.position.y;
-            _direction.Normalize();
-
-            SetState(State.Dash);
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D otherCollision)
+    private void OnCollisionEnter2D(Collision2D otherCollision)
     {
         if (otherCollision.collider.CompareTag(SRTags.Spikeball))
         {
@@ -189,7 +182,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         SetState(State.Moving);
     }
 
-    private void FlipChar()
+    private Astronaut FlipChar()
     {
         float scale;
         //Debug.Log(_direction);
@@ -207,6 +200,20 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
             scale = -scale;
         }
         transform.localScale = new Vector3(_scale, scale, _scale);
+        return this;
+    }
+
+    private IEnumerator BounceDirection(Vector2 bPos)
+    {
+        yield return null;
+        Vector2 tempPos = new Vector2(transform.position.x, transform.position.y);
+
+        _direction = tempPos - bPos;
+
+        _direction.Normalize();
+
+        transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
+        FlipChar();
     }
 
     private IEnumerator Immortal()
@@ -216,61 +223,9 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         _immortal = false;
     }
 
-    private IEnumerator BounceDirection(Vector2 bPos)
-    {
-        yield return null;
-        Vector2 tempPos = new Vector2(transform.position.x, transform.position.y);
-
-        //Debug.Log(tempPos + " - " + bPos);
-
-        _direction = tempPos - bPos;
-
-        _direction.Normalize();
-
-        //Debug.Log("Vector rebote:" + _direction);
-        
-        transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
-        FlipChar();
-    }
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         _currentState();
-        //Debug.Log("Vector: " + _rigidbody2D.velocity + "|| Magnitude: " + _rigidbody2D.velocity.magnitude);
     }
-
-    // Use this for initialization
-    void Start()
-    {
-        _rigidbody2D = this.GetComponent<Rigidbody2D>();
-        _animatorAst = gameObject.GetComponent<Animator>();
-        SetState(State.Idle);
-        _scale = transform.localScale.y;
-    }
-
-    public void Handle(ChargesAnswers message)
-    {
-        _canDash = message.Answer;
-    }
-
-    public void Handle(PizzaEatenMessage message)
-    {
-        StartCoroutine(Immortal());
-    }
-
-    public Astronaut Reset()
-    {
-        //set stating values
-        SetState(State.Idle);
-        _scale = transform.localScale.y;
-        _astronautDead = false;
-        transform.position = new Vector2(0, 0);
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Collider2D>().enabled = true;
-        GetComponent<Rigidbody2D>().isKinematic = false;
-        return this;
-    }
-
-
 }
