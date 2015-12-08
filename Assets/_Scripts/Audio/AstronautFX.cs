@@ -27,7 +27,7 @@ public class AstronautFX : MonoBehaviour {
 
     private AstronautFX HitEnemy()
     {
-        Debug.Log(_rigidbody2D.velocity.magnitude);
+        //Debug.Log(_rigidbody2D.velocity.magnitude);
         if (_rigidbody2D.velocity.magnitude <= 1)
         {
             _source.clip = _hit[0];

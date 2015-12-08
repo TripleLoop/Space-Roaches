@@ -84,7 +84,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
                 GetComponent<SpriteRenderer>().enabled = false;
                 GetComponent<Collider2D>().enabled = false;
                 GetComponent<Rigidbody2D>().isKinematic = true;
-                Debug.Log("Die");
+                //Debug.Log("Die");
                 break;
             default:
                 Debug.Log("unrecognized state");
