@@ -14,18 +14,20 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     public Sprite ChargeActive;
     public Sprite ChargeInactive;
 
-    private Coroutine _loadBar;
+    private IEnumerator _loadBar;
 
     // Use this for initialization
     void Start()
     {
         _scrollbar = GetComponent<Scrollbar>();
-        _loadBar = StartCoroutine(LoadBar());
+        _loadBar = LoadBar();
+        StartCoroutine(_loadBar);
     }
 
     public DashMeter Reset()
     {
-        _loadBar = StartCoroutine(LoadBar());
+        _loadBar = LoadBar();
+        StartCoroutine(_loadBar);
         return this;
     }
 
@@ -72,8 +74,9 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         }
 
         StopCoroutine(_loadBar);
-        _loadBar = StartCoroutine(LoadBar());
-        
+        _loadBar = LoadBar();
+        StartCoroutine(_loadBar);
+
         /*float tempSize = _scrollbar.size;
         while (tempSize - _scrollbar.size  < 0.15f)
         {

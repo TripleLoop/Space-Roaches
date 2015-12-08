@@ -23,20 +23,17 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
 
     public EntitySpawner SpawnEntity(string entity, Vector2 position)
     {
-        if (entity == "roach")
+        switch (entity)
         {
-            _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
-            return this;
-        }
-        if (entity == "spikeball")
-        {
-            _spikeBallPool.Spawn(SRResources.Characters.Spikeball, position, Quaternion.identity);
-            return this;
-        }
-        if (entity == "pizza")
-        {
-            _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
-            return this;
+            case "roach":
+                _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
+                return this;
+            case "spikeball":
+                _spikeBallPool.Spawn(SRResources.Characters.Spikeball, position, Quaternion.identity);
+                return this;
+            case "pizza":
+                _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
+                return this;
         }
         return this;
     }

@@ -22,6 +22,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public EndScreen Reset()
     {
+        _astronautDead = false;
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);
