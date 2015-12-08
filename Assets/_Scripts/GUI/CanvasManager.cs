@@ -12,6 +12,7 @@ public class CanvasManager : MonoBehaviour
         _roachCount = GetComponentInChildren<RoachCount>();
         _dashMeter = GetComponentInChildren<DashMeter>();
         _endScreen = GetComponentInChildren<EndScreen>();
+        _endScreen.Initialize(_roachCount);
     }
 
     public CanvasManager Reset()

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 {
     private Text _text;
-    [SerializeField]
-    private Text _roachesDeath;
+
+    private RoachCount _roachCount;
 
     private bool _isInCountUp;
     private IEnumerator _countUp;
@@ -15,22 +15,16 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private bool _astronautDead = false;
 
 
-	void Start ()
-	{
-	    _text = GetComponentsInChildren<Text>(true)[0];
-	}
-
-    public EndScreen Reset()
+    public EndScreen Initialize(RoachCount roachCount)
     {
-        _astronautDead = false;
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);
-        }
-        if (_isInCountUp)
-        {
-            StopCoroutine(_countUp);
-        }
+        if (roachCount == null) return this;
+        _roachCount = roachCount;
+        _text = GetComponentsInChildren<Text>(true)[0];
+        return this;
+    }
+
+    public EndScreen Initialize()
+    {
         return this;
     }
 
@@ -58,11 +52,26 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         }
     }
 
+    public EndScreen Reset()
+    {
+        _astronautDead = false;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        if (_isInCountUp)
+        {
+            StopCoroutine(_countUp);
+        }
+        return this;
+    }
+
     private IEnumerator CountUp()
     {
         _isInCountUp = true;
         int scoreCount = 0;
-        int numDeathRoaches = int.Parse(_roachesDeath.text);
+        int numDeathRoaches = _roachCount.GetScore();
+        _text.text = scoreCount.ToString();
 
         while (true)
         {
@@ -72,10 +81,14 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             }
             yield return new WaitForSeconds(0.05f);
             scoreCount++;
-            _text.text = ""+scoreCount;
+            _text.text = scoreCount.ToString();
         }
         _isInCountUp = false;
     }
 
-    
+    private void Start()
+    {
+        Initialize();
+    }
+   
 }

@@ -4,8 +4,20 @@ using UnityEngine.UI;
 
 public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>
 {
-    public int DeadCount = 0;
+    private int _deadCount;
     private Text _text;
+
+    public int GetScore()
+    {
+        return _deadCount;
+    }
+
+    public RoachCount Reset()
+    {
+        _deadCount = 0;
+        _text.text = _deadCount.ToString();
+        return this;
+    }
 
     private  void Start()
     {
@@ -14,14 +26,8 @@ public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>
 
     public void Handle(RoachDeathMessage message)
     {
-        DeadCount++;
-        _text.text = DeadCount.ToString();
+        _deadCount++;
+        _text.text = _deadCount.ToString();
     }
     
-    public RoachCount Reset()
-    {
-        DeadCount = 0;
-        _text.text = DeadCount.ToString();
-        return this;
-    }
 }
