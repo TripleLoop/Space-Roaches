@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesAnswers>, IHandle<PizzaEatenMessage>
+public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<CanDashAnswers>, IHandle<PizzaEatenMessage>
 {
     private Coroutine _slowDown;
     private bool _enableSlowDown = false;
@@ -46,37 +46,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         _scale = transform.localScale.y;
     }
 
-    public void Handle(UserInputMessage message)
-    {
-        if (!_astronautDead)
-        {
-            Messenger.Publish(new ChargesQuestion());
-
-            if (!_canDash)
-            {
-                return;
-            }
-
-            _location = message.Location;
-
-            _direction.x = _location.x - transform.position.x;
-            _direction.y = _location.y - transform.position.y;
-            _direction.Normalize();
-
-            SetState(State.Dash);
-        }
-    }
-
-    public void Handle(ChargesAnswers message)
-    {
-        _canDash = message.Answer;
-    }
-
-    public void Handle(PizzaEatenMessage message)
-    {
-        StartCoroutine(Immortal());
-    }
-
     public Astronaut Reset()
     {
         //set stating values
@@ -87,6 +56,33 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().isKinematic = false;
         return this;
+    }
+
+    public void Handle(UserInputMessage message)
+    {
+        if (!_astronautDead)
+        {
+            _location = message.Location;
+            Messenger.Publish(new CanDashQuestion());
+        }
+    }
+
+    public void Handle(CanDashAnswers message)
+    {
+        if (!message.CanDash)
+        {
+            return;
+        }
+        _direction.x = _location.x - transform.position.x;
+        _direction.y = _location.y - transform.position.y;
+        _direction.Normalize();
+
+        SetState(State.Dash);
+    }
+
+    public void Handle(PizzaEatenMessage message)
+    {
+        StartCoroutine(Immortal());
     }
 
     private void SetState(State state)
@@ -150,13 +146,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private void Die(){}
 
-    private void OnCollisionEnter2D(Collision2D otherCollision)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
-        if (otherCollision.collider.CompareTag(SRTags.Spikeball))
+        if (coll.gameObject.CompareTag(SRTags.Spikeball))
         {
             if (_immortal)
             {
-                Messenger.Publish(new SpikeBallDeathMessage(otherCollision.gameObject));
+                Messenger.Publish(new SpikeBallDeathMessage(coll.gameObject));
                 return;
             }
             SetState(State.Die);

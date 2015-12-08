@@ -2,17 +2,18 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<ChargesQuestion>, IHandle<AstronautDeathMessage>
+public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<CanDashQuestion>, IHandle<AstronautDeathMessage>
 {
-
+    [SerializeField]
     public Image[] Charges;
     private Scrollbar _scrollbar;
-
-    [SerializeField]
+    
     private int _charges;
 
-    public Sprite ChargeActive;
-    public Sprite ChargeInactive;
+    [SerializeField]
+    private Sprite ChargeActive;
+    [SerializeField]
+    private Sprite ChargeInactive;
 
     private IEnumerator _loadBar;
 
@@ -27,6 +28,8 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     public DashMeter Reset()
     {
         _scrollbar.size = 100;
+        AddCharge(5);
+        CheckCharges();
         _loadBar = LoadBar();
         StartCoroutine(_loadBar);
         return this;
@@ -35,19 +38,12 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
     public void Handle(UserInputMessage message)
     {
         Dash();
-        /*StartCoroutine(Handler());*/
     }
 
-    /*private IEnumerator Handler()
+    public void Handle(CanDashQuestion message)
     {
-        yield return StartCoroutine(Dash());
-        yield return StartCoroutine(LoadBar());
-    }*/
-
-    public void Handle(ChargesQuestion message)
-    {
-        //Debug.Log("handle"+_charges);
-        Messenger.Publish(_charges == 0 ? new ChargesAnswers(false) : new ChargesAnswers(true));
+        Debug.Log(_charges);
+        Messenger.Publish(_charges == 0 ? new CanDashAnswers(false) : new CanDashAnswers(true));
     }
 
     public void Handle(AstronautDeathMessage message)
@@ -57,7 +53,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     private IEnumerator LoadBar()
     {
-        while (_scrollbar.size < 1f)
+        while (_scrollbar.size < 1.0f)
         {
             yield return new WaitForSeconds(0.025f);
             _scrollbar.size += 0.0025f;
@@ -73,20 +69,9 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
             _scrollbar.size -= 0.15f;
             UseCharge(_charges);
         }
-
         StopCoroutine(_loadBar);
         _loadBar = LoadBar();
         StartCoroutine(_loadBar);
-
-        /*float tempSize = _scrollbar.size;
-        while (tempSize - _scrollbar.size  < 0.15f)
-        {
-            Debug.Log(tempSize-_scrollbar.size);
-            yield return new WaitForSeconds(0.01f);
-            _scrollbar.size -= 0.0025f;
-            CheckCharges();
-            UseCharge(_charges);
-        }*/
     }
 
     private void AddCharge(int charge)

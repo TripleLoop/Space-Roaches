@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChargesQuestion
+public class CanDashQuestion
 {
-    public ChargesQuestion()
+    public CanDashQuestion()
     {
 
     }
