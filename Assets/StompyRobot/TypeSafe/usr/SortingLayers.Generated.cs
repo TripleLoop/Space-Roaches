@@ -33,13 +33,13 @@ public sealed class SRSortingLayers {
         }
     }
     
-    public static global::TypeSafe.SortingLayer Foreground {
+    public static global::TypeSafe.SortingLayer Entities {
         get {
             return __all[2];
         }
     }
     
-    public static global::TypeSafe.SortingLayer Entities {
+    public static global::TypeSafe.SortingLayer Foreground {
         get {
             return __all[3];
         }
@@ -54,8 +54,8 @@ public sealed class SRSortingLayers {
     private static global::System.Collections.Generic.IList<global::TypeSafe.SortingLayer> __all = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.SortingLayer>(new global::TypeSafe.SortingLayer[] {
                 new global::TypeSafe.SortingLayer("Default", 0),
                 new global::TypeSafe.SortingLayer("Background", -986088133),
-                new global::TypeSafe.SortingLayer("Foreground", 111083535),
                 new global::TypeSafe.SortingLayer("Entities", 836349807),
+                new global::TypeSafe.SortingLayer("Foreground", 111083535),
                 new global::TypeSafe.SortingLayer("UI", 1908930663)});
     
     public static global::System.Collections.Generic.IList<global::TypeSafe.SortingLayer> All {

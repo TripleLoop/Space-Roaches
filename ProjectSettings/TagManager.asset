@@ -47,11 +47,11 @@ TagManager:
   - name: Background
     uniqueID: 3308879163
     locked: 0
-  - name: Foreground
-    uniqueID: 111083535
-    locked: 0
   - name: Entities
     uniqueID: 836349807
+    locked: 0
+  - name: Foreground
+    uniqueID: 111083535
     locked: 0
   - name: UI
     uniqueID: 1908930663
