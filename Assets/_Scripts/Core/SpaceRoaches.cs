@@ -30,6 +30,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeForeGround()
             .InitializeAstronaut()
             .InitializeCanvas()
+            .InitializeParticlePool()
             .InitializeWaveManager()
             .SetReferences()
             .StartGame();
@@ -184,7 +185,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         GameObject canvas = SRResources.Core.Base.Canvas.Instantiate();
         canvas.name = "Canvas";
-        canvas.transform.SetParent(this.gameObject.transform, false); ;
+        canvas.transform.SetParent(this.gameObject.transform, false);
         _canvasObject = canvas.GetComponent<Canvas>();
         _canvasManager = canvas.GetComponent<CanvasManager>();
         return this;
@@ -194,10 +195,17 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         GameObject waveManager = SRResources.Core.Base.WaveManager.Instantiate();
         waveManager.name = "WaveManager";
-        waveManager.transform.SetParent(this.gameObject.transform, false); ;
+        waveManager.transform.SetParent(this.gameObject.transform, false);
         _waveManager = waveManager.GetComponent<WaveManager>();
         _waveManager.InitializeWaveManager();
         return this;
     }
 
+    private SpaceRoaches InitializeParticlePool()
+    {
+        GameObject waveManager = SRResources.Core.Pools.Particle_Pool.Instantiate();
+        waveManager.name = "Particle_Pool";
+        waveManager.transform.SetParent(this.gameObject.transform, false);
+        return this;
+    }
 }

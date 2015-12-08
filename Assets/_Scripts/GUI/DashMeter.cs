@@ -26,6 +26,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Cha
 
     public DashMeter Reset()
     {
+        _scrollbar.size = 100;
         _loadBar = LoadBar();
         StartCoroutine(_loadBar);
         return this;
