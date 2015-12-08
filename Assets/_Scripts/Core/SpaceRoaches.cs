@@ -203,7 +203,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeParticlePool()
     {
-        GameObject waveManager = SRResources.Pools.Particle_Pool.Instantiate();
+        GameObject waveManager = SRResources.Core.Pools.Particle_Pool.Instantiate();
         waveManager.name = "Particle_Pool";
         waveManager.transform.SetParent(this.gameObject.transform, false);
         return this;
