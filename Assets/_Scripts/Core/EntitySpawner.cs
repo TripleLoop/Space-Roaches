@@ -26,13 +26,13 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         switch (entity)
         {
             case "roach":
-                _roachPool.Spawn(SRResources.Characters.Roach, position, Quaternion.identity);
+                _roachPool.Spawn(SRResources.Core.Characters.Roach, position, Quaternion.identity);
                 return this;
             case "spikeball":
-                _spikeBallPool.Spawn(SRResources.Characters.Spikeball, position, Quaternion.identity);
+                _spikeBallPool.Spawn(SRResources.Core.Characters.Spikeball, position, Quaternion.identity);
                 return this;
             case "pizza":
-                _pizzaPool.Spawn(SRResources.Items.PizzaSlize, position, Quaternion.identity);
+                _pizzaPool.Spawn(SRResources.Core.Items.PizzaSlize, position, Quaternion.identity);
                 return this;
         }
         return this;
@@ -72,7 +72,7 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
 
     private EntitySpawner InitializeRoachPool()
     {
-        GameObject roachPool = SRResources.Pools.Roach_Pool.Instantiate();
+        GameObject roachPool = SRResources.Core.Pools.Roach_Pool.Instantiate();
         roachPool.name = "Roach_Pool";
         roachPool.transform.parent = this.gameObject.transform;
         _roachPool = roachPool.GetComponent<SpawnPool>();
@@ -81,7 +81,7 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
 
     private EntitySpawner InitializeSpikeBallPool()
     {
-        GameObject spikeBallPool = SRResources.Pools.SpikeBall_Pool.Instantiate();
+        GameObject spikeBallPool = SRResources.Core.Pools.SpikeBall_Pool.Instantiate();
         spikeBallPool.name = "SpikeBall_Pool";
         spikeBallPool.transform.parent = this.gameObject.transform;
         _spikeBallPool = spikeBallPool.GetComponent<SpawnPool>();
@@ -90,7 +90,7 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
 
     private EntitySpawner InitializePizzaPool()
     {
-        GameObject pizzaPool = SRResources.Pools.Pizza_Pool.Instantiate();
+        GameObject pizzaPool = SRResources.Core.Pools.Pizza_Pool.Instantiate();
         pizzaPool.name = "Pizza_Pool";
         pizzaPool.transform.parent = this.gameObject.transform;
         _pizzaPool = pizzaPool.GetComponent<SpawnPool>();

@@ -136,17 +136,18 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeCamera()
     {
-        GameObject mainCamera = SRResources.Base.BaseCamera.Instantiate();
+        GameObject mainCamera = SRResources.Core.Base.BaseCamera.Instantiate();
         mainCamera.name = "mainCamera";
         mainCamera.transform.parent = this.gameObject.transform;
+        _smoothFollow = mainCamera.AddComponent<Smooth_Follow>();
         _mainCamera = mainCamera.GetComponent<Camera>();
-        _smoothFollow = mainCamera.GetComponent<Smooth_Follow>();
+        _smoothFollow.Initialize(0.2f);
         return this;
     }
 
     private SpaceRoaches InitializeUserInput()
     {
-        GameObject userInput = SRResources.Base.UserInput.Instantiate();
+        GameObject userInput = SRResources.Core.Base.UserInput.Instantiate();
         userInput.name = "userInput";
         userInput.transform.parent = this.gameObject.transform;
         _userInput = userInput.GetComponent<UserInput>();
@@ -155,7 +156,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeBackgorund()
     {
-        GameObject background = SRResources.Environment.background.Instantiate();
+        GameObject background = SRResources.Core.Environment.background.Instantiate();
         background.name = "background";
         background.transform.parent = this.gameObject.transform;
         return this;
@@ -163,7 +164,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeForeGround()
     {
-        GameObject gameWalls = SRResources.Environment.gameWalls.Instantiate();
+        GameObject gameWalls = SRResources.Core.Environment.gameWalls.Instantiate();
         gameWalls.name = "gameWalls";
         gameWalls.transform.parent = this.gameObject.transform;
         return this;
@@ -171,7 +172,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeAstronaut()
     {
-        GameObject astronaut = SRResources.Characters.Astronaut.Instantiate();
+        GameObject astronaut = SRResources.Core.Characters.Astronaut.Instantiate();
         astronaut.name = "Astronaut";
         astronaut.transform.parent = this.gameObject.transform;
         _astronaut = astronaut.GetComponent<Astronaut>();
@@ -181,7 +182,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeCanvas()
     {
-        GameObject canvas = SRResources.Base.Canvas.Instantiate();
+        GameObject canvas = SRResources.Core.Base.Canvas.Instantiate();
         canvas.name = "Canvas";
         canvas.transform.SetParent(this.gameObject.transform, false); ;
         _canvasObject = canvas.GetComponent<Canvas>();
@@ -191,7 +192,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeWaveManager()
     {
-        GameObject waveManager = SRResources.Base.WaveManager.Instantiate();
+        GameObject waveManager = SRResources.Core.Base.WaveManager.Instantiate();
         waveManager.name = "WaveManager";
         waveManager.transform.SetParent(this.gameObject.transform, false); ;
         _waveManager = waveManager.GetComponent<WaveManager>();
