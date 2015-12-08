@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuCanvas : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public MenuCanvas Initialize(Camera mainCamera)
+    {
+        GetComponent<Canvas>().worldCamera = mainCamera;
+        return this;
+    }
+
+    public void Play()
+    {
+        SceneManager.LoadScene(SRScenes.MainGame);
+    }
 }

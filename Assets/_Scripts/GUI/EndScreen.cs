@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
@@ -30,7 +31,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public void Menu()
     {
-        Debug.Log("Menu");
+        SceneManager.LoadScene(SRScenes.MainMenu);
     }
 
     public void Restart()

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TypeSafe;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Music : MonoBehaviour
@@ -13,13 +14,8 @@ public class Music : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    _scene = Application.loadedLevelName;
 	    _source = GetComponent<AudioSource>();
-
-        if (_scene == SRScenes.MainGame.name)
-        {
-            _source.clip = _music[1];
-        }
+        _source.clip = _music[1];
         _source.Play();
 	}
 	

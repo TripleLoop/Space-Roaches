@@ -183,11 +183,14 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeCanvas()
     {
-        GameObject canvas = SRResources.Core.Base.Canvas.Instantiate();
+        GameObject canvas = SRResources.Core.UI.Canvas.Instantiate();
         canvas.name = "Canvas";
         canvas.transform.SetParent(this.gameObject.transform, false);
         _canvasObject = canvas.GetComponent<Canvas>();
         _canvasManager = canvas.GetComponent<CanvasManager>();
+        GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
+        eventSystem.name = "EventSystem";
+        eventSystem.transform.SetParent(transform, false);
         return this;
     }
 
