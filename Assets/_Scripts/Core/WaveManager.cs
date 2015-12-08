@@ -207,7 +207,7 @@ public class WaveManager : MonoBehaviourEx
 
     private WaveManager InitializeEntitySpawner()
     {
-        GameObject entitySpawner = SRResources.Base.EntitySpawner.Instantiate();
+        GameObject entitySpawner = SRResources.Core.Base.EntitySpawner.Instantiate();
         entitySpawner.name = "entitySpawner";
         entitySpawner.transform.parent = this.gameObject.transform;
         _entitySpawner = entitySpawner.GetComponent<EntitySpawner>();
