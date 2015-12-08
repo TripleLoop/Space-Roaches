@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour {
 
     private MainMenu InitializeCamera()
     {
-        GameObject mainCamera = SRResources.Menu.Base.BaseCamera.Instantiate();
+        GameObject mainCamera = SRResources.Core.Base.BaseCamera.Instantiate();
         mainCamera.name = "mainCamera";
         mainCamera.transform.SetParent(transform);
         _mainCamera = mainCamera.GetComponent<Camera>();
