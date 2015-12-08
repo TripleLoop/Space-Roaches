@@ -322,8 +322,15 @@ public sealed class SRResources {
                 }
             }
             
+            public static global::TypeSafe.PrefabResource RoachExplosion {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
+                }
+            }
+            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
-                        new global::TypeSafe.PrefabResource("EnemyDeath_Particle", "Core/Particles/EnemyDeath_Particle")});
+                        new global::TypeSafe.PrefabResource("EnemyDeath_Particle", "Core/Particles/EnemyDeath_Particle"),
+                        new global::TypeSafe.PrefabResource("RoachExplosion", "Core/Particles/RoachExplosion")});
             
             /// <summary>
             /// Return a list of all resources in this folder.

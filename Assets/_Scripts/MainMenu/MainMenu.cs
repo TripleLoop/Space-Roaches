@@ -7,12 +7,21 @@ public class MainMenu : MonoBehaviour {
     private MenuCanvas _menuCanvas;
 
     private void Start ()
-	{
-	    this.InitializeCamera()
+    {
+        this.Initialize()
+	        .InitializeCamera()
 	        .InitializeBackgorund()
 	        .InitializeCanvas()
 	        .SetReferences();
 	}
+
+    private MainMenu Initialize()
+    {
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.orientation = ScreenOrientation.Landscape;
+        return this;
+    }
 
     private MainMenu InitializeCamera()
     {
