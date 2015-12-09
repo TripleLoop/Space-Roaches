@@ -24,6 +24,9 @@ public class WaveManager : MonoBehaviourEx
     private bool _inPizzaCooldown;
     private IEnumerator _pizzaCooldown;
 
+    private bool _inSpawnRoutine;
+    private IEnumerator _spawnRoutine;
+
     public WaveManager InitializeWaveManager()
     {
         _originPosition = new Vector2(-6.07f, 3.26f);
@@ -35,8 +38,8 @@ public class WaveManager : MonoBehaviourEx
     public WaveManager EntitySpawn()
     {
         int number = Random.Range(5, 16);
-        _pizzaCooldown = SpawnRoutine(number);
-        StartCoroutine(SpawnRoutine(number));
+        _spawnRoutine = SpawnRoutine(number);
+        StartCoroutine(_spawnRoutine);
         return this;
     }
 
@@ -51,7 +54,8 @@ public class WaveManager : MonoBehaviourEx
                 _spikeBallCount--;
                 break;
             case "pizza":
-                StartCoroutine(PizzaCooldown());
+                _pizzaCooldown = PizzaCooldown();
+                StartCoroutine(_pizzaCooldown);
                 _pizzaCount--;
                 break;
         }
@@ -71,6 +75,11 @@ public class WaveManager : MonoBehaviourEx
         {
             StopCoroutine(_pizzaCooldown);
             _inPizzaCooldown = false;
+        }
+        if (_inSpawnRoutine)
+        {
+            StopCoroutine(_spawnRoutine);
+            _inSpawnRoutine = false;
         }
         _entitySpawner.Reset();
         return this;
@@ -103,6 +112,7 @@ public class WaveManager : MonoBehaviourEx
 
     private IEnumerator SpawnRoutine(int spawnNumber)
     {
+        _inSpawnRoutine = true;
         for (int i = 0; i < spawnNumber; i++)
         {
             List<EntityWeight> weights = GetCustomWeights();
@@ -116,6 +126,7 @@ public class WaveManager : MonoBehaviourEx
             _entitySpawner.SpawnEntity(tempChosen.Name, tempPosition);
             yield return null;
         }
+        _inSpawnRoutine = false;
     }
 
     private Vector2 GetAvaliablePosition()
