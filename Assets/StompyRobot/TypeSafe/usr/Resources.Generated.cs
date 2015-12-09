@@ -105,6 +105,275 @@ public sealed class SRResources {
             }
         }
         
+        public sealed class Audio {
+            
+            private Audio() {
+            }
+            
+            private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[0]);
+            
+            public sealed class FX {
+                
+                private FX() {
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> Confirm {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[0]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> StrongHit {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[1]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> MediumHit {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[2]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> BasicCancel {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[3]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> WeakHit {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[4]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> Bee_Buzz_1 {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[5]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> WallHit {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[6]));
+                    }
+                }
+                
+                private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("Confirm", "Core/Audio/FX/Confirm"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("StrongHit", "Core/Audio/FX/StrongHit"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("MediumHit", "Core/Audio/FX/MediumHit"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("BasicCancel", "Core/Audio/FX/BasicCancel"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("WeakHit", "Core/Audio/FX/WeakHit"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("Bee Buzz_1", "Core/Audio/FX/Bee Buzz_1"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("WallHit", "Core/Audio/FX/WallHit")});
+                
+                /// <summary>
+                /// Return a list of all resources in this folder.
+                /// This method has a very low performance cost, no need to cache the result.
+                /// </summary>
+                /// <returns>A list of resource objects in this folder.</returns>
+                public static global::System.Collections.Generic.IList<global::TypeSafe.IResource> GetContents() {
+                    return __ts_internal_resources;
+                }
+                
+                private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_recursiveLookupCache;
+                
+                /// <summary>
+                /// Return a list of all resources in this folder and all sub-folders.
+                /// The result of this method is cached, so subsequent calls will have very low performance cost.
+                /// </summary>
+                /// <returns>A list of resource objects in this folder and sub-folders.</returns>
+                public static global::System.Collections.Generic.IList<global::TypeSafe.IResource> GetContentsRecursive() {
+                    if ((__ts_internal_recursiveLookupCache != null)) {
+                        return __ts_internal_recursiveLookupCache;
+                    }
+                    global::System.Collections.Generic.List<global::TypeSafe.IResource> tmp = new global::System.Collections.Generic.List<global::TypeSafe.IResource>();
+                    tmp.AddRange(GetContents());
+                    __ts_internal_recursiveLookupCache = tmp;
+                    return __ts_internal_recursiveLookupCache;
+                }
+                
+                /// <summary>
+                /// Return a list of all resources in this folder of type <typeparamref>TResource</typeparamref> (does not include sub-folders)
+                /// This method does not cache the result, so you should cache the result yourself if you will use it often.
+                /// </summary>
+                /// <returns>A list of <typeparamref>TResource</typeparamref> objects in this folder.</returns>
+                public static global::System.Collections.Generic.List<global::TypeSafe.Resource<TResource>> GetContents<TResource>()
+                    where TResource : global::UnityEngine.Object {
+                    return global::TypeSafe.TypeSafeUtil.GetResourcesOfType<TResource>(GetContents());
+                }
+                
+                /// <summary>
+                /// Return a list of all resources in this folder of type <typeparamref>TResource</typeparamref>, including sub-folders.
+                /// This method does not cache the result, so you should cache the result yourself if you will use it often.
+                /// </summary>
+                /// <returns>A list of <typeparamref>TResource</typeparamref> objects in this folder and sub-folders.</returns>
+                public static global::System.Collections.Generic.List<global::TypeSafe.Resource<TResource>> GetContentsRecursive<TResource>()
+                    where TResource : global::UnityEngine.Object {
+                    return global::TypeSafe.TypeSafeUtil.GetResourcesOfType<TResource>(GetContentsRecursive());
+                }
+                
+                /// <summary>
+                /// Call Unload() on every loaded resource in this folder.
+                /// </summary>
+                public static void UnloadAll() {
+                    global::TypeSafe.TypeSafeUtil.UnloadAll(GetContents());
+                }
+                
+                /// <summary>
+                /// Call Unload() on every loaded resource in this folder and subfolders.
+                /// </summary>
+                private void UnloadAllRecursive() {
+                    global::TypeSafe.TypeSafeUtil.UnloadAll(GetContentsRecursive());
+                }
+            }
+            
+            public sealed class Music {
+                
+                private Music() {
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> RoachMenu {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[0]));
+                    }
+                }
+                
+                public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> MainGame {
+                    get {
+                        return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[1]));
+                    }
+                }
+                
+                private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("RoachMenu", "Core/Audio/Music/RoachMenu"),
+                            new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("MainGame", "Core/Audio/Music/MainGame")});
+                
+                /// <summary>
+                /// Return a list of all resources in this folder.
+                /// This method has a very low performance cost, no need to cache the result.
+                /// </summary>
+                /// <returns>A list of resource objects in this folder.</returns>
+                public static global::System.Collections.Generic.IList<global::TypeSafe.IResource> GetContents() {
+                    return __ts_internal_resources;
+                }
+                
+                private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_recursiveLookupCache;
+                
+                /// <summary>
+                /// Return a list of all resources in this folder and all sub-folders.
+                /// The result of this method is cached, so subsequent calls will have very low performance cost.
+                /// </summary>
+                /// <returns>A list of resource objects in this folder and sub-folders.</returns>
+                public static global::System.Collections.Generic.IList<global::TypeSafe.IResource> GetContentsRecursive() {
+                    if ((__ts_internal_recursiveLookupCache != null)) {
+                        return __ts_internal_recursiveLookupCache;
+                    }
+                    global::System.Collections.Generic.List<global::TypeSafe.IResource> tmp = new global::System.Collections.Generic.List<global::TypeSafe.IResource>();
+                    tmp.AddRange(GetContents());
+                    __ts_internal_recursiveLookupCache = tmp;
+                    return __ts_internal_recursiveLookupCache;
+                }
+                
+                /// <summary>
+                /// Return a list of all resources in this folder of type <typeparamref>TResource</typeparamref> (does not include sub-folders)
+                /// This method does not cache the result, so you should cache the result yourself if you will use it often.
+                /// </summary>
+                /// <returns>A list of <typeparamref>TResource</typeparamref> objects in this folder.</returns>
+                public static global::System.Collections.Generic.List<global::TypeSafe.Resource<TResource>> GetContents<TResource>()
+                    where TResource : global::UnityEngine.Object {
+                    return global::TypeSafe.TypeSafeUtil.GetResourcesOfType<TResource>(GetContents());
+                }
+                
+                /// <summary>
+                /// Return a list of all resources in this folder of type <typeparamref>TResource</typeparamref>, including sub-folders.
+                /// This method does not cache the result, so you should cache the result yourself if you will use it often.
+                /// </summary>
+                /// <returns>A list of <typeparamref>TResource</typeparamref> objects in this folder and sub-folders.</returns>
+                public static global::System.Collections.Generic.List<global::TypeSafe.Resource<TResource>> GetContentsRecursive<TResource>()
+                    where TResource : global::UnityEngine.Object {
+                    return global::TypeSafe.TypeSafeUtil.GetResourcesOfType<TResource>(GetContentsRecursive());
+                }
+                
+                /// <summary>
+                /// Call Unload() on every loaded resource in this folder.
+                /// </summary>
+                public static void UnloadAll() {
+                    global::TypeSafe.TypeSafeUtil.UnloadAll(GetContents());
+                }
+                
+                /// <summary>
+                /// Call Unload() on every loaded resource in this folder and subfolders.
+                /// </summary>
+                private void UnloadAllRecursive() {
+                    global::TypeSafe.TypeSafeUtil.UnloadAll(GetContentsRecursive());
+                }
+            }
+            
+            /// <summary>
+            /// Return a list of all resources in this folder.
+            /// This method has a very low performance cost, no need to cache the result.
+            /// </summary>
+            /// <returns>A list of resource objects in this folder.</returns>
+            public static global::System.Collections.Generic.IList<global::TypeSafe.IResource> GetContents() {
+                return __ts_internal_resources;
+            }
+            
+            private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_recursiveLookupCache;
+            
+            /// <summary>
+            /// Return a list of all resources in this folder and all sub-folders.
+            /// The result of this method is cached, so subsequent calls will have very low performance cost.
+            /// </summary>
+            /// <returns>A list of resource objects in this folder and sub-folders.</returns>
+            public static global::System.Collections.Generic.IList<global::TypeSafe.IResource> GetContentsRecursive() {
+                if ((__ts_internal_recursiveLookupCache != null)) {
+                    return __ts_internal_recursiveLookupCache;
+                }
+                global::System.Collections.Generic.List<global::TypeSafe.IResource> tmp = new global::System.Collections.Generic.List<global::TypeSafe.IResource>();
+                tmp.AddRange(GetContents());
+                tmp.AddRange(FX.GetContentsRecursive());
+                tmp.AddRange(Music.GetContentsRecursive());
+                __ts_internal_recursiveLookupCache = tmp;
+                return __ts_internal_recursiveLookupCache;
+            }
+            
+            /// <summary>
+            /// Return a list of all resources in this folder of type <typeparamref>TResource</typeparamref> (does not include sub-folders)
+            /// This method does not cache the result, so you should cache the result yourself if you will use it often.
+            /// </summary>
+            /// <returns>A list of <typeparamref>TResource</typeparamref> objects in this folder.</returns>
+            public static global::System.Collections.Generic.List<global::TypeSafe.Resource<TResource>> GetContents<TResource>()
+                where TResource : global::UnityEngine.Object {
+                return global::TypeSafe.TypeSafeUtil.GetResourcesOfType<TResource>(GetContents());
+            }
+            
+            /// <summary>
+            /// Return a list of all resources in this folder of type <typeparamref>TResource</typeparamref>, including sub-folders.
+            /// This method does not cache the result, so you should cache the result yourself if you will use it often.
+            /// </summary>
+            /// <returns>A list of <typeparamref>TResource</typeparamref> objects in this folder and sub-folders.</returns>
+            public static global::System.Collections.Generic.List<global::TypeSafe.Resource<TResource>> GetContentsRecursive<TResource>()
+                where TResource : global::UnityEngine.Object {
+                return global::TypeSafe.TypeSafeUtil.GetResourcesOfType<TResource>(GetContentsRecursive());
+            }
+            
+            /// <summary>
+            /// Call Unload() on every loaded resource in this folder.
+            /// </summary>
+            public static void UnloadAll() {
+                global::TypeSafe.TypeSafeUtil.UnloadAll(GetContents());
+            }
+            
+            /// <summary>
+            /// Call Unload() on every loaded resource in this folder and subfolders.
+            /// </summary>
+            private void UnloadAllRecursive() {
+                global::TypeSafe.TypeSafeUtil.UnloadAll(GetContentsRecursive());
+            }
+        }
+        
         public sealed class Pools {
             
             private Pools() {
@@ -669,6 +938,7 @@ public sealed class SRResources {
             global::System.Collections.Generic.List<global::TypeSafe.IResource> tmp = new global::System.Collections.Generic.List<global::TypeSafe.IResource>();
             tmp.AddRange(GetContents());
             tmp.AddRange(Items.GetContentsRecursive());
+            tmp.AddRange(Audio.GetContentsRecursive());
             tmp.AddRange(Pools.GetContentsRecursive());
             tmp.AddRange(Base.GetContentsRecursive());
             tmp.AddRange(Particles.GetContentsRecursive());
