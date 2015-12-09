@@ -9,8 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 443156}
   - 114: {fileID: 11436570}
-  - 114: {fileID: 11472882}
-  - 82: {fileID: 8237894}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -30,76 +28,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!82 &8237894
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129028}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
 --- !u!114 &11436570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,20 +39,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a84f0a7382ad54988880bd88adf74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11472882
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5240673a0fb262747ab186a029567732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _music:
-  - {fileID: 8300000, guid: abbeb9c27468fed4294a3c6151f96634, type: 3}
-  - {fileID: 8300000, guid: 2a4e33bb0343e6943bcecaad696dbbab, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

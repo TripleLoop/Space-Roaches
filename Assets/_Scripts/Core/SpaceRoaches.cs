@@ -22,11 +22,13 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private bool _astronautDead;
     private readonly int[] _speedMarks = new int[] { 15, 40, 100, 250, 600 };
 
+    private bool _musicPlaying = false;
+
     void Start()
     {
         this.InitializeCamera()
             .InitializeUserInput()
-            .InitializeBackgorund()
+            .InitializeBackground()
             .InitializeForeGround()
             .InitializeAstronaut()
             .InitializeCanvas()
@@ -52,7 +54,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _userInput.DisableInput();
         Time.timeScale = 1f;
         Debug.Log("Speed normalized, current speed: " + Time.timeScale);
-        //_astronautObject.SetActive(false);
     }
 
     public void Handle(RestartGameMessage message)
@@ -64,10 +65,9 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
         else
         {
-            Debug.Log("Shoudl not restart!");
+            Debug.Log("Should not restart!");
         }
-
-
+        
     }
 
     public void Handle(RoachDeathMessage message)
@@ -110,6 +110,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _userInput.EnableInput();
         _waveCycle = WaveCycle();
         StartCoroutine(_waveCycle);
+        PlayMusic();
         return this;
     }
 
@@ -156,7 +157,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return this;
     }
 
-    private SpaceRoaches InitializeBackgorund()
+    private SpaceRoaches InitializeBackground()
     {
         GameObject background = SRResources.Core.Environment.background.Instantiate();
         background.name = "background";
@@ -218,6 +219,17 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         GameObject waveManager = SRResources.Core.Base.SoundManager.Instantiate();
         waveManager.name = "SoundManager";
         waveManager.transform.SetParent(this.gameObject.transform, false);
+        waveManager.GetComponent<SoundManager>().InitializeSources();
+        return this;
+    }
+
+    private SpaceRoaches PlayMusic()
+    {
+        if (!_musicPlaying)
+        {
+            Messenger.Publish(new PlayMusicMessage(SRResources.Core.Audio.Clips.Music.MainGame));
+            _musicPlaying = true;
+        }
         return this;
     }
 }

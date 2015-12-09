@@ -8,6 +8,7 @@ public class Roach : MonoBehaviourEx
         if (otherCollider.CompareTag(SRTags.Player))
         {
             Messenger.Publish(new RoachDeathMessage(gameObject));
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.MediumHit));
             return;
         }
     }

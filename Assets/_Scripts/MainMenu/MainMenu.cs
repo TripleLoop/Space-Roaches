@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviourEx {
 
     private Camera _mainCamera;
     private MenuCanvas _menuCanvas;
 
+    private bool _musicPlayed = false;
+
     private void Start ()
     {
         this.Initialize()
-	        .InitializeCamera()
-	        .InitializeBackgorund()
-	        .InitializeCanvas()
-	        .SetReferences();
-	}
+            .InitializeCamera()
+            .InitializeSoundManager()
+            .InitializeBackgorund()
+            .InitializeCanvas()
+            .PlayMusic()
+            .SetReferences();
+    }
 
     private MainMenu Initialize()
     {
@@ -55,6 +59,25 @@ public class MainMenu : MonoBehaviour {
     private MainMenu SetReferences()
     {
         _menuCanvas.Initialize(_mainCamera);
+        return this;
+    }
+
+    private MainMenu InitializeSoundManager()
+    {
+        GameObject waveManager = SRResources.Core.Base.SoundManager.Instantiate();
+        waveManager.name = "SoundManager";
+        waveManager.transform.SetParent(this.gameObject.transform, false);
+        waveManager.GetComponent<SoundManager>().InitializeSources();
+        return this;
+    }
+
+    private MainMenu PlayMusic()
+    {
+        if (!_musicPlayed)
+        {
+            Messenger.Publish(new PlayMusicMessage(SRResources.Core.Audio.Clips.Music.RoachMenu));
+            _musicPlayed = true;
+        }
         return this;
     }
 }

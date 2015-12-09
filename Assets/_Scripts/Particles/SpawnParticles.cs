@@ -32,7 +32,7 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
     {
         Vector3 position = element.transform.position;
         GameObject emitter = SRResources.Core.Particles.RoachExplosion;
-        ParticleSystem particle = _particlePool.Spawn(emitter.GetComponent<ParticleSystem>(), position, Quaternion.identity);
+        _particlePool.Spawn(emitter.GetComponent<ParticleSystem>(), position, Quaternion.identity);
         return this;
     }
 }

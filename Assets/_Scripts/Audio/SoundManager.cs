@@ -9,14 +9,23 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
 	// Use this for initialization
 	void Start ()
 	{
-	    _soundEffects = SRResources.Core.Audio._Prefabs.SoundEffects.Instantiate();
-        _music = SRResources.Core.Audio._Prefabs.Music.Instantiate();
+	    
     }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public SoundManager InitializeSources()
+    {
+        _soundEffects = SRResources.Core.Audio._Prefabs.SoundEffects.Instantiate();
+        _soundEffects.transform.SetParent(this.gameObject.transform, false);
+
+        _music = SRResources.Core.Audio._Prefabs.Music.Instantiate();
+        _music.transform.SetParent(this.gameObject.transform, false);
+        return this;
+    }
 
     public void Handle(PlaySoundEffectMessage message)
     {

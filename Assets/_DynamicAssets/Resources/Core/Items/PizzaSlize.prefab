@@ -11,10 +11,25 @@ GameObject:
   - 212: {fileID: 21220874}
   - 114: {fileID: 11405082}
   - 50: {fileID: 5092568}
-  - 58: {fileID: 5819724}
   - 58: {fileID: 5870846}
   m_Layer: 11
   m_Name: PizzaSlize
+  m_TagString: Pizza
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &145124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 444826}
+  - 58: {fileID: 5868886}
+  m_Layer: 12
+  m_Name: PizzaSlize_Collider
   m_TagString: Pizza
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +44,21 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.1985435, y: -0.96454287, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 444826}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &444826
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 426722}
   m_RootOrder: 0
 --- !u!50 &5092568
 Rigidbody2D:
@@ -49,12 +77,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5819724
+--- !u!58 &5868886
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119810}
+  m_GameObject: {fileID: 145124}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}

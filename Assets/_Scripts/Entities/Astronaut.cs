@@ -153,6 +153,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
             if (_immortal)
             {
                 Messenger.Publish(new SpikeBallDeathMessage(coll.gameObject));
+
                 return;
             }
             SetState(State.Die);

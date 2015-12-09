@@ -42,4 +42,6 @@ public sealed class SRLayerMask {
     public const int Player = 1024;
     
     public const int Item = 2048;
+    
+    public const int Entity_Collider = 4096;
 }
