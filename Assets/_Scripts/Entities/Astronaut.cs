@@ -157,6 +157,10 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
             }
             SetState(State.Die);
         }
+        if (coll.gameObject.CompareTag(SRTags.Wall))
+        {
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.WallHit));
+        }
         if (_currentState == Dash)
         {
             Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);

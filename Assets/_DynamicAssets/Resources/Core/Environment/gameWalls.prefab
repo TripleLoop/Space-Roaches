@@ -12,7 +12,7 @@ GameObject:
   - 60: {fileID: 6061548}
   m_Layer: 8
   m_Name: gameWalls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,20 +36,21 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141080}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: c318413e256929f47ba979c2b97d8150, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -9.56051445, y: 6.18181801}
-      - {x: -9.53731728, y: -6.2282114}
-      - {x: 9.51412106, y: -6.15862083}
-      - {x: 9.46772671, y: 6.18181896}
-    - - {x: -6.4103303, y: 3.58936572}
-      - {x: 6.23023987, y: 3.57666802}
-      - {x: 6.24086523, y: -3.68986392}
-      - {x: -6.39361048, y: -3.69828773}
+    - - {x: -9.560514, y: 6.181818}
+      - {x: -9.537317, y: -6.2282114}
+      - {x: 9.514121, y: -6.158621}
+      - {x: 9.467727, y: 6.181819}
+    - - {x: -6.4103303, y: 3.5893657}
+      - {x: 6.23024, y: 3.576668}
+      - {x: 6.240865, y: -3.689864}
+      - {x: -6.3936105, y: -3.6982877}
 --- !u!212 &21290056
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -71,13 +72,15 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 111083535
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4e232d15a645fe94aa18e6c5d8d554aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -121,6 +124,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

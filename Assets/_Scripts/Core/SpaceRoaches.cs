@@ -32,6 +32,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeCanvas()
             .InitializeParticlePool()
             .InitializeWaveManager()
+            .InitializeSoundManager()
             .SetReferences()
             .StartGame();
     }
@@ -208,6 +209,14 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         GameObject waveManager = SRResources.Core.Pools.Particle_Pool.Instantiate();
         waveManager.name = "Particle_Pool";
+        waveManager.transform.SetParent(this.gameObject.transform, false);
+        return this;
+    }
+
+    private SpaceRoaches InitializeSoundManager()
+    {
+        GameObject waveManager = SRResources.Core.Base.SoundManager.Instantiate();
+        waveManager.name = "SoundManager";
         waveManager.transform.SetParent(this.gameObject.transform, false);
         return this;
     }
