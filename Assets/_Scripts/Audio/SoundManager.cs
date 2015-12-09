@@ -30,8 +30,7 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
     public void Handle(PlaySoundEffectMessage message)
     {
         AudioSource soundEffectsSource = _soundEffects.GetComponent<AudioSource>();
-        soundEffectsSource.clip = message.SoundEffectClip;
-        soundEffectsSource.Play();
+        soundEffectsSource.PlayOneShot(message.SoundEffectClip);
     }
 
     public void Handle(PlayMusicMessage message)
