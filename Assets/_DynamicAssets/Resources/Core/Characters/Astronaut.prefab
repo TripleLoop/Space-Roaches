@@ -13,8 +13,6 @@ GameObject:
   - 114: {fileID: 11456148}
   - 95: {fileID: 9513006}
   - 61: {fileID: 6109754}
-  - 114: {fileID: 11415890}
-  - 82: {fileID: 8250240}
   - 61: {fileID: 6126884}
   m_Layer: 10
   m_Name: Astronaut
@@ -80,80 +78,6 @@ BoxCollider2D:
   m_Offset: {x: 0.010251999, y: -0.013668776}
   serializedVersion: 2
   m_Size: {x: 0.9445301, y: 1.0870471}
---- !u!82 &8250240
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 135530}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &9513006
 Animator:
   serializedVersion: 3
@@ -171,22 +95,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11415890
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 135530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15cb22dae02648c4797eaecabf29ebae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wallHit: {fileID: 8300000, guid: 92bceffd1dfac46458dc010e4659657c, type: 3}
-  _hit:
-  - {fileID: 8300000, guid: 97a7081dad1bbfa4891a68acf5b8e58b, type: 3}
-  - {fileID: 8300000, guid: 31591fa4d91ef904587d28c26ecd640c, type: 3}
-  - {fileID: 8300000, guid: 28d0edc36d9cdc843a5b60f3035a50ee, type: 3}
 --- !u!114 &11456148
 MonoBehaviour:
   m_ObjectHideFlags: 1
