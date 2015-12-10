@@ -388,7 +388,6 @@ MonoBehaviour:
   - {fileID: 11481500}
   - {fileID: 11451080}
   - {fileID: 11469856}
-  _charges: 0
   ChargeActive: {fileID: 21300000, guid: e2ea9649ae16d624680837fb77c374dd, type: 3}
   ChargeInactive: {fileID: 21300000, guid: 6ca6d80325870294d9008ba1eaaa8703, type: 3}
 --- !u!114 &11427120
@@ -919,7 +918,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_HandleRect: {fileID: 22449650}
   m_Direction: 1
@@ -1533,6 +1532,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Size
       value: .98299998
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

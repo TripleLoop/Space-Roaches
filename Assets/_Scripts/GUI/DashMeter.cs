@@ -42,7 +42,6 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
     public void Handle(CanDashQuestion message)
     {
-        Debug.Log(_charges);
         Messenger.Publish(_charges == 0 ? new CanDashAnswers(false) : new CanDashAnswers(true));
     }
 

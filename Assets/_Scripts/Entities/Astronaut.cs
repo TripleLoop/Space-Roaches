@@ -60,6 +60,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
     public void Handle(UserInputMessage message)
     {
+        
         if (!_astronautDead)
         {
             _location = message.Location;
