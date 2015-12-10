@@ -14,7 +14,9 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private Vector2 _direction;
     private Vector2 _bouncePosition;
 
+    [SerializeField]
     private float _intensity = 4.0f;
+    [SerializeField]
     private float _breakIntensity = 0.9f;
 
     private Animator _animatorAst;

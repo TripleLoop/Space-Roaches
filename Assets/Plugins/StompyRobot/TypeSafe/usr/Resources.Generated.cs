@@ -116,20 +116,27 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource RoachExplosion {
+            public static global::TypeSafe.PrefabResource PizzaAura {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource AstronautExplosion {
+            public static global::TypeSafe.PrefabResource RoachExplosion {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
                 }
             }
             
+            public static global::TypeSafe.PrefabResource AstronautExplosion {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
+                }
+            }
+            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
                         new global::TypeSafe.PrefabResource("Dash", "Core/Particles/Dash"),
+                        new global::TypeSafe.PrefabResource("PizzaAura", "Core/Particles/PizzaAura"),
                         new global::TypeSafe.PrefabResource("RoachExplosion", "Core/Particles/RoachExplosion"),
                         new global::TypeSafe.PrefabResource("AstronautExplosion", "Core/Particles/AstronautExplosion")});
             
