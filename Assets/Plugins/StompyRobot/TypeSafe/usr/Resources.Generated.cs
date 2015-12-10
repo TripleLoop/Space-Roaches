@@ -651,21 +651,27 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource EntitySpawner {
+            public static global::TypeSafe.PrefabResource PlayerPrefsManager {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource ChargeDash {
+            public static global::TypeSafe.PrefabResource EntitySpawner {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource Game {
+            public static global::TypeSafe.PrefabResource ChargeDash {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[6]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource Game {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[7]));
                 }
             }
             
@@ -674,6 +680,7 @@ public sealed class SRResources {
                         new global::TypeSafe.PrefabResource("SoundManager", "Core/Base/SoundManager"),
                         new global::TypeSafe.PrefabResource("WaveManager", "Core/Base/WaveManager"),
                         new global::TypeSafe.PrefabResource("UserInput", "Core/Base/UserInput"),
+                        new global::TypeSafe.PrefabResource("PlayerPrefsManager", "Core/Base/PlayerPrefsManager"),
                         new global::TypeSafe.PrefabResource("EntitySpawner", "Core/Base/EntitySpawner"),
                         new global::TypeSafe.PrefabResource("ChargeDash", "Core/Base/ChargeDash"),
                         new global::TypeSafe.PrefabResource("Game", "Core/Base/Game")});

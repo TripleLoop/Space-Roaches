@@ -6,18 +6,12 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
     private GameObject _soundEffects;
     private GameObject _music;
 
-	// Use this for initialization
-	void Start ()
-	{
-	    
+    public SoundManager SetAudioState()
+    {
+        return this;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    public SoundManager InitializeSources()
+	public SoundManager InitializeSources()
     {
         _soundEffects = SRResources.Core.Audio._Prefabs.SoundEffects.Instantiate();
         _soundEffects.transform.SetParent(this.gameObject.transform, false);

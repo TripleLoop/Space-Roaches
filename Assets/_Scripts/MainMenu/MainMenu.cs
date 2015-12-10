@@ -6,17 +6,25 @@ public class MainMenu : MonoBehaviourEx {
     private Camera _mainCamera;
     private MenuCanvas _menuCanvas;
 
-    private bool _musicPlayed = false;
+    private SoundManager _soundManager;
 
     private void Start ()
     {
         this.Initialize()
             .InitializeCamera()
+            .InitializePlayerPrefsManager()
             .InitializeSoundManager()
             .InitializeBackgorund()
             .InitializeCanvas()
-            .PlayMusic()
-            .SetReferences();
+            .SetReferences()
+            .AudioSetUp();
+    }
+
+    private MainMenu AudioSetUp()
+    {
+        _soundManager.SetAudioState();
+        Messenger.Publish(new PlayMusicMessage(SRResources.Core.Audio.Clips.Music.RoachMenu));
+        return this;
     }
 
     private MainMenu Initialize()
@@ -24,6 +32,14 @@ public class MainMenu : MonoBehaviourEx {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
         Screen.orientation = ScreenOrientation.Landscape;
+        return this;
+    }
+
+    private MainMenu InitializePlayerPrefsManager()
+    {
+        GameObject playerPrefsManager = SRResources.Core.Base.PlayerPrefsManager.Instantiate();
+        playerPrefsManager.name = "playerPrefsManager";
+        playerPrefsManager.transform.SetParent(transform);
         return this;
     }
 
@@ -67,17 +83,8 @@ public class MainMenu : MonoBehaviourEx {
         GameObject waveManager = SRResources.Core.Base.SoundManager.Instantiate();
         waveManager.name = "SoundManager";
         waveManager.transform.SetParent(this.gameObject.transform, false);
-        waveManager.GetComponent<SoundManager>().InitializeSources();
+        _soundManager = waveManager.GetComponent<SoundManager>().InitializeSources();
         return this;
     }
 
-    private MainMenu PlayMusic()
-    {
-        if (!_musicPlayed)
-        {
-            Messenger.Publish(new PlayMusicMessage(SRResources.Core.Audio.Clips.Music.RoachMenu));
-            _musicPlayed = true;
-        }
-        return this;
-    }
 }
