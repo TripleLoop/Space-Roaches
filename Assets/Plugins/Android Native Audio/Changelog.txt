@@ -1,0 +1,14 @@
+Android Native Audio
+by Christopher Stanley
+support@ChristopherCreates.com
+
+2015-10-17	1.2.0	Added a load option for using Application.persistentDataPath
+					Changed DEBUG from const to variable to remove unreachable code warnings
+					Updated documentation
+
+2015-06-08	1.1.0	Added support for split application binaries (APK + OBB files)
+					Added non-Android AudioSource option to PlayMaker Play action
+					Zipped PlayMaker files to prevent errors for non-PlayMaker users
+					Updated documentation
+
+2015-04-23	1.0.0	Initial release
