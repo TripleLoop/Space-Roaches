@@ -11,13 +11,21 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
     private GameObject _dashParticle;
     private GameObject _deathAstronautParticle;
 
+    private Transform _astronautTransform;
+
+    public SpawnParticles Initialize(GameObject astronaut)
+    {
+        _astronautTransform = astronaut.transform;
+        return this;
+    }
+
+
     // Use this for initialization
     void Start ()
 	{
 	    _particlePool = GetComponent<SpawnPool>();
 
         _deathEnemyParticle = SRResources.Core.Particles.RoachExplosion;
-        _dashParticle = SRResources.Core.Particles.Dash;
         _deathAstronautParticle = SRResources.Core.Particles.AstronautExplosion;
     }
 	
