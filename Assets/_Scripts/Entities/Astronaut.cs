@@ -22,8 +22,9 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private float _scale;
 
     private bool _immortal = false;
-
     private bool _astronautDead = false;
+
+    private ParticleSystem _dashParticle;
 
     //Define Stats Machine's variables
     public enum State
@@ -44,6 +45,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         _animatorAst = gameObject.GetComponent<Animator>();
         SetState(State.Idle);
         _scale = transform.localScale.y;
+        InitializeDashParticle();
     }
 
     public Astronaut Reset()
@@ -99,24 +101,20 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
                 
                 _animatorAst.SetInteger("State", 1);
 
-                //Quaternion.Euler(0, 30, 0);
-                
-                transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
-
                 _rigidbody2D.velocity = Vector2.zero;
-                //_rigidbody2D.angularVelocity = 0;
+
+                transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
                 _rigidbody2D.AddForce(_direction * _intensity, ForceMode2D.Impulse);
                 FlipChar();
-
-                //transform.rotation = Quaternion.Euler(0, 0, Quaternion.Angle(Quaternion.identity, Quaternion.Euler(new Vector3(_location.x, _location.y, 0)))); 
-                //Mathf.Rad2Deg * Mathf.Cos(1 / _direction.x));
-
+                
                 if (_enableSlowDown)
                 {
                     StopCoroutine(_slowDown);
                     _enableSlowDown = false;
                 }
                 _slowDown = StartCoroutine(SlowDown());
+
+                _dashParticle.Play();
                 break;
             case State.Moving:
                 _currentState = Moving;
@@ -154,17 +152,21 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
             if (_immortal)
             {
                 Messenger.Publish(new SpikeBallDeathMessage(coll.gameObject));
-
                 return;
             }
             SetState(State.Die);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
         if (coll.gameObject.CompareTag(SRTags.Wall))
         {
             Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.WallHit));
         }
         if (_currentState == Dash)
         {
+            
             Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
             StartCoroutine(BounceDirection(bouncePos));
         }
@@ -223,6 +225,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         _immortal = true;
         yield return new WaitForSeconds(3.0f);
         _immortal = false;
+    }
+
+    private Astronaut InitializeDashParticle()
+    {
+        _dashParticle = SRResources.Core.Particles.Dash.Instantiate().gameObject.GetComponent<ParticleSystem>();
+        _dashParticle.transform.parent = gameObject.transform;
+        return this;
     }
 
     // Update is called once per frame

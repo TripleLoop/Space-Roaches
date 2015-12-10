@@ -133,7 +133,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private SpaceRoaches SetReferences()
     {
         _smoothFollow.SetCameraTarget(_astronautObject);
-        _shakeCamera.Initialize(_astronautObject);
         _userInput.SetCamera(_mainCamera);
         _waveManager.SetSpaceRoaches(this);
         _canvasObject.worldCamera = _mainCamera;
