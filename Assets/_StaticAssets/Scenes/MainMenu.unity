@@ -93,7 +93,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 7483210}
-  - 114: {fileID: 7483209}
   m_Layer: 0
   m_Name: EditorPlusSceneObjectsSave.4de08b2e4aceb7bdcbc0f61d70a8cc4e45cc25d2
   m_TagString: Untagged
@@ -101,21 +100,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7483209
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 7483208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775efaa7df4e81545922827071f94c60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ClearID: 0
-  IDs: 27040000
-  OBJs:
-  - {fileID: 2026255090}
 --- !u!4 &7483210
 Transform:
   m_ObjectHideFlags: 1
@@ -155,10 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775efaa7df4e81545922827071f94c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClearID: 0
-  IDs: 44030000
-  OBJs:
-  - {fileID: 2026255090}
 --- !u!4 &1936625915
 Transform:
   m_ObjectHideFlags: 1

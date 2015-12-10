@@ -33,7 +33,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeWaveManager()
             .InitializeSoundManager()
             .InitializeCanvas()
-            .InitializeParticlePool()
             .InitializeBackground()
             .InitializeForeGround()
             .InitializeAstronaut()
