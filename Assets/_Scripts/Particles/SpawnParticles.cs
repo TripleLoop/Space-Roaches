@@ -7,8 +7,8 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 
     private SpawnPool _particlePool;
 
-    private GameObject _deathEnemyParticle;
-    private GameObject _dashParticle;
+    private GameObject _deathRoachParticle;
+    private GameObject _deathSpikeBallParticle;
     private GameObject _deathAstronautParticle;
 
     private Transform _astronautTransform;
@@ -25,7 +25,8 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 	{
 	    _particlePool = GetComponent<SpawnPool>();
 
-        _deathEnemyParticle = SRResources.Core.Particles.RoachExplosion;
+        _deathRoachParticle = SRResources.Core.Particles.RoachExplosion;
+        _deathSpikeBallParticle = SRResources.Core.Particles.SpikeExplosion;
         _deathAstronautParticle = SRResources.Core.Particles.AstronautExplosion;
     }
 	
@@ -36,12 +37,12 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 
     public void Handle(RoachDeathMessage message)
     {
-        SpawnParticle(message.Roach, _deathEnemyParticle);
+        SpawnParticle(message.Roach, _deathRoachParticle);
     }
 
     public void Handle(SpikeBallDeathMessage message)
     {
-        SpawnParticle(message.SpikeBall, _deathEnemyParticle);
+        SpawnParticle(message.SpikeBall, _deathSpikeBallParticle);
     }
 
     public void Handle(AstronautDeathMessage message)

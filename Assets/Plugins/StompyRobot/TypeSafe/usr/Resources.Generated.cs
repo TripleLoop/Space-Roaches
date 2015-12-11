@@ -128,9 +128,15 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource AstronautExplosion {
+            public static global::TypeSafe.PrefabResource SpikeExplosion {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource AstronautExplosion {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
                 }
             }
             
@@ -138,6 +144,7 @@ public sealed class SRResources {
                         new global::TypeSafe.PrefabResource("Dash", "Core/Particles/Dash"),
                         new global::TypeSafe.PrefabResource("PizzaAura", "Core/Particles/PizzaAura"),
                         new global::TypeSafe.PrefabResource("RoachExplosion", "Core/Particles/RoachExplosion"),
+                        new global::TypeSafe.PrefabResource("SpikeExplosion", "Core/Particles/SpikeExplosion"),
                         new global::TypeSafe.PrefabResource("AstronautExplosion", "Core/Particles/AstronautExplosion")});
             
             /// <summary>

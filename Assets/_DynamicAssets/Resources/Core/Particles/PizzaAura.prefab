@@ -1,15 +1,15 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &112888
+--- !u!1 &135050
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 489654}
-  - 198: {fileID: 19853184}
-  - 199: {fileID: 19902118}
+  - 4: {fileID: 438224}
+  - 198: {fileID: 19876194}
+  - 199: {fileID: 19905722}
   m_Layer: 0
   m_Name: PizzaAura
   m_TagString: Untagged
@@ -17,16 +17,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &161824
+--- !u!1 &180436
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 477786}
-  - 198: {fileID: 19827686}
-  - 199: {fileID: 19906974}
+  - 4: {fileID: 487936}
+  - 198: {fileID: 19843028}
+  - 199: {fileID: 19964294}
   m_Layer: 0
   m_Name: Big Star PS
   m_TagString: Untagged
@@ -34,37 +34,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &477786
+--- !u!4 &438224
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161824}
+  m_GameObject: {fileID: 135050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1985435, y: -0.96454287, z: 0}
+  m_LocalScale: {x: 0.1375, y: 0.1375, z: 0.1375}
+  m_Children:
+  - {fileID: 487936}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &487936
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180436}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 489654}
+  m_Father: {fileID: 438224}
   m_RootOrder: 0
---- !u!4 &489654
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 112888}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.144033, y: 0.928054, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 477786}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!198 &19827686
+--- !u!198 &19843028
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161824}
+  m_GameObject: {fileID: 180436}
   serializedVersion: 2
   lengthInSec: 5
   startDelay:
@@ -277,7 +277,7 @@ ParticleSystem:
         rgba: 1862270893
       minMaxState: 2
     startSize:
-      scalar: 10.44
+      scalar: 1.4355
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -404,12 +404,12 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 0
     type: 4
-    radius: 1
+    radius: 0.1375
     angle: 25
     length: 5
-    boxX: 1
-    boxY: 1
-    boxZ: 1
+    boxX: 0.1375
+    boxY: 0.1375
+    boxZ: 0.1375
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -905,7 +905,7 @@ ParticleSystem:
   ForceModule:
     enabled: 0
     x:
-      scalar: -1.825
+      scalar: -0.25093752
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1017,7 +1017,7 @@ ParticleSystem:
   ClampVelocityModule:
     enabled: 0
     x:
-      scalar: 0.5
+      scalar: 0.06875
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1052,7 +1052,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     y:
-      scalar: 0.5
+      scalar: 0.06875
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1087,7 +1087,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     z:
-      scalar: 0.5
+      scalar: 0.06875
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1122,7 +1122,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     magnitude:
-      scalar: 0.5
+      scalar: 0.06875
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1538,12 +1538,12 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!198 &19853184
+--- !u!198 &19876194
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 112888}
+  m_GameObject: {fileID: 135050}
   serializedVersion: 2
   lengthInSec: 2
   startDelay:
@@ -1617,7 +1617,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
-      scalar: 2.31
+      scalar: 0.317625
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1746,7 +1746,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 9.51
+      scalar: 1.307625
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1873,12 +1873,12 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 0
-    radius: 0.01
+    radius: 0.011
     angle: 90
     length: 5
-    boxX: 3.2
-    boxY: 2.41
-    boxZ: 3.61
+    boxX: 0.44000003
+    boxY: 0.33137503
+    boxZ: 0.496375
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -2228,7 +2228,7 @@ ParticleSystem:
   VelocityModule:
     enabled: 0
     x:
-      scalar: 500
+      scalar: 68.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2253,7 +2253,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 3
     y:
-      scalar: 500
+      scalar: 68.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2278,7 +2278,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 3
     z:
-      scalar: 0.5
+      scalar: 0.06875
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2344,7 +2344,7 @@ ParticleSystem:
   ForceModule:
     enabled: 0
     x:
-      scalar: 500
+      scalar: 68.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2394,7 +2394,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 3
     z:
-      scalar: 500
+      scalar: 68.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2426,7 +2426,7 @@ ParticleSystem:
   ClampVelocityModule:
     enabled: 0
     x:
-      scalar: 0.19
+      scalar: 0.026125
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2461,7 +2461,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     y:
-      scalar: 0.13
+      scalar: 0.017874999
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2531,7 +2531,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     magnitude:
-      scalar: 0.33
+      scalar: 0.045375004
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2937,12 +2937,12 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!199 &19902118
+--- !u!199 &19905722
 ParticleSystemRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 112888}
+  m_GameObject: {fileID: 135050}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -2961,8 +2961,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 836349807
+  m_SortingOrder: -2
   m_RenderMode: 1
   m_SortMode: 3
   m_MinParticleSize: 0
@@ -2978,12 +2978,12 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
---- !u!199 &19906974
+--- !u!199 &19964294
 ParticleSystemRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161824}
+  m_GameObject: {fileID: 180436}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -3002,8 +3002,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 836349807
+  m_SortingOrder: -2
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -3025,8 +3025,16 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SortingLayerID
+      value: 836349807
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 112888}
+  m_RootGameObject: {fileID: 135050}
   m_IsPrefabParent: 1

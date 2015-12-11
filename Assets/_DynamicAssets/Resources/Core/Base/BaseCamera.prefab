@@ -47,7 +47,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -15
+  near clip plane: -16
   far clip plane: 10
   field of view: 5
   orthographic: 1
@@ -107,7 +107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: near clip plane
-      value: -15
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: far clip plane

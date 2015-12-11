@@ -72,8 +72,22 @@ MonoBehaviour:
     cullMaxPerPass: 5
     _logMessages: 0
     spawnPool: {fileID: 0}
-  - prefab: {fileID: 419578, guid: b02194746fb71e44c9423db0342d47fd, type: 2}
+  - prefab: {fileID: 477708, guid: b02194746fb71e44c9423db0342d47fd, type: 2}
     preloadAmount: 5
+    preloadTime: 0
+    preloadFrames: 2
+    preloadDelay: 0
+    limitInstances: 0
+    limitAmount: 100
+    limitFIFO: 0
+    cullDespawned: 0
+    cullAbove: 50
+    cullDelay: 60
+    cullMaxPerPass: 5
+    _logMessages: 0
+    spawnPool: {fileID: 0}
+  - prefab: {fileID: 415588, guid: 253f0c55e06011c44bde31d2e572ccdf, type: 2}
+    preloadAmount: 4
     preloadTime: 0
     preloadFrames: 2
     preloadDelay: 0
