@@ -11,7 +11,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private UserInput _userInput;
     private Smooth_Follow _smoothFollow;
-    private Shake_Camera _shakeCamera;
+    //private Shake_Camera _shakeCamera;
     private WaveManager _waveManager;
     private Astronaut _astronaut;
     private CanvasManager _canvasManager;
@@ -146,7 +146,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _smoothFollow = mainCamera.AddComponent<Smooth_Follow>();
         _mainCamera = mainCamera.GetComponent<Camera>();
         _smoothFollow.Initialize(0.2f);
-        _shakeCamera = mainCamera.AddComponent<Shake_Camera>();
+        mainCamera.AddComponent<Shake_Camera>();
         return this;
     }
 

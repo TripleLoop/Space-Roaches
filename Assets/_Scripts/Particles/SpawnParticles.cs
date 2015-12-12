@@ -11,11 +11,11 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
     private GameObject _deathSpikeBallParticle;
     private GameObject _deathAstronautParticle;
 
-    private Transform _astronautTransform;
+    //private Transform _astronautTransform;
 
     public SpawnParticles Initialize(GameObject astronaut)
     {
-        _astronautTransform = astronaut.transform;
+        //_astronautTransform = astronaut.transform;
         return this;
     }
 
