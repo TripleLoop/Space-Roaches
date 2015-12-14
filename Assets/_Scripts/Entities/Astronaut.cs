@@ -27,6 +27,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private bool _astronautDead = false;
 
     private ParticleSystem _dashParticle;
+    private ParticleSystem _immortalParticle;
 
     //Define Stats Machine's variables
     public enum State
@@ -48,6 +49,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         SetState(State.Idle);
         _scale = transform.localScale.y;
         InitializeDashParticle();
+        InitializeImmortalParticle();
     }
 
     public Astronaut Reset()
@@ -88,6 +90,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     public void Handle(PizzaEatenMessage message)
     {
         StartCoroutine(Immortal());
+        Messenger.Publish(new AstronautImmortalityMessage(true));
     }
 
     private void SetState(State state)
@@ -225,14 +228,38 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private IEnumerator Immortal()
     {
         _immortal = true;
-        yield return new WaitForSeconds(3.0f);
+        _immortalParticle.Play();
+        StartCoroutine(Flash());
+        yield return new WaitForSeconds(8.0f);
         _immortal = false;
+        _immortalParticle.Stop();
+        Messenger.Publish(new AstronautImmortalityMessage(false));
+    }
+
+    private IEnumerator Flash()
+    {
+        Material astronautMaterial = GetComponent<Renderer>().sharedMaterial;
+        float i = 0;
+        while (_immortal)
+        {
+            i += 0.5f;
+            astronautMaterial.SetFloat("_FlashAmount", Mathf.Sin(i));
+            yield return new WaitForSeconds(0.0f);
+        }
+        astronautMaterial.SetFloat("_FlashAmount", 0);
     }
 
     private Astronaut InitializeDashParticle()
     {
         _dashParticle = SRResources.Core.Particles.Dash.Instantiate().gameObject.GetComponent<ParticleSystem>();
         _dashParticle.transform.parent = gameObject.transform;
+        return this;
+    }
+
+    private Astronaut InitializeImmortalParticle()
+    {
+        _immortalParticle = SRResources.Core.Particles.Invin.Invincibility.Instantiate().gameObject.GetComponent<ParticleSystem>();
+        _immortalParticle.transform.parent = gameObject.transform;
         return this;
     }
 
