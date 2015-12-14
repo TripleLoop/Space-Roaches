@@ -47,11 +47,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -20
-  far clip plane: -5
+  near clip plane: -14
+  far clip plane: -3
   field of view: 5
   orthographic: 1
-  orthographic size: 3.6
+  orthographic size: 2.6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -107,15 +107,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: near clip plane
-      value: -20
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: far clip plane
-      value: -5
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: orthographic size
-      value: 3.6
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: dampTime

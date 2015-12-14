@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenu : MonoBehaviourEx {
+public class MainMenu : MonoBehaviourEx
+{
 
     private Camera _mainCamera;
     private MenuCanvas _menuCanvas;
 
     private SoundManager _soundManager;
 
-    private void Start ()
+    private void Start()
     {
         this.Initialize()
             .InitializeCamera()
@@ -45,7 +46,7 @@ public class MainMenu : MonoBehaviourEx {
 
     private MainMenu InitializeCamera()
     {
-        GameObject mainCamera = SRResources.Core.Base.BaseCamera.Instantiate();
+        GameObject mainCamera = SRResources.Menu.Base.BaseCamera.Instantiate();
         mainCamera.name = "mainCamera";
         mainCamera.transform.SetParent(transform);
         _mainCamera = mainCamera.GetComponent<Camera>();
@@ -57,6 +58,7 @@ public class MainMenu : MonoBehaviourEx {
         GameObject background = SRResources.Menu.Environment.MainScreenBG.Instantiate();
         background.name = "background";
         background.transform.SetParent(transform);
+        background.transform.position = new Vector3(0, 0, -3.5f);
         return this;
     }
 
@@ -68,7 +70,7 @@ public class MainMenu : MonoBehaviourEx {
         _menuCanvas = canvas.GetComponent<MenuCanvas>();
         GameObject eventSystem = SRResources.Menu.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
-        eventSystem.transform.SetParent(transform,false);
+        eventSystem.transform.SetParent(transform, false);
         return this;
     }
 

@@ -1405,19 +1405,26 @@ public sealed class SRResources {
             }
         }
         
-        public sealed class Environment {
+        public sealed class Base {
             
-            private Environment() {
+            private Base() {
             }
             
-            public static global::TypeSafe.PrefabResource MainScreenBG {
+            public static global::TypeSafe.PrefabResource BaseCamera {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[0]));
                 }
             }
             
+            public static global::TypeSafe.PrefabResource MainMenu {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
+                }
+            }
+            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
-                        new global::TypeSafe.PrefabResource("MainScreenBG", "Menu/Environment/MainScreenBG")});
+                        new global::TypeSafe.PrefabResource("BaseCamera", "Menu/Base/BaseCamera"),
+                        new global::TypeSafe.PrefabResource("MainMenu", "Menu/Base/MainMenu")});
             
             /// <summary>
             /// Return a list of all resources in this folder.
@@ -1480,19 +1487,19 @@ public sealed class SRResources {
             }
         }
         
-        public sealed class Base {
+        public sealed class Environment {
             
-            private Base() {
+            private Environment() {
             }
             
-            public static global::TypeSafe.PrefabResource MainMenu {
+            public static global::TypeSafe.PrefabResource MainScreenBG {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[0]));
                 }
             }
             
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
-                        new global::TypeSafe.PrefabResource("MainMenu", "Menu/Base/MainMenu")});
+                        new global::TypeSafe.PrefabResource("MainScreenBG", "Menu/Environment/MainScreenBG")});
             
             /// <summary>
             /// Return a list of all resources in this folder.
@@ -1578,8 +1585,8 @@ public sealed class SRResources {
             global::System.Collections.Generic.List<global::TypeSafe.IResource> tmp = new global::System.Collections.Generic.List<global::TypeSafe.IResource>();
             tmp.AddRange(GetContents());
             tmp.AddRange(UI.GetContentsRecursive());
-            tmp.AddRange(Environment.GetContentsRecursive());
             tmp.AddRange(Base.GetContentsRecursive());
+            tmp.AddRange(Environment.GetContentsRecursive());
             __ts_internal_recursiveLookupCache = tmp;
             return __ts_internal_recursiveLookupCache;
         }
