@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 2d496a04c2df94040bad8e4609aa8f33, type: 3}
+          m_Texture: {fileID: 2800000, guid: 28b7afd38cfe5f745b8cf0d376d1e540, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -35,4 +35,4 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: .5, g: .5, b: .5, a: .5}
+        second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
