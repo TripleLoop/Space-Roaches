@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<CanDashQuestion>, IHandle<AstronautDeathMessage>
+public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<AstronautDeathMessage>, IHandle<AstronautImmortalityMessage>
 {
     [SerializeField]
     public Image[] Charges;
@@ -16,6 +16,8 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private Sprite ChargeInactive;
 
     private IEnumerator _loadBar;
+
+    private bool _immortal = false;
 
     // Use this for initialization
     void Start()
@@ -35,19 +37,20 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         return this;
     }
 
-    public void Handle(UserInputMessage message)
-    {
-        Dash();
-    }
-
     public void Handle(CanDashQuestion message)
     {
-        Messenger.Publish(_charges == 0 ? new CanDashAnswers(false) : new CanDashAnswers(true));
+        Dash();
     }
 
     public void Handle(AstronautDeathMessage message)
     {
         StopAllCoroutines();
+    }
+
+    public void Handle(AstronautImmortalityMessage message)
+    {
+        Reset();
+        _immortal = message.Immortal;
     }
 
     private IEnumerator LoadBar()
@@ -61,16 +64,26 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         }
     }
 
-    private void Dash()
+    private DashMeter Dash()
     {
-        if (_charges > 0)
+        if (_charges == 0)
         {
-            _scrollbar.size -= 0.15f;
-            UseCharge(_charges);
+            Messenger.Publish( new CanDashAnswers(false));
+            return this;
         }
+
+        Messenger.Publish(new CanDashAnswers(true));
+        if (_immortal)
+        {
+            return this;
+        }
+        _scrollbar.size -= 0.15f;
+        UseCharge(_charges);
         StopCoroutine(_loadBar);
         _loadBar = LoadBar();
         StartCoroutine(_loadBar);
+        return this;
+
     }
 
     private void AddCharge(int charge)
@@ -81,16 +94,17 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         }
     }
 
-    private void UseCharge(int charge)
+    private DashMeter UseCharge(int charge)
     {
         for (int i = charge; i <= Charges.Length; i++)
         {
             if (i == 0)
             {
-                return;
+                return this;
             }
             Charges[i-1].sprite = ChargeInactive;
         }
+        return this;
     }
 
     private void CheckCharges()
@@ -126,5 +140,4 @@ public class DashMeter : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
             return;
         }
     }
-
 }

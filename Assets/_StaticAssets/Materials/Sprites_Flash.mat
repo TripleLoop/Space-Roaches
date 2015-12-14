@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Astronaut
+  m_Name: Sprites_Flash
   m_Shader: {fileID: 4800000, guid: 2a3afeaa11d833e4297b7d8f0a04b6b4, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -130,6 +130,30 @@ Material:
       data:
         first:
           name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Stencil
+        second: 0
+      data:
+        first:
+          name: _StencilComp
+        second: 0
+      data:
+        first:
+          name: _StencilOp
+        second: 0
+      data:
+        first:
+          name: _StencilReadMask
+        second: 255
+      data:
+        first:
+          name: _StencilWriteMask
+        second: 255
+      data:
+        first:
+          name: _ColorMask
         second: 0
       data:
         first:

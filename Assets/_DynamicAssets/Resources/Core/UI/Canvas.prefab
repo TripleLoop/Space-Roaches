@@ -321,7 +321,7 @@ GameObject:
   - 222: {fileID: 22237018}
   - 114: {fileID: 11438762}
   m_Layer: 5
-  m_Name: Ghost
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 506259f22e1d4604eae4590b8d9d6929, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52bc8f7857c3c82449a9abb30e99f69a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -495,7 +495,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1036a1e6c6fec3c46a5b27d0469e543d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa2c51730db385746a83301bc705aef2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: c3d60ee8849b3a74b9d43178622d773b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1030,7 +1030,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c7dc76467c9765743972f4b8e64ee711, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97b8581c01814e54d82bb0b0c675bf43, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1200,8 +1200,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -87, y: -0.000033379}
-  m_SizeDelta: {x: 85, y: 107}
+  m_AnchoredPosition: {x: -50, y: -0.000033379}
+  m_SizeDelta: {x: 186, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22438052
 RectTransform:
@@ -1416,7 +1416,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42, y: 0.000072479}
+  m_AnchoredPosition: {x: 140, y: -3.2}
   m_SizeDelta: {x: 160, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22483440
