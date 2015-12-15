@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class MenuCanvas : MonoBehaviour
 {
+    //Menu Buttons
     [SerializeField]
     private Button _playButton;
     [SerializeField]
@@ -11,9 +12,18 @@ public class MenuCanvas : MonoBehaviour
     [SerializeField]
     private Button _configurationButton;
 
+    //SubMenu Classes
+    private SettingsMenu _settingsMenu;
+
+    public delegate MenuCanvas EnableDelegate();
+    private EnableDelegate _enableDelegate;
+    
+
     public MenuCanvas Initialize(Camera mainCamera)
     {
         GetComponent<Canvas>().worldCamera = mainCamera;
+        _settingsMenu = GetComponentInChildren<SettingsMenu>();
+        _enableDelegate = EnableButtons;
         return this;
     }
     
@@ -31,7 +41,7 @@ public class MenuCanvas : MonoBehaviour
     /// </summary>
     public void Leaderboard()
     {
-        DisableButtons();
+        //DisableButtons();
         Debug.Log("opened _leaderboardButton");
     }
 
@@ -41,9 +51,10 @@ public class MenuCanvas : MonoBehaviour
     public void Configuration()
     {
         DisableButtons();
+        _settingsMenu.Show(_enableDelegate);
         Debug.Log("opened _configurationButton");
     }
-
+   
     private MenuCanvas DisableButtons()
     {
         _playButton.interactable = false;
