@@ -1,11 +1,11 @@
 ﻿public class AudioStateMessage {
 
-    public bool FxMuted { get; set; }
-    public bool MusicMuted { get; set; }
+    public float FxVolume { get; set; }
+    public float MusicVolume { get; set; }
 
-    public AudioStateMessage(bool fxMuted,bool musicMuted)
+    public AudioStateMessage(float fxVolume, float musicVolume)
     {
-        FxMuted = fxMuted;
-        MusicMuted = musicMuted;
+        FxVolume = fxVolume;
+        MusicVolume = musicVolume;
     }
 }
