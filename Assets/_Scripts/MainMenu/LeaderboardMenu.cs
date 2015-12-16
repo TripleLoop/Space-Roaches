@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SettingsMenu : MonoBehaviour
-{
+public class LeaderboardMenu : MonoBehaviour {
+
     private MenuCanvas.EnableDelegate _enableDelegate;
 
-    public SettingsMenu Show(MenuCanvas.EnableDelegate enableDelegate)
+    public LeaderboardMenu Show(MenuCanvas.EnableDelegate enableDelegate)
     {
         EnableChildren();
         _enableDelegate = enableDelegate;
@@ -19,7 +19,7 @@ public class SettingsMenu : MonoBehaviour
         _enableDelegate();
     }
 
-    private SettingsMenu EnableChildren()
+    private LeaderboardMenu EnableChildren()
     {
         foreach (Transform child in transform)
         {
@@ -28,7 +28,7 @@ public class SettingsMenu : MonoBehaviour
         return this;
     }
 
-    private SettingsMenu DisableChildren()
+    private LeaderboardMenu DisableChildren()
     {
         foreach (Transform child in transform)
         {
