@@ -41,6 +41,7 @@ public class MainMenu : MonoBehaviourEx
         GameObject playerPrefsManager = SRResources.Core.Base.PlayerPrefsManager.Instantiate();
         playerPrefsManager.name = "playerPrefsManager";
         playerPrefsManager.transform.SetParent(transform);
+        playerPrefsManager.GetComponent<PlayerPrefsManager>().Initialize();
         return this;
     }
 

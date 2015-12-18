@@ -564,6 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7679bd218ac7b8a49ae8151076f661d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _effectsSlider: {fileID: 11458754}
+  _musicSlider: {fileID: 11483448}
 --- !u!114 &11419706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1070,13 +1072,24 @@ MonoBehaviour:
   m_FillRect: {fileID: 22430210}
   m_HandleRect: {fileID: 22444696}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11417298}
+        m_MethodName: OnSliderEffects
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11472706
@@ -1229,13 +1242,24 @@ MonoBehaviour:
   m_FillRect: {fileID: 22452692}
   m_HandleRect: {fileID: 22441456}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11417298}
+        m_MethodName: OnSliderMusic
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11483630

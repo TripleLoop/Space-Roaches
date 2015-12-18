@@ -39,13 +39,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6699128982bfb7545b43cbf54fa6e193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AudioMixer: {fileID: 24100000, guid: 185c1e9171a96984fa522bb9a3bfd64e, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: MusicMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 867e724e73d80ca428e2715cb058749c,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: SoundEffectsMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 42e582f2ee922414d90610503cd51d0a,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: AudioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 185c1e9171a96984fa522bb9a3bfd64e,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124004}

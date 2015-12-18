@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
-public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IHandle<PlayMusicMessage>
+public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IHandle<PlayMusicMessage>, IHandle<AudioStateMessage>, IHandle<AudioSetUpMessage>
 {
+    public AudioMixer AudioMixer;
+
     private GameObject _soundEffects;
     private GameObject _music;
 
     public SoundManager SetAudioState()
     {
+        Messenger.Publish(new RequestAudioStateMessage());
         return this;
     }
 
-	public SoundManager InitializeSources()
+    public SoundManager InitializeSources()
     {
         _soundEffects = SRResources.Core.Audio._Prefabs.SoundEffects.Instantiate();
         _soundEffects.transform.SetParent(this.gameObject.transform, false);
@@ -33,4 +37,28 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         musicSource.clip = message.MusicClip;
         musicSource.Play();
     }
+
+    public void Handle(AudioStateMessage message)
+    {
+        SetVolume(message.EffectsVolume, message.MusicVolume);
+    }
+
+    public void Handle(AudioSetUpMessage message)
+    {
+        SetVolume(message.EffectsVolume, message.MusicVolume);
+    }
+
+    private SoundManager SetVolume(float? effectsVolume ,float? musicVolume)
+    {
+        if (effectsVolume != null)
+        {
+            AudioMixer.SetFloat("effectsVolume", effectsVolume.Value);
+        }
+        if (musicVolume != null)
+        {
+            AudioMixer.SetFloat("musicVolume", musicVolume.Value);
+        }
+        return this;
+    }
+
 }

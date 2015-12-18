@@ -230,6 +230,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         GameObject playerPrefsManager = SRResources.Core.Base.PlayerPrefsManager.Instantiate();
         playerPrefsManager.name = "playerPrefsManager";
         playerPrefsManager.transform.SetParent(transform);
+        playerPrefsManager.GetComponent<PlayerPrefsManager>().Initialize();
         return this;
     }
 

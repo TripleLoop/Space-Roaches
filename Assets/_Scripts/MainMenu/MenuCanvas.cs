@@ -34,6 +34,7 @@ public class MenuCanvas : MonoBehaviour
     /// </summary>
     public void Play()
     {
+        PlayerPrefs.Save();
         DisableButtons();
         SceneManager.LoadScene(SRScenes.MainGame);
     }

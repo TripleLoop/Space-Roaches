@@ -1,9 +1,9 @@
-﻿public class AudioStateMessage {
+﻿public class AudioSetUpMessage  {
 
     public float? EffectsVolume { get; set; }
     public float? MusicVolume { get; set; }
 
-    public AudioStateMessage(float? effectsVolume, float? musicVolume)
+    public AudioSetUpMessage(float? effectsVolume, float? musicVolume)
     {
         EffectsVolume = effectsVolume;
         MusicVolume = musicVolume;
