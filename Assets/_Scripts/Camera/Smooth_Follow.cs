@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Smooth_Follow : MonoBehaviour {
     [SerializeField]
-    private float _dampTime = 0.05f;
+    private float _dampTime;
     private Vector3 velocity = Vector3.zero;
     private Transform _target;
 

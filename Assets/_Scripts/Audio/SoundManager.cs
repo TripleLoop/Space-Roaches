@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
     private GameObject _soundEffects;
     private GameObject _music;
 
+    private float _startTime;
+    private AudioClip _cancelClip;
+
     public SoundManager SetAudioState()
     {
         Messenger.Publish(new RequestAudioStateMessage());
@@ -22,12 +25,22 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
 
         _music = SRResources.Core.Audio._Prefabs.Music.Instantiate();
         _music.transform.SetParent(this.gameObject.transform, false);
+
+	    _cancelClip = SRResources.Core.Audio.Clips.SoundEffects.BasicCancel;
         return this;
     }
 
     public void Handle(PlaySoundEffectMessage message)
     {
         AudioSource soundEffectsSource = _soundEffects.GetComponent<AudioSource>();
+        if (message.Tracked)
+        {
+            if (IsPlaying())
+            {
+                return;
+            }
+            _startTime = Time.time;
+        }
         soundEffectsSource.PlayOneShot(message.SoundEffectClip);
     }
 
@@ -59,6 +72,13 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
             AudioMixer.SetFloat("musicVolume", musicVolume.Value);
         }
         return this;
+    }
+
+    private bool IsPlaying()
+    {
+        if ((Time.time - _startTime) >= _cancelClip.length)
+            return false;
+        return true;
     }
 
 }
