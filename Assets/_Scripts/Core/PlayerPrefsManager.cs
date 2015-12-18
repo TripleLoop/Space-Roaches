@@ -4,8 +4,8 @@ using UnityEngine.Networking;
 
 public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMessage>
 {
-    private bool _fxMuted;
-    private bool _musicMuted;
+    private float _fxVolume;
+    private float _musicVolume;
 
     private void Start()
     {
@@ -15,25 +15,25 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
 
     public void Handle(RequestAudioStateMessage message)
     {
-        Messenger.Publish(new AudioStateMessage(_fxMuted, _musicMuted));
+        Messenger.Publish(new AudioStateMessage(_fxVolume, _musicVolume));
     }
 
     private PlayerPrefsManager InitializeValues()
     {
-        _fxMuted = PlayerPrefs.GetInt("_fxMuted") != 0;
-        _musicMuted = PlayerPrefs.GetInt("_musicMuted") != 0;
+        _fxVolume = PlayerPrefs.GetFloat("_fxVolume");
+        _musicVolume = PlayerPrefs.GetFloat("_musicVolume");
         return this;
     }
 
     private PlayerPrefsManager InitializeKeys()
     {
-        if (!PlayerPrefs.HasKey("_fxMuted"))
+        if (!PlayerPrefs.HasKey("_fxVolume"))
         {
-            PlayerPrefs.SetInt("_fxMuted", 0);
+            PlayerPrefs.SetFloat("_fxVolume", 1f);
         }
-        if (!PlayerPrefs.HasKey("_musicMuted"))
+        if (!PlayerPrefs.HasKey("_musicVolume"))
         {
-            PlayerPrefs.SetInt("_musicMuted", 0);
+            PlayerPrefs.SetFloat("_musicVolume", 1f);
         }
         return this;
     }
