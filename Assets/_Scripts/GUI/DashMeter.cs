@@ -68,7 +68,8 @@ public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<Astr
     {
         if (_charges == 0)
         {
-            Messenger.Publish( new CanDashAnswers(false));
+            Messenger.Publish(new CanDashAnswers(false));
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicCancel, true));
             return this;
         }
 
