@@ -50,7 +50,7 @@ public class WaveManager : MonoBehaviourEx
             case "roach":
                 _roachCount--;
                 break;
-            case "spikeball":
+            case "Spikeball":
                 _spikeBallCount--;
                 break;
             case "pizza":
@@ -172,7 +172,7 @@ public class WaveManager : MonoBehaviourEx
             _roachCount++;
             return this;
         }
-        if (entity == "spikeball")
+        if (entity == "Spikeball")
         {
             _spikeBallCount++;
             return this;
@@ -190,7 +190,7 @@ public class WaveManager : MonoBehaviourEx
         List<EntityWeight> tempweights = new List<EntityWeight>();
         if (_spikeBallCount < 4)
         {
-            tempweights.Add(new EntityWeight("spikeball", 23));
+            tempweights.Add(new EntityWeight("Spikeball", 23));
         }
         if (_pizzaCount == 0 && !_inPizzaCooldown)
         {

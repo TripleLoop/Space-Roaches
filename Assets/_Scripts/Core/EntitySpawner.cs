@@ -28,7 +28,7 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
             case "roach":
                 _roachPool.Spawn(SRResources.Core.Characters.Roach, position, Quaternion.identity);
                 return this;
-            case "spikeball":
+            case "Spikeball":
                 _spikeBallPool.Spawn(SRResources.Core.Characters.Spikeball, position, Quaternion.identity);
                 return this;
             case "pizza":
@@ -48,7 +48,7 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
 
     public void Handle(SpikeBallDeathMessage message)
     {
-        _waveManager.DiscountEntity("spikeball");
+        _waveManager.DiscountEntity("Spikeball");
         this.DespawnObject(_spikeBallPool, message.SpikeBall);
     }
 

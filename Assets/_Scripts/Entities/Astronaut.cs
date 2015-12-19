@@ -1,30 +1,27 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using LocalConfig = Config.Entities.Astronaut;
 
 public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<CanDashAnswers>, IHandle<PizzaEatenMessage>
 {
     private Coroutine _slowDown;
-    private bool _enableSlowDown = false;
-    private bool _canDash;
+    private bool _enableSlowDown;
 
     private Rigidbody2D _rigidbody2D;
 
     private Vector2 _location;
     private Vector2 _direction;
-    private Vector2 _bouncePosition;
 
-    [SerializeField]
-    private float _intensity = 4.0f;
-    [SerializeField]
-    private float _breakIntensity = 0.9f;
+    private float _intensity;
+    private float _breakIntensity;
 
     private Animator _animatorAst;
 
     private float _scale;
 
-    private bool _immortal = false;
-    private bool _astronautDead = false;
+    private bool _immortal;
+    private bool _astronautDead;
 
     private ParticleSystem _dashParticle;
     private ParticleSystem _immortalParticle;
@@ -44,10 +41,12 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     // Use this for initialization
     private void Start()
     {
-        _rigidbody2D = this.GetComponent<Rigidbody2D>();
-        _animatorAst = gameObject.GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _animatorAst = GetComponent<Animator>();
         SetState(State.Idle);
         _scale = transform.localScale.y;
+        _intensity = LocalConfig.DashIntensity;
+        _breakIntensity = LocalConfig.BreakDashIntensity;
         InitializeDashParticle();
         InitializeImmortalParticle();
     }

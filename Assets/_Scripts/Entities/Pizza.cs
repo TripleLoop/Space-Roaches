@@ -2,12 +2,13 @@
 using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
+using LocalConfig = Config.Entities.Pizza;
 
 public class Pizza : MonoBehaviourEx {
 
     private Rigidbody2D _rigidbody2D;
 
-    private float strenght = 75f;
+    private float _pushForce = LocalConfig.PushForce;
 
     public enum State
     {
@@ -30,7 +31,7 @@ public class Pizza : MonoBehaviourEx {
 
             case State.Moving:
                 _currentState = Moving;
-                _rigidbody2D.AddForce(Random_dir() * strenght);
+                _rigidbody2D.AddForce(Random_dir() * _pushForce);
                 break;
             case State.Death:
                 _currentState = Death;
@@ -58,8 +59,9 @@ public class Pizza : MonoBehaviourEx {
 
     private Vector2 Random_dir()
     {
-        var tempAngle = Random.Range(90, 271);
-        return new Vector2((float)Mathf.Cos(tempAngle), (float)Mathf.Sin(tempAngle));
+        var randomX = Random.Range(LocalConfig.MinDirectionX, LocalConfig.MaxDirectionX);
+        var randomY = Random.Range(LocalConfig.MinDirectionY, LocalConfig.MaxDirectionY);
+        return new Vector2(randomX, randomY);
     }
 
     private void Update()
@@ -87,4 +89,5 @@ public class Pizza : MonoBehaviourEx {
         _currentState = Idle;
         SetState(State.Moving);
     }
+
 }
