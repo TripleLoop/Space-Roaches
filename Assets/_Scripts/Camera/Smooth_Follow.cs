@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using LocalConfig = Config.Camera.Game;
 
 public class Smooth_Follow : MonoBehaviour {
-    [SerializeField]
+
     private float _dampTime;
     private Vector3 velocity = Vector3.zero;
     private Transform _target;
@@ -11,10 +11,9 @@ public class Smooth_Follow : MonoBehaviour {
 
     private Vector3 _cameraPosition;
 
-    public Smooth_Follow Initialize(float dampTime)
+    private void Start()
     {
-        _dampTime = dampTime;
-        return this;
+        _dampTime = LocalConfig.DampTime;
     }
 
     public Vector3 SendCameraPosition()
@@ -23,7 +22,7 @@ public class Smooth_Follow : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (_target && _enable)
         {

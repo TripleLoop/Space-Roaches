@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using Random = UnityEngine.Random;
+using LocalConfig = Config.SpaceRoaches;
 
 public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>
 {
@@ -22,7 +23,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private int _waveCount;
     private int _roachDeathCount;
     private bool _astronautDead;
-    private readonly int[] _speedMarks = new int[] { 15, 40, 100, 250, 600 };
 
     void Start()
     {
@@ -43,9 +43,9 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     public SpaceRoaches FasterWaveCycle()
     {
-        if (_secondsToNextWave > 3)
+        if (_secondsToNextWave > LocalConfig.SecondsBetweenFastWaves)
         {
-            _secondsToNextWave = 3;
+            _secondsToNextWave = LocalConfig.SecondsBetweenFastWaves;
         }
         return this;
     }
@@ -75,21 +75,22 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     public void Handle(RoachDeathMessage message)
     {
         _roachDeathCount++;
-        if (Time.timeScale >= 3f)
+        if (Time.timeScale >= LocalConfig.MaxTimeScale)
         {
             return;
         }
-        if (Array.Exists(_speedMarks, element => element == _roachDeathCount))
+        if (Array.Exists(LocalConfig.SpeedMarks, element => element == _roachDeathCount))
         {
-            Time.timeScale += 0.3f;
+            Time.timeScale += LocalConfig.AddedTimeScale;
             Debug.Log("Speed increased, current speed: " + Time.timeScale);
         }
     }
 
     private IEnumerator WaveCycle()
     {
-        yield return new WaitForSeconds(3f);
-        _secondsToNextWave = 10;
+        //some magic to controll the waves sorry :(
+        yield return new WaitForSeconds(LocalConfig.TimeBeforeFirstWave);
+        _secondsToNextWave = LocalConfig.SecondsBetweenWaves;
         while (true)
         {
             if (_astronautDead)
@@ -103,7 +104,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
                 yield return new WaitForSeconds(1f);
                 _secondsToNextWave--;
             }
-            _secondsToNextWave = 10;
+            _secondsToNextWave = LocalConfig.SecondsBetweenWaves;
         }
     }
 
@@ -145,7 +146,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         mainCamera.transform.parent = this.gameObject.transform;
         _smoothFollow = mainCamera.AddComponent<Smooth_Follow>();
         _mainCamera = mainCamera.GetComponent<Camera>();
-        _smoothFollow.Initialize(0.2f);
         mainCamera.AddComponent<Shake_Camera>();
         return this;
     }

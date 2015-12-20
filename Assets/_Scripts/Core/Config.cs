@@ -1,5 +1,32 @@
-﻿public static class Config
+﻿using UnityEngine;
+
+public static class Config
 {
+    public static class SpaceRoaches
+    {
+        //Score checkpoints to speed up the game
+        public static readonly int[] SpeedMarks = { 15, 40, 100, 250, 600 };
+        //max speed in the game
+        public const float MaxTimeScale = 3f;
+        //time added in each checkpoint
+        public const float AddedTimeScale = 0.3f;
+        public const float TimeBeforeFirstWave = 3f;
+        public const int SecondsBetweenWaves = 10;
+        public const int SecondsBetweenFastWaves = 3;
+    }
+
+    public static class Camera
+    {
+        public static class Game
+        {
+            public const float ZPosition = 15;
+            public const float ShakeDuration = 0.5f;
+            public const float ShakeMagnitude = 0.1f;
+            public const float DampTime = 0.2f;
+        }
+
+    }
+
     public static class Entities
     {
         public static class Astronaut
@@ -39,7 +66,7 @@
             public const float MaxValue = 20f;
             public const float MinValue = -20f;
         }
-        
+
         //Ask before changing this
         public static class EffectsSlider
         {
@@ -48,47 +75,41 @@
         }
     }
 
-    ////SPAWN CONDITIONS
-        ////Limit of elements in game
-        //public const float minSpawnElements = 5;
-        //public const float maxSpawnElements = 16;
+    public static class WaveManager //spawn conditions
+    {
+        public static class Wave
+        {
+            public const int MaxElements = 5;
+            public const int MinElements = 16;
+            //inital limit area between elements
+            public const float InitialRadius = 0.45f;
+            //tries before reducing the radius
+            public const int MaxTries = 15;
+        }
 
-        ////Max distance of creation element
-        //public const float maxRadius = 0.45f;
-        ////Number of tries before reduce radius
-        //public const float maxTries = 15;
+        public static class SpawnArea
+        {
+            public static readonly Vector2 OriginPosition = new Vector2(-6.07f, 3.26f);
+            public static readonly Vector2 EndPosition = new Vector2(5.81f, -3.12f);
+        }
 
-        ////Spawn limit of each entity
-        //public const float roachMaxCount = 15;
-        //public const float spikeBallMaxCount = 4;
-        //public const float pizzaMaxCount = 1;
+        public static class Roach
+        {
+            public const int Weight = 75;
+            public const int MaxCount = 15;
+        }
 
-        ////Weights of each entity (Probability to spawn)
-        //public const float roachWeight = 75;
-        //public const float spikeBallWeight = 23;
-        //public const float pizzaWeight = 2;
+        public static class SpikeBall
+        {
+            public const int Weight = 23;
+            public const int MaxCount = 4;
+        }
 
-        ////Cooldown to spawn another pizza after despawn
-        //public const float pizzaCooldown = 30f;
-
-
-        ////SYSTEM
-        ////z position of Camera
-        //public const float zPositionCamera = 15;
-        ////Shake of camera
-        //public const float shakeDuration = 0.5f;
-        //public const float shakeMagnitude = 0.1f;
-        ////Camera damp
-        //public const float cameraDampTime = 0.2f;
-
-        ////Score checkpoints to speed up the game
-        //public static readonly int[] speedMarks = { 15, 40, 100, 250, 600 };
-        ////Max speed game
-        //public const float maxTimeScale = 3;
-        //public const float addedTimeScale = 0.3f;
-
-        ////Time for next incoming wave
-        //public const float secondsNextWave = 10;
-        ////Time for next incoming wave if all enemies are despawned
-        //public const float secondsFastWave = 3;
+        public static class Pizza
+        {
+            public const int Weight = 2;
+            public const int MaxCount = 1;
+            public const float Cooldown = 30f;
+        }
     }
+}

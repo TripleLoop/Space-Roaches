@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Networking;
 using Random = UnityEngine.Random;
+using LocalConfig = Config.WaveManager;
 
 public class WaveManager : MonoBehaviourEx
 {
@@ -16,6 +15,9 @@ public class WaveManager : MonoBehaviourEx
 
     private Vector2 _originPosition;
     private Vector2 _endPosition;
+
+    private int _maxSpawnElements;
+    private int _minSpawnElements;
 
     private int _pizzaCount;
     private int _roachCount;
@@ -29,15 +31,17 @@ public class WaveManager : MonoBehaviourEx
 
     public WaveManager InitializeWaveManager()
     {
-        _originPosition = new Vector2(-6.07f, 3.26f);
-        _endPosition = new Vector2(5.81f, -3.12f);
+        _originPosition = LocalConfig.SpawnArea.OriginPosition;
+        _endPosition = LocalConfig.SpawnArea.EndPosition;
+        _maxSpawnElements = LocalConfig.Wave.MaxElements + 1;
+        _minSpawnElements = LocalConfig.Wave.MaxTries;
         InitializeEntitySpawner();
         return this;
     }
 
     public WaveManager EntitySpawn()
     {
-        int number = Random.Range(5, 16);
+        int number = Random.Range(_minSpawnElements, _maxSpawnElements);
         _spawnRoutine = SpawnRoutine(number);
         StartCoroutine(_spawnRoutine);
         return this;
@@ -135,13 +139,13 @@ public class WaveManager : MonoBehaviourEx
         int tries = 0;
         Vector2 testedPosition;
         Collider2D[] collidersDetected = new Collider2D[2];
-        float radius = 0.45f;
+        float radius = LocalConfig.Wave.InitialRadius;
         do
         {
             testedPosition = RandomPosition();
             colliderCount = Physics2D.OverlapCircleNonAlloc(testedPosition, radius, collidersDetected, _avoidSpawnInLayers);
             tries++;
-            if (tries >= 15)
+            if (tries >= LocalConfig.Wave.MaxTries)
             {
                 Debug.Log("Didn't find position after " + tries + " tries, reducing radius");
                 if (radius >= 0.1)
@@ -188,17 +192,17 @@ public class WaveManager : MonoBehaviourEx
     private List<EntityWeight> GetCustomWeights()
     {
         List<EntityWeight> tempweights = new List<EntityWeight>();
-        if (_spikeBallCount < 4)
+        if (_spikeBallCount < LocalConfig.SpikeBall.MaxCount)
         {
-            tempweights.Add(new EntityWeight("Spikeball", 23));
+            tempweights.Add(new EntityWeight("Spikeball", LocalConfig.SpikeBall.Weight));
         }
-        if (_pizzaCount == 0 && !_inPizzaCooldown)
+        if (_pizzaCount < LocalConfig.Pizza.MaxCount && !_inPizzaCooldown)
         {
-            tempweights.Add(new EntityWeight("pizza", 2));
+            tempweights.Add(new EntityWeight("pizza", LocalConfig.Pizza.Weight));
         }
-        if (_roachCount < 15)
+        if (_roachCount < LocalConfig.Roach.MaxCount)
         {
-            tempweights.Add(new EntityWeight("roach", 75));
+            tempweights.Add(new EntityWeight("roach", LocalConfig.Roach.Weight));
         }
         return tempweights;
     }
@@ -206,7 +210,7 @@ public class WaveManager : MonoBehaviourEx
     private IEnumerator PizzaCooldown()
     {
         _inPizzaCooldown = true;
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(LocalConfig.Pizza.Cooldown);
         _inPizzaCooldown = false;
     }
 

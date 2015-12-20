@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using LocalConfig = Config.Camera.Game;
 
 public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>
 {
 
-    private float _duration = 0.5f;
-    private float _magnitude = 0.1f;
+    private float _duration = LocalConfig.ShakeDuration;
+    private float _magnitude = LocalConfig.DampTime;
 
     private Vector3 _cameraPosition;
 
@@ -24,12 +25,10 @@ public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>
 
     public IEnumerator Shake()
     {
-
         float elapsed = 0.0f;
 
         while (elapsed < _duration)
         {
-
             elapsed += Time.deltaTime;
 
             float percentComplete = elapsed / _duration;
@@ -46,7 +45,6 @@ public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>
 
             yield return null;
         }
-
         gameObject.transform.position = new Vector3(_cameraPosition.x, _cameraPosition.y, _cameraPosition.z);
     }
 	
