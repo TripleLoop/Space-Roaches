@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using LocalConfig = Config.Audio;
 
 public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
 {
@@ -13,12 +14,17 @@ public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
 
     private bool _audioSetUp;
 
-    void Start()
+    private void Start()
     {
         if (!_audioSetUp)
         {
             Messenger.Publish(new RequestAudioStateMessage());
         }
+        _effectsSlider.maxValue = LocalConfig.EffectsSlider.MaxValue;
+        _effectsSlider.minValue = LocalConfig.EffectsSlider.MinValue;
+        _musicSlider.maxValue = LocalConfig.MusicSlider.MaxValue;
+        _musicSlider.minValue = LocalConfig.MusicSlider.MinValue;
+
     }
 
     public SettingsMenu Show(MenuCanvas.EnableDelegate enableDelegate)

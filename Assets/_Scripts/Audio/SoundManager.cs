@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         _music = SRResources.Core.Audio._Prefabs.Music.Instantiate();
         _music.transform.SetParent(this.gameObject.transform, false);
 
-	    _cancelClip = SRResources.Core.Audio.Clips.SoundEffects.BasicCancel;
+        _cancelClip = SRResources.Core.Audio.Clips.SoundEffects.BasicCancel;
         return this;
     }
 
@@ -61,15 +61,15 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         SetVolume(message.EffectsVolume, message.MusicVolume);
     }
 
-    private SoundManager SetVolume(float? effectsVolume ,float? musicVolume)
+    private SoundManager SetVolume(float? effectsVolume, float? musicVolume)
     {
         if (effectsVolume != null)
         {
-            AudioMixer.SetFloat("effectsVolume", effectsVolume.Value);
+            AudioMixer.SetFloat("effectsVolume", AudioLevelBalancer(effectsVolume.Value));
         }
         if (musicVolume != null)
         {
-            AudioMixer.SetFloat("musicVolume", musicVolume.Value);
+            AudioMixer.SetFloat("musicVolume", AudioLevelBalancer(musicVolume.Value));
         }
         return this;
     }
@@ -79,6 +79,19 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         if ((Time.time - _startTime) >= _cancelClip.length)
             return false;
         return true;
+    }
+
+    /// <summary>
+    /// Some magic is done to have proper audio levels, if it's a negative number the audio value has to be multiplied by 4
+    /// </summary>
+    /// <returns>Processed value</returns>
+    private float AudioLevelBalancer(float audioVolume)
+    {
+        if (audioVolume < 0)
+        {
+            return audioVolume * 4;
+        }
+        return audioVolume;
     }
 
 }
