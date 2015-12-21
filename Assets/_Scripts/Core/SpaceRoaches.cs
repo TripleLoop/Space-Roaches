@@ -126,7 +126,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _waveManager.Reset();
         _astronaut.Reset();
         _canvasManager.Reset();
-        StartGame();
         return this;
     }
 
