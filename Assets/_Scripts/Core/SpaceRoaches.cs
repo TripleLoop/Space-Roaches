@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
 using LocalConfig = Config.SpaceRoaches;
 
@@ -62,8 +63,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         if (_astronautDead)
         {
-            this.Reset()
-                .StartGame();
+            this.RestartGame();
         }
         else
         {
@@ -106,6 +106,13 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             }
             _secondsToNextWave = LocalConfig.SecondsBetweenWaves;
         }
+    }
+
+    private SpaceRoaches RestartGame()
+    {
+        this.Reset()
+            .StartGame();
+        return this;
     }
 
     private SpaceRoaches StartGame()
