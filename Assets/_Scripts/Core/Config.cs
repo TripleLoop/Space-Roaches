@@ -37,6 +37,7 @@ public static class Config
             public const float BreakDashIntensity = 0.8f;
             //Velocity when idle State
             public const float MinVelocity = 2f;
+            public const float ImmortalityTime = 8.0f;
         }
 
         public static class Spikeball

@@ -229,7 +229,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         _immortal = true;
         _immortalParticle.Play();
         StartCoroutine(Flash());
-        yield return new WaitForSeconds(8.0f);
+        yield return new WaitForSeconds(LocalConfig.ImmortalityTime);
         _immortal = false;
         _immortalParticle.Stop();
         Messenger.Publish(new AstronautImmortalityMessage(false));
@@ -242,7 +242,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         while (_immortal)
         {
             i += 0.5f;
-            astronautMaterial.SetFloat("_FlashAmount", Mathf.Sin(i));
+            astronautMaterial.SetFloat("_FlashAmount", Mathf.Abs(Mathf.Sin(i)));
             yield return new WaitForSeconds(0.0f);
         }
         astronautMaterial.SetFloat("_FlashAmount", 0);
