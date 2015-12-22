@@ -19,7 +19,7 @@ public static class Config
     {
         public static class Game
         {
-            public const float ZPosition = 15;
+            //public const float ZPosition = 15;
             public const float ShakeDuration = 0.5f;
             public const float ShakeMagnitude = 0.1f;
             public const float DampTime = 0.2f;
@@ -33,7 +33,7 @@ public static class Config
         {
             //Intensity Astronaut Dash
             public const float DashIntensity = 6f;
-            //Percent of intensity when break (0 = all / 1 = all)
+            //Percent of intensity when break (0 = nothing / 1 = all)
             public const float BreakDashIntensity = 0.8f;
             //Velocity when idle State
             public const float MinVelocity = 2f;

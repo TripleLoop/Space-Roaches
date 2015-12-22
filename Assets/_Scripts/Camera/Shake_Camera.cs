@@ -6,7 +6,7 @@ public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>
 {
 
     private float _duration = LocalConfig.ShakeDuration;
-    private float _magnitude = LocalConfig.DampTime;
+    private float _magnitude = LocalConfig.ShakeMagnitude;
 
     private Vector3 _cameraPosition;
 
