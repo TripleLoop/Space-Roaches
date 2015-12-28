@@ -26,6 +26,8 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private ParticleSystem _dashParticle;
     private ParticleSystem _immortalParticle;
 
+    private Material astronautMaterial;
+
     //Define Stats Machine's variables
     public enum State
     {
@@ -43,6 +45,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animatorAst = GetComponent<Animator>();
+        astronautMaterial = GetComponent<Renderer>().sharedMaterial;
         SetState(State.Idle);
         _scale = transform.localScale.y;
         _intensity = LocalConfig.DashIntensity;
