@@ -134,9 +134,15 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource AstronautExplosion {
+            public static global::TypeSafe.PrefabResource SmokeAppear {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource AstronautExplosion {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
                 }
             }
             
@@ -145,6 +151,7 @@ public sealed class SRResources {
                         new global::TypeSafe.PrefabResource("PizzaAura", "Core/Particles/PizzaAura"),
                         new global::TypeSafe.PrefabResource("RoachExplosion", "Core/Particles/RoachExplosion"),
                         new global::TypeSafe.PrefabResource("SpikeExplosion", "Core/Particles/SpikeExplosion"),
+                        new global::TypeSafe.PrefabResource("SmokeAppear", "Core/Particles/SmokeAppear"),
                         new global::TypeSafe.PrefabResource("AstronautExplosion", "Core/Particles/AstronautExplosion")});
             
             public sealed class Invin {

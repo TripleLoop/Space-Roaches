@@ -2,7 +2,7 @@
 using System.Collections;
 using PathologicalGames;
 
-public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<SpikeBallDeathMessage>, IHandle<AstronautDeathMessage>
+public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<SpikeBallDeathMessage>, IHandle<AstronautDeathMessage>, IHandle<SpawnRoachParticleMessage>
 {
 
     private SpawnPool _particlePool;
@@ -10,6 +10,8 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
     private GameObject _deathRoachParticle;
     private GameObject _deathSpikeBallParticle;
     private GameObject _deathAstronautParticle;
+
+    private GameObject _spawnRoachParticle;
 
     //private Transform _astronautTransform;
 
@@ -28,7 +30,9 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
         _deathRoachParticle = SRResources.Core.Particles.RoachExplosion;
         _deathSpikeBallParticle = SRResources.Core.Particles.SpikeExplosion;
         _deathAstronautParticle = SRResources.Core.Particles.AstronautExplosion;
-    }
+
+        _spawnRoachParticle = SRResources.Core.Particles.SmokeAppear;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,6 +54,11 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
         SpawnParticle(message.Astronaut, _deathAstronautParticle);
     }
 
+    public void Handle(SpawnRoachParticleMessage message)
+    {
+        SpawnParticle(message.Roach, _spawnRoachParticle);
+    }
+
     private SpawnParticles SpawnParticle(GameObject element, GameObject particleType)
     {
         Vector3 position = element.transform.position;
@@ -57,4 +66,6 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
         _particlePool.Spawn(emitter.GetComponent<ParticleSystem>(), position, Quaternion.identity);
         return this;
     }
+
+    
 }
