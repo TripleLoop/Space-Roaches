@@ -26,7 +26,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private ParticleSystem _dashParticle;
     private ParticleSystem _immortalParticle;
 
-    private Material astronautMaterial;
+    private Material _astronautMaterial;
 
     //Define Stats Machine's variables
     public enum State
@@ -45,11 +45,16 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animatorAst = GetComponent<Animator>();
-        astronautMaterial = GetComponent<Renderer>().sharedMaterial;
+
+        _astronautMaterial = GetComponent<Renderer>().sharedMaterial;
+        _astronautMaterial.SetFloat("_FlashAmount", 0);
+
         SetState(State.Idle);
+
         _scale = transform.localScale.y;
         _intensity = LocalConfig.DashIntensity;
         _breakIntensity = LocalConfig.BreakDashIntensity;
+
         InitializeDashParticle();
         InitializeImmortalParticle();
     }
@@ -63,6 +68,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().isKinematic = false;
+        _astronautMaterial.SetFloat("_FlashAmount", 0);
         return this;
     }
 
@@ -240,15 +246,14 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
     private IEnumerator Flash()
     {
-        Material astronautMaterial = GetComponent<Renderer>().sharedMaterial;
         float i = 0;
         while (_immortal)
         {
             i += 0.5f;
-            astronautMaterial.SetFloat("_FlashAmount", Mathf.Abs(Mathf.Sin(i)));
+            _astronautMaterial.SetFloat("_FlashAmount", Mathf.Abs(Mathf.Sin(i)));
             yield return new WaitForSeconds(0.0f);
         }
-        astronautMaterial.SetFloat("_FlashAmount", 0);
+        _astronautMaterial.SetFloat("_FlashAmount", 0);
     }
 
     private Astronaut InitializeDashParticle()
