@@ -76,6 +76,7 @@ public class DeathBall : MonoBehaviour
 
     void OnEnable()
     {
+        Debug.Log("sadsad");
         _currentState = Idle;
         SetState(State.Moving);
     }
