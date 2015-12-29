@@ -21,9 +21,9 @@ public class BackendProxy : MonoBehaviourEx, IHandle<NewScoreMessage>
         return _userAuthenticated && _authenticationDone;
     }
 
-    public BackendProxy PostScore()
+    public void Handle(NewScoreMessage message)
     {
-        return this;
+       
     }
 
     public BackendProxy Initialize()
@@ -35,8 +35,6 @@ public class BackendProxy : MonoBehaviourEx, IHandle<NewScoreMessage>
 #if UNITY_ANDROID
     public IEnumerator LogUser()
     {
-        Debug.LogError("hello");
-
         // authenticate user:
         Social.localUser.Authenticate((bool success) =>
         {
