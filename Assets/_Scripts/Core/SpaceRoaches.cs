@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
 using LocalConfig = Config.SpaceRoaches;
 
-public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<StartGameMessage>
 {
     private Camera _mainCamera;
     private GameObject _astronautObject;
@@ -38,8 +38,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeForeGround()
             .InitializeAstronaut()
             .SetReferences()
-            .AudioSetUp()
-            .StartGame();
+            .AudioSetUp();
     }
 
     public SpaceRoaches FasterWaveCycle()
@@ -84,6 +83,11 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             Time.timeScale += LocalConfig.AddedTimeScale;
             Debug.Log("Speed increased, current speed: " + Time.timeScale);
         }
+    }
+
+    public void Handle(StartGameMessage message)
+    {
+        StartGame();
     }
 
     private IEnumerator WaveCycle()

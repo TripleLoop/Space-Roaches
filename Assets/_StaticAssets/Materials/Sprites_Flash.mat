@@ -158,7 +158,7 @@ Material:
       data:
         first:
           name: _FlashAmount
-        second: 0.609044
+        second: 0
     m_Colors:
       data:
         first:
