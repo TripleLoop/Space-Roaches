@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PopUp : MonoBehaviourEx {
+public class PopUp : MonoBehaviourEx
+{
+
+    private Animator _popUpAnimator; 
 
 	// Use this for initialization
-	void Start () {
-	    
+	void Start ()
+	{
+	    _popUpAnimator = GetComponent<Animator>();
+        _popUpAnimator.SetInteger("Anim", 1);
 	}
 	
 	// Update is called once per frame
@@ -16,9 +21,6 @@ public class PopUp : MonoBehaviourEx {
     public void ClosePopUp()
     {
         Messenger.Publish(new StartGameMessage());
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);
-        }
+        _popUpAnimator.SetInteger("Anim", 2);
     }
 }

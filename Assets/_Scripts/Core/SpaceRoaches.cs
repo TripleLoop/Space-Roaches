@@ -88,6 +88,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     public void Handle(StartGameMessage message)
     {
         StartGame();
+        _astronaut.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     private IEnumerator WaveCycle()
