@@ -18,6 +18,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private Astronaut _astronaut;
     private CanvasManager _canvasManager;
     private SoundManager _soundManager;
+    private BackendProxy _backendProxy;
 
     private IEnumerator _waveCycle;
     private int _secondsToNextWave;
@@ -28,6 +29,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     void Start()
     {
         this.InitializeCamera()
+            .InitializeBackend()
             .InitializeUserInput()
             .InitializePlayerPrefsManager()
             .InitializeParticlePool()
@@ -154,6 +156,22 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _mainCamera = mainCamera.GetComponent<Camera>();
         mainCamera.AddComponent<Shake_Camera>();
         return this;
+    }
+
+    private SpaceRoaches InitializeBackend()
+    {
+        GameObject backendProxy = SRResources.Core.Base.BackendProxy.Instantiate();
+        backendProxy.name = "backendProxy";
+        backendProxy.transform.SetParent(transform);
+        _backendProxy = backendProxy.GetComponent<BackendProxy>();
+        //_backendProxy.Initialize();
+      //  StartCoroutine(LoginUser());
+        return this;
+    }
+
+    private IEnumerator LoginUser()
+    {
+        yield return _backendProxy.LogUser();
     }
 
     private SpaceRoaches InitializeUserInput()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class MainMenu : MonoBehaviourEx
@@ -8,6 +9,7 @@ public class MainMenu : MonoBehaviourEx
     private MenuCanvas _menuCanvas;
 
     private SoundManager _soundManager;
+    private BackendProxy _backendProxy;
 
     private void Start()
     {
@@ -18,7 +20,8 @@ public class MainMenu : MonoBehaviourEx
             .InitializeBackgorund()
             .InitializeCanvas()
             .SetReferences()
-            .AudioSetUp();
+            .AudioSetUp()
+            .InitializeBackend();
     }
 
     private MainMenu AudioSetUp()
@@ -34,6 +37,26 @@ public class MainMenu : MonoBehaviourEx
         Screen.autorotateToPortraitUpsideDown = false;
         Screen.orientation = ScreenOrientation.Landscape;
         return this;
+    }
+
+    private MainMenu InitializeBackend()
+    {
+        GameObject backendProxy = SRResources.Core.Base.BackendProxy.Instantiate();
+        backendProxy.name = "backendProxy";
+        backendProxy.transform.SetParent(transform);
+        _backendProxy = backendProxy.GetComponent<BackendProxy>();
+        _backendProxy.Initialize();
+        StartCoroutine(LoginUser());
+        return this;
+    }
+
+    private IEnumerator LoginUser()
+    {
+        yield return _backendProxy.LogUser();
+        if (_backendProxy.UserAuthenticated())
+        {
+            _menuCanvas.EnableButtons();
+        }
     }
 
     private MainMenu InitializePlayerPrefsManager()
@@ -72,6 +95,7 @@ public class MainMenu : MonoBehaviourEx
         GameObject eventSystem = SRResources.Menu.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
         eventSystem.transform.SetParent(transform, false);
+        _menuCanvas.DisableButtons();
         return this;
     }
 

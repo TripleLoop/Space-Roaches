@@ -907,27 +907,33 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource UserInput {
+            public static global::TypeSafe.PrefabResource BackendProxy {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource PlayerPrefsManager {
+            public static global::TypeSafe.PrefabResource UserInput {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource EntitySpawner {
+            public static global::TypeSafe.PrefabResource PlayerPrefsManager {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource Game {
+            public static global::TypeSafe.PrefabResource EntitySpawner {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[6]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource Game {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[7]));
                 }
             }
             
@@ -935,6 +941,7 @@ public sealed class SRResources {
                         new global::TypeSafe.PrefabResource("BaseCamera", "Core/Base/BaseCamera"),
                         new global::TypeSafe.PrefabResource("SoundManager", "Core/Base/SoundManager"),
                         new global::TypeSafe.PrefabResource("WaveManager", "Core/Base/WaveManager"),
+                        new global::TypeSafe.PrefabResource("BackendProxy", "Core/Base/BackendProxy"),
                         new global::TypeSafe.PrefabResource("UserInput", "Core/Base/UserInput"),
                         new global::TypeSafe.PrefabResource("PlayerPrefsManager", "Core/Base/PlayerPrefsManager"),
                         new global::TypeSafe.PrefabResource("EntitySpawner", "Core/Base/EntitySpawner"),
