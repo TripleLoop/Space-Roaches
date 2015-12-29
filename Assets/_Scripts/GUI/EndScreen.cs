@@ -84,6 +84,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             scoreCount++;
             _text.text = scoreCount.ToString();
         }
+        Messenger.Publish(new NewScoreMessage(_roachCount.GetScore()));
         _isInCountUp = false;
     }
 

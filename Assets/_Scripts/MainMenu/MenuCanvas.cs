@@ -60,7 +60,7 @@ public class MenuCanvas : MonoBehaviour
         //Debug.Log("opened _configurationButton");
     }
    
-    private MenuCanvas DisableButtons()
+    public MenuCanvas DisableButtons()
     {
         _playButton.interactable = false;
         _leaderboardButton.interactable = false;
@@ -68,7 +68,7 @@ public class MenuCanvas : MonoBehaviour
         return this;
     }
 
-    private MenuCanvas EnableButtons()
+    public MenuCanvas EnableButtons()
     {
         _playButton.interactable = true;
         _leaderboardButton.interactable = true;
