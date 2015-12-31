@@ -13,6 +13,8 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 
     private GameObject _spawnRoachParticle;
 
+    private bool _started;
+
     //private Transform _astronautTransform;
 
     public SpawnParticles Initialize(GameObject astronaut)
@@ -24,7 +26,7 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 
     // Use this for initialization
     void Start ()
-	{
+    {
 	    _particlePool = GetComponent<SpawnPool>();
 
         _deathRoachParticle = SRResources.Core.Particles.RoachExplosion;
@@ -32,10 +34,11 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
         _deathAstronautParticle = SRResources.Core.Particles.AstronautExplosion;
 
         _spawnRoachParticle = SRResources.Core.Particles.SmokeAppear;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        _started = true;
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
@@ -61,6 +64,10 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 
     private SpawnParticles SpawnParticle(GameObject element, GameObject particleType)
     {
+        if (!_started)
+        {
+            return this;
+        }
         Vector3 position = element.transform.position;
         GameObject emitter = particleType;
         _particlePool.Spawn(emitter.GetComponent<ParticleSystem>(), position, Quaternion.identity);
