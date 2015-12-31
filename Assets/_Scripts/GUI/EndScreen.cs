@@ -14,6 +14,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private IEnumerator _countUp;
 
     private bool _astronautDead = false;
+    private Animator _animator;
 
 
     public EndScreen Initialize(RoachCount roachCount)
@@ -26,6 +27,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public EndScreen Initialize()
     {
+        _animator = GetComponent<Animator>();
         return this;
     }
 
@@ -36,13 +38,27 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public void Restart()
     {
+        _animator.SetInteger("EndState", 2);
         Messenger.Publish(new RestartGameMessage());
     }
 
-    public void Handle(AstronautDeathMessage message)
+    public void AniamtionEnded()
+    {
+        if (_animator.GetInteger("EndState") == 2)
+        {
+            _animator.SetInteger("EndState", 0);
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
+
+public void Handle(AstronautDeathMessage message)
     {
         if (!_astronautDead)
         {
+            _animator.SetInteger("EndState", 1);
             _astronautDead = true;
             foreach (Transform child in transform)
             {
@@ -56,10 +72,6 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     public EndScreen Reset()
     {
         _astronautDead = false;
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);
-        }
         if (_isInCountUp)
         {
             StopCoroutine(_countUp);
@@ -92,5 +104,5 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         Initialize();
     }
-   
+
 }
