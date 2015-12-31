@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
 using LocalConfig = Config.SpaceRoaches;
 
-public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<StartGameMessage>
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>, IHandle<TutorialLoadedMessage>
 {
     private Camera _mainCamera;
     private GameObject _astronautObject;
@@ -19,12 +19,14 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private CanvasManager _canvasManager;
     private SoundManager _soundManager;
     private BackendProxy _backendProxy;
+    private PlayerPrefsManager _playerPrefsManager;
 
     private IEnumerator _waveCycle;
     private int _secondsToNextWave;
     private int _waveCount;
     private int _roachDeathCount;
     private bool _astronautDead;
+    private bool _tutorialLoaded;
 
     void Start()
     {
@@ -41,6 +43,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeAstronaut()
             .SetReferences()
             .AudioSetUp();
+          StartCoroutine(TutorialRoutine());
     }
 
     public SpaceRoaches FasterWaveCycle()
@@ -60,6 +63,17 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         Debug.Log("Speed normalized, current speed: " + Time.timeScale);
     }
 
+    public void Handle(TutorialLoadedMessage message)
+    {
+        _tutorialLoaded = true;
+    }
+
+    public void Handle(TutorialEndedMessage message)
+    {
+        StartGame();
+        _astronaut.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
     public void Handle(RestartGameMessage message)
     {
         if (_astronautDead)
@@ -70,7 +84,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         {
             Debug.Log("Should not restart!");
         }
-        
+
     }
 
     public void Handle(RoachDeathMessage message)
@@ -85,12 +99,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             Time.timeScale += LocalConfig.AddedTimeScale;
             Debug.Log("Speed increased, current speed: " + Time.timeScale);
         }
-    }
-
-    public void Handle(StartGameMessage message)
-    {
-        StartGame();
-        _astronaut.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     private IEnumerator WaveCycle()
@@ -113,6 +121,21 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             }
             _secondsToNextWave = LocalConfig.SecondsBetweenWaves;
         }
+    }
+
+    private IEnumerator TutorialRoutine()
+    {
+        while (!_tutorialLoaded)
+        {
+            yield return null;
+        }
+        if (_playerPrefsManager.HasSeenTutorial())
+        {
+            StartGame();
+            _astronaut.GetComponent<SpriteRenderer>().enabled = true;
+            yield break;
+        }
+        Messenger.Publish(new ShowTutorialMessage());
     }
 
     private SpaceRoaches RestartGame()
@@ -170,7 +193,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         backendProxy.transform.SetParent(transform);
         _backendProxy = backendProxy.GetComponent<BackendProxy>();
         //_backendProxy.Initialize();
-      //  StartCoroutine(LoginUser());
+        //StartCoroutine(LoginUser());
         return this;
     }
 
@@ -259,7 +282,8 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         GameObject playerPrefsManager = SRResources.Core.Base.PlayerPrefsManager.Instantiate();
         playerPrefsManager.name = "playerPrefsManager";
         playerPrefsManager.transform.SetParent(transform);
-        playerPrefsManager.GetComponent<PlayerPrefsManager>().Initialize();
+        _playerPrefsManager = playerPrefsManager.GetComponent<PlayerPrefsManager>();
+        _playerPrefsManager.Initialize();
         return this;
     }
 
@@ -269,4 +293,5 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         Messenger.Publish(new PlayMusicMessage(SRResources.Core.Audio.Clips.Music.MainGame));
         return this;
     }
+
 }

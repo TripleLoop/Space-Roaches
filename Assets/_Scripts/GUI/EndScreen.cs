@@ -14,8 +14,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private IEnumerator _countUp;
 
     private bool _astronautDead = false;
-
-    private Animator _endScreenAnimator;
+    private Animator _animator;
 
 
     public EndScreen Initialize(RoachCount roachCount)
@@ -28,7 +27,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public EndScreen Initialize()
     {
-        _endScreenAnimator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         return this;
     }
 
@@ -39,20 +38,32 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public void Restart()
     {
+        _animator.SetInteger("EndState", 2);
         Messenger.Publish(new RestartGameMessage());
     }
 
-    public void Handle(AstronautDeathMessage message)
+    public void AniamtionEnded()
+    {
+        if (_animator.GetInteger("EndState") == 2)
+        {
+            _animator.SetInteger("EndState", 0);
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
+
+public void Handle(AstronautDeathMessage message)
     {
         if (!_astronautDead)
         {
+            _animator.SetInteger("EndState", 1);
             _astronautDead = true;
-            _endScreenAnimator.SetInteger("Anim", 1);
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(true);
             }
-            
             _countUp = CountUp();
             StartCoroutine(_countUp);
         }
@@ -61,16 +72,10 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     public EndScreen Reset()
     {
         _astronautDead = false;
-        _endScreenAnimator.SetInteger("Anim", 0);
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(false);
-        }
         if (_isInCountUp)
         {
             StopCoroutine(_countUp);
         }
-        _endScreenAnimator.Stop();
         return this;
     }
 
@@ -99,5 +104,5 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         Initialize();
     }
-   
+
 }
