@@ -59,6 +59,15 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         InitializeImmortalParticle();
     }
 
+    public void Kill()
+    {
+        if (_immortal)
+        {
+            return;
+        }
+        SetState(State.Die);
+    }
+
     public Astronaut Reset()
     {
         //set stating values
@@ -158,16 +167,20 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
     private void Die(){}
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        if (coll.gameObject.CompareTag(SRTags.Spikeball))
+        if (otherCollider.gameObject.CompareTag(SRTags.Spikeball))
         {
             if (_immortal)
             {
-                Messenger.Publish(new SpikeBallDeathMessage(coll.gameObject));
+                otherCollider.GetComponent<DeathBall>().Kill();
                 return;
             }
-            SetState(State.Die);
+        }
+        if (otherCollider.CompareTag(SRTags.Roach))
+        {
+            otherCollider.GetComponent<Roach>().Kill();
+            return;
         }
     }
 
@@ -195,7 +208,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
             yield return new WaitForSeconds(0.1f);
             _rigidbody2D.velocity *= _breakIntensity;
         }
-        
         SetState(State.Moving);
     }
 
@@ -275,4 +287,5 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     {
         _currentState();
     }
+  
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 using LocalConfig = Config.Entities.Spikeball;
 
-public class DeathBall : MonoBehaviour
+public class DeathBall : MonoBehaviourEx, IKillable
 {
     private Rigidbody2D _rigidbody2D;
 
@@ -19,6 +21,11 @@ public class DeathBall : MonoBehaviour
 
     private Action _currentState;
     public State CurrentStateName;
+
+    public void Kill()
+    {
+        Messenger.Publish(new SpikeBallDeathMessage(gameObject));
+    }
 
     private void SetState(State state)
     {
@@ -57,6 +64,32 @@ public class DeathBall : MonoBehaviour
 
     }
 
+   
+    private void Update()
+    {
+        _currentState();
+    }
+
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if (otherCollider.CompareTag(SRTags.Player))
+        {
+            otherCollider.GetComponent<Astronaut>().Kill();
+            return;
+        }
+    }
+
+    private new void Awake()
+    {
+        _rigidbody2D = this.GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        _currentState = Idle;
+        SetState(State.Moving);
+    }
+
     private Vector2 Random_dir()
     {
         var randomX = Random.Range(LocalConfig.MinDirectionX, LocalConfig.MaxDirectionX);
@@ -64,21 +97,5 @@ public class DeathBall : MonoBehaviour
         return new Vector2(randomX, randomY);
     }
 
-    private void Update()
-    {
-        _currentState();
-    }
-
-    private void Awake()
-    {
-        _rigidbody2D = this.GetComponent<Rigidbody2D>();
-    }
-
-    void OnEnable()
-    {
-        Debug.Log("sadsad");
-        _currentState = Idle;
-        SetState(State.Moving);
-    }
 
 }

@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Roach : MonoBehaviourEx
+public class Roach : MonoBehaviourEx, IKillable
+
 {
     private ParticleSystem _spawnParticle;
 
-    private void OnTriggerEnter2D(Collider2D otherCollider)
+    public void Kill()
     {
-        if (otherCollider.CompareTag(SRTags.Player))
-        {
-            Messenger.Publish(new RoachDeathMessage(gameObject));
-            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.MediumHit));
-            return;
-        }
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.MediumHit));
+        Messenger.Publish(new RoachDeathMessage(gameObject));
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         StartCoroutine(Spawn());
     }
@@ -25,4 +22,6 @@ public class Roach : MonoBehaviourEx
         Messenger.Publish(new SpawnRoachParticleMessage(gameObject));
         yield return new WaitForSeconds(0.5f);
     }
+
+
 }
