@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MainMenu : MonoBehaviourEx
+public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
 {
 
     private Camera _mainCamera;
@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviourEx
 
     private SoundManager _soundManager;
     private BackendProxy _backendProxy;
+    private PlayerPrefsManager _playerPrefsManager;
 
     private void Start()
     {
@@ -22,6 +23,19 @@ public class MainMenu : MonoBehaviourEx
             .SetReferences()
             .AudioSetUp()
             .InitializeBackend();
+    }
+
+    public void Handle(PublishScoreMessage message)
+    {
+        int score = _playerPrefsManager.GetScore();
+        if (!_playerPrefsManager.ScorePublished)
+        {
+            _backendProxy.SetScore(score);
+            _playerPrefsManager.ScorePublished = true;
+            return;
+        }
+        _backendProxy.ShowLeaderboard();
+        return;
     }
 
     private MainMenu AudioSetUp()
@@ -64,7 +78,8 @@ public class MainMenu : MonoBehaviourEx
         GameObject playerPrefsManager = SRResources.Core.Base.PlayerPrefsManager.Instantiate();
         playerPrefsManager.name = "playerPrefsManager";
         playerPrefsManager.transform.SetParent(transform);
-        playerPrefsManager.GetComponent<PlayerPrefsManager>().Initialize();
+        _playerPrefsManager = playerPrefsManager.GetComponent<PlayerPrefsManager>();
+        _playerPrefsManager.Initialize();
         return this;
     }
 

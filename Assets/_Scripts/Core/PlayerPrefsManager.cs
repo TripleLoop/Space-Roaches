@@ -2,11 +2,13 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMessage>, IHandle<AudioStateMessage>
+public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMessage>, IHandle<AudioStateMessage>, IHandle<NewScoreMessage>
 {
     private float _effectsVolume;
     private float _musicVolume;
     private int _tutorialSeen;
+    private int _ownHighScore;
+    private int _scorePublished;
 
     public PlayerPrefsManager Initialize()
     {
@@ -15,15 +17,29 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         return this;
     }
 
-    public bool HasSeenTutorial()
+    public int GetScore()
     {
-        if (_tutorialSeen == 0)
+        return _ownHighScore;
+    }
+
+    public bool TutorialSeen
+    {
+        get { return _tutorialSeen == 1; }
+        set
         {
-            _tutorialSeen = 1;
-            PlayerPrefs.SetInt("_tutorialSeen", 1);
-            return false;
+            _tutorialSeen = value ? 1 : 0;
+            PlayerPrefs.SetInt("_tutorialSeen", _tutorialSeen);
         }
-        return true;
+    }
+
+    public bool ScorePublished
+    {
+        get { return _scorePublished == 1; }
+        set
+        {
+            _scorePublished = value ? 1 : 0;
+            PlayerPrefs.SetInt("_scorePublished", _scorePublished);
+        }
     }
 
     public void Handle(RequestAudioStateMessage message)
@@ -43,11 +59,22 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         }
     }
 
+    public void Handle(NewScoreMessage message)
+    {
+        if (message.Score > _ownHighScore)
+        {
+            PlayerPrefs.SetInt("_ownHighScore", message.Score);
+            ScorePublished = false;
+        }
+    }
+
     private PlayerPrefsManager InitializeValues()
     {
         _effectsVolume = PlayerPrefs.GetFloat("_effectsVolume");
         _musicVolume = PlayerPrefs.GetFloat("_musicVolume");
         _tutorialSeen = PlayerPrefs.GetInt("_tutorialSeen");
+        _ownHighScore = PlayerPrefs.GetInt("_ownHighScore");
+        _scorePublished = PlayerPrefs.GetInt("_scorePublished");
         return this;
     }
 
@@ -65,7 +92,15 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         {
             PlayerPrefs.SetInt("_tutorialSeen", 0);
         }
+        if (!PlayerPrefs.HasKey("_ownHighScore"))
+        {
+            PlayerPrefs.SetInt("_ownHighScore", 0);
+        }
+        if (!PlayerPrefs.HasKey("_scorePublished"))
+        {
+            PlayerPrefs.SetInt("_scorePublished", 0);
+        }
         return this;
     }
-
+  
 }

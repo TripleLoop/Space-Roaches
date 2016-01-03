@@ -129,13 +129,14 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         {
             yield return null;
         }
-        if (_playerPrefsManager.HasSeenTutorial())
+        if (!_playerPrefsManager.TutorialSeen)
         {
             StartGame();
             _astronaut.GetComponent<SpriteRenderer>().enabled = true;
             yield break;
         }
         Messenger.Publish(new ShowTutorialMessage());
+        _playerPrefsManager.TutorialSeen = true;
     }
 
     private SpaceRoaches RestartGame()

@@ -83,9 +83,9 @@ public void Handle(AstronautDeathMessage message)
     {
         _isInCountUp = true;
         int scoreCount = 0;
-        int numDeathRoaches = _roachCount.GetScore();
+        var numDeathRoaches = _roachCount.GetScore();
         _text.text = scoreCount.ToString();
-
+        Messenger.Publish(new NewScoreMessage(numDeathRoaches));
         while (true)
         {
             if (scoreCount >= numDeathRoaches)
@@ -96,7 +96,6 @@ public void Handle(AstronautDeathMessage message)
             scoreCount++;
             _text.text = scoreCount.ToString();
         }
-        Messenger.Publish(new NewScoreMessage(_roachCount.GetScore()));
         _isInCountUp = false;
     }
 

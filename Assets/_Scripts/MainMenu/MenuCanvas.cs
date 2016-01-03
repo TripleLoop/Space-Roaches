@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using PathologicalGames;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuCanvas : MonoBehaviour
+public class MenuCanvas : MonoBehaviourEx
 {
     //Menu Buttons
     [SerializeField]
@@ -45,9 +46,10 @@ public class MenuCanvas : MonoBehaviour
     public void Leaderboard()
     {
         //DisableButtons();
-        DisableButtons();
-        _leaderboardMenu.Show(_enableDelegate);
+        //DisableButtons();
+        //_leaderboardMenu.Show(_enableDelegate);
         //Debug.Log("opened _leaderboardButton");
+        Messenger.Publish(new PublishScoreMessage());
     }
 
     /// <summary>

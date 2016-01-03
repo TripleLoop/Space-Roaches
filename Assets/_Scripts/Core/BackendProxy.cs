@@ -4,7 +4,7 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
-public class BackendProxy : MonoBehaviourEx, IHandle<NewScoreMessage>
+public class BackendProxy : MonoBehaviourEx
 {
     private bool _userAuthenticated;
     private bool _authenticationDone;
@@ -21,9 +21,14 @@ public class BackendProxy : MonoBehaviourEx, IHandle<NewScoreMessage>
         return _userAuthenticated && _authenticationDone;
     }
 
-    public void Handle(NewScoreMessage message)
+    public BackendProxy ShowLeaderboard()
     {
-       
+        return this;
+    }
+
+    public BackendProxy SetScore(int score)
+    {
+        return this;
     }
 
     public BackendProxy Initialize()
@@ -58,8 +63,6 @@ public class BackendProxy : MonoBehaviourEx, IHandle<NewScoreMessage>
         return _userAuthenticated && _authenticationDone;
     }
 
-   
-
     public BackendProxy Initialize()
     {
         PlayGamesPlatform.Activate();
@@ -68,14 +71,25 @@ public class BackendProxy : MonoBehaviourEx, IHandle<NewScoreMessage>
 
     public void Handle(NewScoreMessage message)
     {
-        Social.ReportScore(message.Score, SpaceRoachesGID.leaderboard_best_roach_killer, (bool success) =>
-        {
-            Debug.Log(success ? "sucessful posting" : "failed posting");
-            if (success)
-            {
-                ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
-            }
-        });
+
+    }
+
+    public BackendProxy SetScore(int score)
+    {
+        Social.ReportScore(score, SpaceRoachesGID.leaderboard_best_roach_killer, (bool success) =>
+       {
+           if (success)
+           {
+               ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
+           }
+       });
+        return this;
+    }
+
+    public BackendProxy ShowLeaderboard()
+    {
+        ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
+        return this;
     }
 #endif
 
