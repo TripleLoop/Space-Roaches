@@ -30,7 +30,7 @@ public class SpawnParticles : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHand
 	    _particlePool = GetComponent<SpawnPool>();
 
         _deathRoachParticle = SRResources.Core.Particles.RoachExplosion;
-        _deathSpikeBallParticle = SRResources.Core.Particles.SpikeExplosion;
+        _deathSpikeBallParticle = SRResources.Core.Particles.SpikeExplosionP.SpikeExplosion;
         _deathAstronautParticle = SRResources.Core.Particles.AstronautExplosion;
 
         _spawnRoachParticle = SRResources.Core.Particles.SmokeAppear;
