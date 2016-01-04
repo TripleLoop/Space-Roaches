@@ -42,19 +42,16 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         Messenger.Publish(new RestartGameMessage());
     }
 
-    public void AniamtionEnded()
+    public void AnimationEnded()
     {
-        if (_animator.GetInteger("EndState") == 2)
+        _animator.SetInteger("EndState", 0);
+        foreach (Transform child in transform)
         {
-            _animator.SetInteger("EndState", 0);
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
+            child.gameObject.SetActive(false);
         }
     }
 
-public void Handle(AstronautDeathMessage message)
+    public void Handle(AstronautDeathMessage message)
     {
         if (!_astronautDead)
         {
