@@ -19,7 +19,8 @@ public class MenuCanvas : MonoBehaviourEx
 
     public delegate MenuCanvas EnableDelegate();
     private EnableDelegate _enableDelegate;
-    
+    private AlertPopUp _alertPopUp;
+
 
     public MenuCanvas Initialize(Camera mainCamera)
     {
@@ -27,9 +28,19 @@ public class MenuCanvas : MonoBehaviourEx
         _settingsMenu = GetComponentInChildren<SettingsMenu>();
         _leaderboardMenu = GetComponentInChildren<LeaderboardMenu>();
         _enableDelegate = EnableButtons;
+        InitializeAlertPopUp();
         return this;
     }
-    
+
+    private MenuCanvas InitializeAlertPopUp()
+    {
+        GameObject alertPopUp = SRResources.Core.UI.AlertPopUp.Instantiate();
+        alertPopUp.transform.SetParent(gameObject.transform, false);
+        _alertPopUp = alertPopUp.GetComponent<AlertPopUp>();
+        _alertPopUp.Initialize();
+        return this;
+    }
+
     /// <summary>
     /// Function executed by pressing the _play button
     /// </summary>

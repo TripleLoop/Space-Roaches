@@ -884,68 +884,33 @@ public sealed class SRResources {
             }
         }
         
-        public sealed class Base {
+        public sealed class UI {
             
-            private Base() {
+            private UI() {
             }
             
-            public static global::TypeSafe.PrefabResource BaseCamera {
+            public static global::TypeSafe.PrefabResource AlertPopUp {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[0]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource SoundManager {
+            public static global::TypeSafe.PrefabResource EventSystem {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource WaveManager {
+            public static global::TypeSafe.PrefabResource Canvas {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource BackendProxy {
-                get {
-                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
-                }
-            }
-            
-            public static global::TypeSafe.PrefabResource UserInput {
-                get {
-                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
-                }
-            }
-            
-            public static global::TypeSafe.PrefabResource PlayerPrefsManager {
-                get {
-                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
-                }
-            }
-            
-            public static global::TypeSafe.PrefabResource EntitySpawner {
-                get {
-                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[6]));
-                }
-            }
-            
-            public static global::TypeSafe.PrefabResource Game {
-                get {
-                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[7]));
-                }
-            }
-            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
-                        new global::TypeSafe.PrefabResource("BaseCamera", "Core/Base/BaseCamera"),
-                        new global::TypeSafe.PrefabResource("SoundManager", "Core/Base/SoundManager"),
-                        new global::TypeSafe.PrefabResource("WaveManager", "Core/Base/WaveManager"),
-                        new global::TypeSafe.PrefabResource("BackendProxy", "Core/Base/BackendProxy"),
-                        new global::TypeSafe.PrefabResource("UserInput", "Core/Base/UserInput"),
-                        new global::TypeSafe.PrefabResource("PlayerPrefsManager", "Core/Base/PlayerPrefsManager"),
-                        new global::TypeSafe.PrefabResource("EntitySpawner", "Core/Base/EntitySpawner"),
-                        new global::TypeSafe.PrefabResource("Game", "Core/Base/Game")});
+                        new global::TypeSafe.PrefabResource("AlertPopUp", "Core/UI/AlertPopUp"),
+                        new global::TypeSafe.PrefabResource("EventSystem", "Core/UI/EventSystem"),
+                        new global::TypeSafe.PrefabResource("Canvas", "Core/UI/Canvas")});
             
             /// <summary>
             /// Return a list of all resources in this folder.
@@ -1008,26 +973,68 @@ public sealed class SRResources {
             }
         }
         
-        public sealed class UI {
+        public sealed class Base {
             
-            private UI() {
+            private Base() {
             }
             
-            public static global::TypeSafe.PrefabResource EventSystem {
+            public static global::TypeSafe.PrefabResource BaseCamera {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[0]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource Canvas {
+            public static global::TypeSafe.PrefabResource SoundManager {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
                 }
             }
             
+            public static global::TypeSafe.PrefabResource WaveManager {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource BackendProxy {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource UserInput {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource PlayerPrefsManager {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource EntitySpawner {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[6]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource Game {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[7]));
+                }
+            }
+            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
-                        new global::TypeSafe.PrefabResource("EventSystem", "Core/UI/EventSystem"),
-                        new global::TypeSafe.PrefabResource("Canvas", "Core/UI/Canvas")});
+                        new global::TypeSafe.PrefabResource("BaseCamera", "Core/Base/BaseCamera"),
+                        new global::TypeSafe.PrefabResource("SoundManager", "Core/Base/SoundManager"),
+                        new global::TypeSafe.PrefabResource("WaveManager", "Core/Base/WaveManager"),
+                        new global::TypeSafe.PrefabResource("BackendProxy", "Core/Base/BackendProxy"),
+                        new global::TypeSafe.PrefabResource("UserInput", "Core/Base/UserInput"),
+                        new global::TypeSafe.PrefabResource("PlayerPrefsManager", "Core/Base/PlayerPrefsManager"),
+                        new global::TypeSafe.PrefabResource("EntitySpawner", "Core/Base/EntitySpawner"),
+                        new global::TypeSafe.PrefabResource("Game", "Core/Base/Game")});
             
             /// <summary>
             /// Return a list of all resources in this folder.
@@ -1287,8 +1294,8 @@ public sealed class SRResources {
             tmp.AddRange(Particles.GetContentsRecursive());
             tmp.AddRange(Audio.GetContentsRecursive());
             tmp.AddRange(Pools.GetContentsRecursive());
-            tmp.AddRange(Base.GetContentsRecursive());
             tmp.AddRange(UI.GetContentsRecursive());
+            tmp.AddRange(Base.GetContentsRecursive());
             tmp.AddRange(Environment.GetContentsRecursive());
             tmp.AddRange(Characters.GetContentsRecursive());
             __ts_internal_recursiveLookupCache = tmp;
