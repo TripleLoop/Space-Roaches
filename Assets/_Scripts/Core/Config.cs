@@ -20,7 +20,7 @@ public static class Config
         public static class Game
         {
             //public const float ZPosition = 15;
-            public const float ShakeDuration = 0.5f;
+            public const float ShakeDuration = 0.25f;
             public const float ShakeMagnitude = 0.1f;
             public const float DampTime = 0.2f;
         }

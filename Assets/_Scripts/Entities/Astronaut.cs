@@ -261,7 +261,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         float i = 0;
         while (_immortal)
         {
-            i += 0.5f;
+            i += 0.25f;
             _astronautMaterial.SetFloat("_FlashAmount", Mathf.Abs(Mathf.Sin(i)));
             yield return new WaitForSeconds(0.0f);
         }
