@@ -18,7 +18,12 @@ public class BackendProxy : MonoBehaviourEx
 
     public bool UserAuthenticated()
     {
-        return _userAuthenticated && _authenticationDone;
+        return _userAuthenticated;
+    }
+
+    public bool AuthenticationDone()
+    {
+        return _authenticationDone;
     }
 
     public BackendProxy ShowLeaderboard()

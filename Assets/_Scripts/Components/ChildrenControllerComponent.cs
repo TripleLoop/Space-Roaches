@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ChildrenControllerComponent : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public ChildrenControllerComponent EnableChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        return this;
+    }
+
+    public ChildrenControllerComponent DisableChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        return this;
+    }
+
 }

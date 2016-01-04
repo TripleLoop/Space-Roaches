@@ -67,10 +67,19 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
     private IEnumerator LoginUser()
     {
         yield return _backendProxy.LogUser();
-        if (_backendProxy.UserAuthenticated())
+        if (_backendProxy.AuthenticationDone())
         {
+            if (_backendProxy.UserAuthenticated())
+            {
+                _menuCanvas.EnableButtons();
+                yield break;
+            }
+            Messenger.Publish(new ShowAlertMessage("Without authentication you are not going \n to be able to use the online features"));
             _menuCanvas.EnableButtons();
+            yield break;
         }
+        Messenger.Publish(new ShowAlertMessage("Connection failed try again later \n to be able to use the online features"));
+        _menuCanvas.EnableButtons();
     }
 
     private MainMenu InitializePlayerPrefsManager()
