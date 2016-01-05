@@ -4,8 +4,9 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
+public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<EndScreenTextSelected>
 {
+    private Text _textCount;
     private Text _text;
 
     private RoachCount _roachCount;
@@ -16,12 +17,12 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private bool _astronautDead = false;
     private Animator _animator;
 
-
     public EndScreen Initialize(RoachCount roachCount)
     {
         if (roachCount == null) return this;
         _roachCount = roachCount;
-        _text = GetComponentsInChildren<Text>(true)[0];
+        _textCount = GetComponentsInChildren<Text>(true)[0];
+        _text = GetComponentsInChildren<Text>(true)[1];
         return this;
     }
 
@@ -80,18 +81,19 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         _isInCountUp = true;
         int scoreCount = 0;
-        var numDeathRoaches = _roachCount.GetScore();
-        _text.text = scoreCount.ToString();
+         var numDeathRoaches = _roachCount.GetScore();
+        _textCount.text = scoreCount.ToString();
         Messenger.Publish(new NewScoreMessage(numDeathRoaches));
         while (true)
         {
             if (scoreCount >= numDeathRoaches)
             {
+                Messenger.Publish(new ScoreCountFinished(numDeathRoaches));
                 break;
             }
             yield return new WaitForSeconds(0.05f);
             scoreCount++;
-            _text.text = scoreCount.ToString();
+            _textCount.text = scoreCount.ToString();
         }
         _isInCountUp = false;
     }
@@ -101,4 +103,8 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         Initialize();
     }
 
+    public void Handle(EndScreenTextSelected message)
+    {
+        _text.text = message.Text;
+    }
 }

@@ -320,8 +320,9 @@ GameObject:
   m_Component:
   - 224: {fileID: 22483440}
   - 225: {fileID: 22501060}
-  - 114: {fileID: 11499672}
   - 95: {fileID: 9598582}
+  - 114: {fileID: 11499672}
+  - 114: {fileID: 11439004}
   m_Layer: 5
   m_Name: EndScreen
   m_TagString: Untagged
@@ -791,6 +792,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11439004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bbbcf04f382d1d4e915361666a9d552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11448028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1027,7 +1039,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Not bad for a limbless person
+  m_Text: ' '
 --- !u!114 &11465744
 MonoBehaviour:
   m_ObjectHideFlags: 1
