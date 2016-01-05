@@ -8,12 +8,26 @@ public class BackendProxy : MonoBehaviourEx
 {
     private bool _userAuthenticated;
     private bool _authenticationDone;
+    private bool _scorePosted;
+    private bool _postingDone;
 #if UNITY_STANDALONE
     public IEnumerator LogUser()
     {
         _userAuthenticated = true;
         _authenticationDone = true;
         yield return null;
+    }
+
+    public IEnumerator PublishScore(int score)
+    {
+        _scorePosted = true;
+        _postingDone = true;
+        yield return null;
+    }
+
+    public IEnumerator ShowLeaderboard()
+    {
+        yield break;
     }
 
     public bool UserAuthenticated()
@@ -26,14 +40,14 @@ public class BackendProxy : MonoBehaviourEx
         return _authenticationDone;
     }
 
-    public BackendProxy ShowLeaderboard()
+    public bool ScorePosted()
     {
-        return this;
+        return _scorePosted;
     }
 
-    public BackendProxy SetScore(int score)
+    public bool PostingDone()
     {
-        return this;
+        return _postingDone;
     }
 
     public BackendProxy Initialize()
@@ -63,9 +77,46 @@ public class BackendProxy : MonoBehaviourEx
         }
     }
 
+    public IEnumerator PublishScore(int score)
+    {
+        Social.ReportScore(score, SpaceRoachesGID.leaderboard_best_roach_killer, (bool success) =>
+       {
+           if (success)
+           {
+              _scorePosted = true;
+           }
+           _postingDone = true;
+       });
+        while(!_postingDone){
+            _postingDone = false;
+            yield return null;
+        }
+    }
+    
+    public IEnumerator ShowLeaderboard()
+    {
+        ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
+        yield break;
+    }
+
     public bool UserAuthenticated()
     {
-        return _userAuthenticated && _authenticationDone;
+        return _userAuthenticated;
+    }
+
+    public bool AuthenticationDone()
+    {
+        return _authenticationDone;
+    }
+
+     public bool ScorePosted()
+    {
+        return _scorePosted;
+    }
+
+    public bool PostingDone()
+    {
+        return _postingDone;
     }
 
     public BackendProxy Initialize()
@@ -74,28 +125,12 @@ public class BackendProxy : MonoBehaviourEx
         return this;
     }
 
+
     public void Handle(NewScoreMessage message)
     {
 
     }
-
-    public BackendProxy SetScore(int score)
-    {
-        Social.ReportScore(score, SpaceRoachesGID.leaderboard_best_roach_killer, (bool success) =>
-       {
-           if (success)
-           {
-               ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
-           }
-       });
-        return this;
-    }
-
-    public BackendProxy ShowLeaderboard()
-    {
-        ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
-        return this;
-    }
+  
 #endif
 
 }

@@ -18,8 +18,10 @@ public class MenuCanvas : MonoBehaviourEx
 
     public delegate MenuCanvas EnableDelegate();
     private EnableDelegate _enableDelegate;
-    private AlertPopUp _alertPopUp;
 
+    //Helpers
+    private AlertPopUp _alertPopUp;
+    private LoadingScreen _loadingScreen;
 
     public MenuCanvas Initialize(Camera mainCamera)
     {
@@ -27,16 +29,8 @@ public class MenuCanvas : MonoBehaviourEx
         _settingsMenu = GetComponentInChildren<SettingsMenu>();
         _leaderboardMenu = GetComponentInChildren<LeaderboardMenu>();
         _enableDelegate = EnableButtons;
-        InitializeAlertPopUp();
-        return this;
-    }
-
-    private MenuCanvas InitializeAlertPopUp()
-    {
-        GameObject alertPopUp = SRResources.Core.UI.AlertPopUp.Instantiate();
-        alertPopUp.transform.SetParent(gameObject.transform, false);
-        _alertPopUp = alertPopUp.GetComponent<AlertPopUp>();
-        _alertPopUp.Initialize();
+        InitializeAlertPopUp()
+            .InitializeLoadingScreen();
         return this;
     }
 
@@ -71,7 +65,15 @@ public class MenuCanvas : MonoBehaviourEx
         _settingsMenu.Show(_enableDelegate);
         //Debug.Log("opened _configurationButton");
     }
-   
+
+    public MenuCanvas EnableButtons()
+    {
+        _playButton.interactable = true;
+        _leaderboardButton.interactable = true;
+        _configurationButton.interactable = true;
+        return this;
+    }
+
     public MenuCanvas DisableButtons()
     {
         _playButton.interactable = false;
@@ -80,11 +82,33 @@ public class MenuCanvas : MonoBehaviourEx
         return this;
     }
 
-    public MenuCanvas EnableButtons()
+    public MenuCanvas EnableLoading()
     {
-        _playButton.interactable = true;
-        _leaderboardButton.interactable = true;
-        _configurationButton.interactable = true;
+        _loadingScreen.Enable();
+        return this;
+    }
+
+    public MenuCanvas DisableLoading()
+    {
+        _loadingScreen.Disable();
+        return this;
+    }
+
+    private MenuCanvas InitializeAlertPopUp()
+    {
+        GameObject alertPopUp = SRResources.Core.UI.AlertPopUp.Instantiate();
+        alertPopUp.transform.SetParent(gameObject.transform, false);
+        _alertPopUp = alertPopUp.GetComponent<AlertPopUp>();
+        _alertPopUp.Initialize();
+        return this;
+    }
+
+    private MenuCanvas InitializeLoadingScreen()
+    {
+        GameObject loadingScreen = SRResources.Core.UI.LoadingScreen.Instantiate();
+        loadingScreen.transform.SetParent(gameObject.transform, false);
+        _loadingScreen = loadingScreen.GetComponent<LoadingScreen>();
+        _loadingScreen.Initialize();
         return this;
     }
 }

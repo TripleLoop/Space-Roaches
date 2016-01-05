@@ -3,13 +3,24 @@ using System.Collections;
 
 public class LoadingScreen : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private ChildrenControllerComponent _childrenController;
+
+    public LoadingScreen Initialize()
+    {
+        _childrenController = gameObject.AddComponent<ChildrenControllerComponent>();
+        _childrenController.DisableChildren();
+        return this;
+    }
+
+    public LoadingScreen Enable()
+    {
+        _childrenController.EnableChildren();
+        return this;
+    }
+
+    public LoadingScreen Disable()
+    {
+        _childrenController.DisableChildren();
+        return this;
+    }
 }

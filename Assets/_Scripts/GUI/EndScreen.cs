@@ -16,7 +16,6 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private bool _astronautDead = false;
     private Animator _animator;
 
-
     public EndScreen Initialize(RoachCount roachCount)
     {
         if (roachCount == null) return this;

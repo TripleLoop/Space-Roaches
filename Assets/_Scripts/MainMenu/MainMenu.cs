@@ -14,28 +14,68 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
 
     private void Start()
     {
-        this.Initialize()
-            .InitializeCamera()
+        this.InitializeBackend()
             .InitializePlayerPrefsManager()
             .InitializeSoundManager()
             .InitializeBackgorund()
             .InitializeCanvas()
+            .InitializeCamera()
             .SetReferences()
-            .AudioSetUp()
-            .InitializeBackend();
+            .Launch();
     }
+
 
     public void Handle(PublishScoreMessage message)
     {
-        int score = _playerPrefsManager.GetScore();
+        if (!ConnectionError())
+        {
+            StartCoroutine(PublishScoreProcess());
+        }
+        return;
+    }
+
+    private IEnumerator LoginUser()
+    {
+        _menuCanvas.EnableLoading();
+        yield return _backendProxy.LogUser();
+        _menuCanvas.DisableLoading();
+        ConnectionError();
+        _menuCanvas.EnableButtons();
+        yield break;
+    }
+
+    private IEnumerator PublishScoreProcess()
+    {
+        _menuCanvas.EnableLoading();
         if (!_playerPrefsManager.ScorePublished)
         {
-            _backendProxy.SetScore(score);
-            _playerPrefsManager.ScorePublished = true;
-            return;
+            int score = _playerPrefsManager.GetScore();
+            yield return _backendProxy.PublishScore(score);
         }
-        _backendProxy.ShowLeaderboard();
-        return;
+        yield return _backendProxy.ShowLeaderboard();
+        _menuCanvas.DisableLoading();
+    }
+
+    private bool ConnectionError()
+    {
+        if (!_backendProxy.AuthenticationDone() && !_backendProxy.UserAuthenticated())
+        {
+            Messenger.Publish(new ShowAlertMessage("Connection failed try again later \n to be able to use the online features"));
+            return false;
+        }
+        if (_backendProxy.AuthenticationDone() && !_backendProxy.UserAuthenticated())
+        {
+            Messenger.Publish(new ShowAlertMessage("Without authentication you are not going \n to be able to use the online features"));
+            return false;
+        }
+        return true;
+    }
+
+    private MainMenu Launch()
+    {
+        AudioSetUp();
+        StartCoroutine(LoginUser());
+        return this;
     }
 
     private MainMenu AudioSetUp()
@@ -45,11 +85,9 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         return this;
     }
 
-    private MainMenu Initialize()
+    private MainMenu SetReferences()
     {
-        Screen.autorotateToPortrait = false;
-        Screen.autorotateToPortraitUpsideDown = false;
-        Screen.orientation = ScreenOrientation.Landscape;
+        _menuCanvas.Initialize(_mainCamera);
         return this;
     }
 
@@ -60,26 +98,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         backendProxy.transform.SetParent(transform);
         _backendProxy = backendProxy.GetComponent<BackendProxy>();
         _backendProxy.Initialize();
-        StartCoroutine(LoginUser());
         return this;
-    }
-
-    private IEnumerator LoginUser()
-    {
-        yield return _backendProxy.LogUser();
-        if (_backendProxy.AuthenticationDone())
-        {
-            if (_backendProxy.UserAuthenticated())
-            {
-                _menuCanvas.EnableButtons();
-                yield break;
-            }
-            Messenger.Publish(new ShowAlertMessage("Without authentication you are not going \n to be able to use the online features"));
-            _menuCanvas.EnableButtons();
-            yield break;
-        }
-        Messenger.Publish(new ShowAlertMessage("Connection failed try again later \n to be able to use the online features"));
-        _menuCanvas.EnableButtons();
     }
 
     private MainMenu InitializePlayerPrefsManager()
@@ -89,6 +108,15 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         playerPrefsManager.transform.SetParent(transform);
         _playerPrefsManager = playerPrefsManager.GetComponent<PlayerPrefsManager>();
         _playerPrefsManager.Initialize();
+        return this;
+    }
+
+    private MainMenu InitializeSoundManager()
+    {
+        GameObject waveManager = SRResources.Core.Base.SoundManager.Instantiate();
+        waveManager.name = "SoundManager";
+        waveManager.transform.SetParent(this.gameObject.transform, false);
+        _soundManager = waveManager.GetComponent<SoundManager>().InitializeSources();
         return this;
     }
 
@@ -123,19 +151,5 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         return this;
     }
 
-    private MainMenu SetReferences()
-    {
-        _menuCanvas.Initialize(_mainCamera);
-        return this;
-    }
-
-    private MainMenu InitializeSoundManager()
-    {
-        GameObject waveManager = SRResources.Core.Base.SoundManager.Instantiate();
-        waveManager.name = "SoundManager";
-        waveManager.transform.SetParent(this.gameObject.transform, false);
-        _soundManager = waveManager.GetComponent<SoundManager>().InitializeSources();
-        return this;
-    }
 
 }
