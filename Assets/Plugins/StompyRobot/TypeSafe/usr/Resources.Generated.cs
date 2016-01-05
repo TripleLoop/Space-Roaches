@@ -1068,20 +1068,27 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource EventSystem {
+            public static global::TypeSafe.PrefabResource BackgroundBlur {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource Canvas {
+            public static global::TypeSafe.PrefabResource EventSystem {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
                 }
             }
             
+            public static global::TypeSafe.PrefabResource Canvas {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
+                }
+            }
+            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
                         new global::TypeSafe.PrefabResource("AlertPopUp", "Core/UI/AlertPopUp"),
+                        new global::TypeSafe.PrefabResource("BackgroundBlur", "Core/UI/BackgroundBlur"),
                         new global::TypeSafe.PrefabResource("EventSystem", "Core/UI/EventSystem"),
                         new global::TypeSafe.PrefabResource("Canvas", "Core/UI/Canvas")});
             
