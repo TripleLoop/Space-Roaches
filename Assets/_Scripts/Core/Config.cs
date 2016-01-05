@@ -113,4 +113,21 @@ public static class Config
             public const float Cooldown = 30f;
         }
     }
+
+    public static class Text
+    {
+         public static class EndScreen
+         {
+            //Comments showed on EndScreen depending of score
+            //Score = 0
+            public readonly static string[] FirstRange = { "one", "two", "three" };
+            //Score = 1 → 20
+            public readonly static string[] SecondRange = { "one", "two", "Not bad for a limbless person" };
+            //Score = 21 → 40
+            public readonly static string[] ThirdRange = { "one", "two", "three" };
+            //Score = 41 → 60
+            public readonly static string[] FourthRange = { "one", "two", "three" };
+
+        }
+    }
 }
