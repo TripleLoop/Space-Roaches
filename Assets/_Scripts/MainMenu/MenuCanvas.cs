@@ -14,7 +14,7 @@ public class MenuCanvas : MonoBehaviourEx
 
     //SubMenu Classes
     private SettingsMenu _settingsMenu;
-    private LeaderboardMenu _leaderboardMenu;
+    //private LeaderboardMenu _leaderboardMenu;
 
     public delegate MenuCanvas EnableDelegate();
     private EnableDelegate _enableDelegate;
@@ -27,7 +27,7 @@ public class MenuCanvas : MonoBehaviourEx
     {
         GetComponent<Canvas>().worldCamera = mainCamera;
         _settingsMenu = GetComponentInChildren<SettingsMenu>();
-        _leaderboardMenu = GetComponentInChildren<LeaderboardMenu>();
+        //_leaderboardMenu = GetComponentInChildren<LeaderboardMenu>();
         _enableDelegate = EnableButtons;
         InitializeAlertPopUp()
             .InitializeLoadingScreen();

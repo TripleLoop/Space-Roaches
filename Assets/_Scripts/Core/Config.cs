@@ -15,6 +15,17 @@ public static class Config
         public const int SecondsBetweenFastWaves = 3;
     }
 
+    public static class BackendProxy
+    {
+        public static class Transaction
+        {
+            public const int NonStarted = 0;
+            public const int InProcess = 1;
+            public const int Succeeded = 2;
+            public const int Failed = 3;
+        }
+    }
+
     public static class Camera
     {
         public static class Game

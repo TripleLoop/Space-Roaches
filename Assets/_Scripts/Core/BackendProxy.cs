@@ -1,53 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
-using GooglePlayGames.BasicApi;
-using UnityEngine.SocialPlatforms;
+using LocalConfig = Config.BackendProxy;
 
 public class BackendProxy : MonoBehaviourEx
 {
-    private bool _userAuthenticated;
-    private bool _authenticationDone;
-    private bool _scorePosted;
-    private bool _postingDone;
 #if UNITY_STANDALONE
-    public IEnumerator LogUser()
+    public void LogUser(Action<bool> callback)
     {
-        _userAuthenticated = true;
-        _authenticationDone = true;
-        yield return null;
+        callback(true);
     }
 
-    public IEnumerator PublishScore(int score)
+    public void PublishScore(int score, Action<bool> callback)
     {
-        _scorePosted = true;
-        _postingDone = true;
-        yield return null;
+        callback(true);
     }
 
-    public IEnumerator ShowLeaderboard()
+    public void ShowLeaderboard()
     {
-        yield break;
-    }
-
-    public bool UserAuthenticated()
-    {
-        return _userAuthenticated;
-    }
-
-    public bool AuthenticationDone()
-    {
-        return _authenticationDone;
-    }
-
-    public bool ScorePosted()
-    {
-        return _scorePosted;
-    }
-
-    public bool PostingDone()
-    {
-        return _postingDone;
     }
 
     public BackendProxy Initialize()
@@ -57,66 +28,19 @@ public class BackendProxy : MonoBehaviourEx
 #endif
 
 #if UNITY_ANDROID
-    public IEnumerator LogUser()
+    public void LogUser(Action<bool> callback)
     {
-        // authenticate user:
-        Social.localUser.Authenticate((bool success) =>
-        {
-            if (success)
-            {
-                _userAuthenticated = true;
-            }
-            _authenticationDone = true;
-            // handle success or failure
-            Debug.Log(success ? "sucessful posting" : "failed posting");
-        });
-
-        while (!_authenticationDone)
-        {
-            yield return null;
-        }
+        Social.localUser.Authenticate(callback);
     }
 
-    public IEnumerator PublishScore(int score)
+    public void PublishScore(int score, Action<bool> callback)
     {
-        Social.ReportScore(score, SpaceRoachesGID.leaderboard_best_roach_killer, (bool success) =>
-       {
-           if (success)
-           {
-              _scorePosted = true;
-           }
-           _postingDone = true;
-       });
-        while(!_postingDone){
-            _postingDone = false;
-            yield return null;
-        }
+        Social.ReportScore(score, SpaceRoachesGID.leaderboard_best_roach_killer, callback);
     }
-    
-    public IEnumerator ShowLeaderboard()
+
+    public void ShowLeaderboard()
     {
         ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(SpaceRoachesGID.leaderboard_best_roach_killer);
-        yield break;
-    }
-
-    public bool UserAuthenticated()
-    {
-        return _userAuthenticated;
-    }
-
-    public bool AuthenticationDone()
-    {
-        return _authenticationDone;
-    }
-
-     public bool ScorePosted()
-    {
-        return _scorePosted;
-    }
-
-    public bool PostingDone()
-    {
-        return _postingDone;
     }
 
     public BackendProxy Initialize()
@@ -125,12 +49,6 @@ public class BackendProxy : MonoBehaviourEx
         return this;
     }
 
-
-    public void Handle(NewScoreMessage message)
-    {
-
-    }
-  
 #endif
 
 }

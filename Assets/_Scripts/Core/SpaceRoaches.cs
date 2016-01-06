@@ -193,14 +193,8 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         backendProxy.name = "backendProxy";
         backendProxy.transform.SetParent(transform);
         _backendProxy = backendProxy.GetComponent<BackendProxy>();
-        //_backendProxy.Initialize();
-        //StartCoroutine(LoginUser());
+        _backendProxy.Initialize();
         return this;
-    }
-
-    private IEnumerator LoginUser()
-    {
-        yield return _backendProxy.LogUser();
     }
 
     private SpaceRoaches InitializeUserInput()

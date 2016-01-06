@@ -12,6 +12,9 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
     private BackendProxy _backendProxy;
     private PlayerPrefsManager _playerPrefsManager;
 
+    private Action<bool> _loginDelegate;
+    private Action<bool> _postingDelegate;
+
     private void Start()
     {
         this.InitializeBackend()
@@ -24,57 +27,56 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
             .Launch();
     }
 
-
     public void Handle(PublishScoreMessage message)
     {
-        if (!ConnectionError())
+        if (!_playerPrefsManager.UserAuthenticated)
         {
-            StartCoroutine(PublishScoreProcess());
+            Messenger.Publish(new ShowAlertMessage("Without authentication you can't \n access the leaderboard"));
+            return;
         }
+        if (!_playerPrefsManager.ScorePublished)
+        {
+            _menuCanvas.DisableLoading();
+            _menuCanvas.DisableButtons();
+            int score = _playerPrefsManager.GetScore();
+            _backendProxy.PublishScore(score, _postingDelegate);
+            return;
+        }
+        _backendProxy.ShowLeaderboard();
         return;
     }
 
-    private IEnumerator LoginUser()
+    private void LoginFinished(bool suceess)
     {
-        _menuCanvas.EnableLoading();
-        yield return _backendProxy.LogUser();
-        _menuCanvas.DisableLoading();
-        ConnectionError();
-        _menuCanvas.EnableButtons();
-        yield break;
-    }
-
-    private IEnumerator PublishScoreProcess()
-    {
-        _menuCanvas.EnableLoading();
-        if (!_playerPrefsManager.ScorePublished)
-        {
-            int score = _playerPrefsManager.GetScore();
-            yield return _backendProxy.PublishScore(score);
-        }
-        yield return _backendProxy.ShowLeaderboard();
-        _menuCanvas.DisableLoading();
-    }
-
-    private bool ConnectionError()
-    {
-        if (!_backendProxy.AuthenticationDone() && !_backendProxy.UserAuthenticated())
-        {
-            Messenger.Publish(new ShowAlertMessage("Connection failed try again later \n to be able to use the online features"));
-            return false;
-        }
-        if (_backendProxy.AuthenticationDone() && !_backendProxy.UserAuthenticated())
+        if (!suceess)
         {
             Messenger.Publish(new ShowAlertMessage("Without authentication you are not going \n to be able to use the online features"));
-            return false;
         }
-        return true;
+        else
+        {
+            _playerPrefsManager.UserAuthenticated = true;
+        }
+        _menuCanvas.DisableLoading();
+        _menuCanvas.EnableButtons();
+    }
+
+    private void PostingFinished(bool suceess)
+    {
+        if (!suceess)
+        {
+            Messenger.Publish(new ShowAlertMessage("Score Posting failed \n try again later"));
+        }
+        _menuCanvas.DisableLoading();
+        _menuCanvas.EnableButtons();
+        _backendProxy.ShowLeaderboard();
     }
 
     private MainMenu Launch()
     {
         AudioSetUp();
-        StartCoroutine(LoginUser());
+        _menuCanvas.EnableLoading();
+        _menuCanvas.DisableButtons();
+        _backendProxy.LogUser(_loginDelegate);
         return this;
     }
 
@@ -88,6 +90,8 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
     private MainMenu SetReferences()
     {
         _menuCanvas.Initialize(_mainCamera);
+        _loginDelegate = LoginFinished;
+        _postingDelegate = PostingFinished;
         return this;
     }
 

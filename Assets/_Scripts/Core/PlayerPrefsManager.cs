@@ -9,6 +9,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
     private int _tutorialSeen;
     private int _ownHighScore;
     private int _scorePublished;
+    private int _userAuthenticated;
 
     public PlayerPrefsManager Initialize()
     {
@@ -42,6 +43,17 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         }
     }
 
+
+    public bool UserAuthenticated
+    {
+        get { return _userAuthenticated == 1; }
+        set
+        {
+            _userAuthenticated = value ? 1 : 0;
+            PlayerPrefs.SetInt("_scorePublished", _userAuthenticated);
+        }
+    }
+
     public void Handle(RequestAudioStateMessage message)
     {
         Messenger.Publish(new AudioSetUpMessage(_effectsVolume, _musicVolume));
@@ -68,6 +80,11 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        UserAuthenticated = false;
+    }
+
     private PlayerPrefsManager InitializeValues()
     {
         _effectsVolume = PlayerPrefs.GetFloat("_effectsVolume");
@@ -75,6 +92,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         _tutorialSeen = PlayerPrefs.GetInt("_tutorialSeen");
         _ownHighScore = PlayerPrefs.GetInt("_ownHighScore");
         _scorePublished = PlayerPrefs.GetInt("_scorePublished");
+        _userAuthenticated = PlayerPrefs.GetInt("_userAuthenticated");
         return this;
     }
 
@@ -99,6 +117,10 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         if (!PlayerPrefs.HasKey("_scorePublished"))
         {
             PlayerPrefs.SetInt("_scorePublished", 0);
+        }
+        if (!PlayerPrefs.HasKey("_userAuthenticated"))
+        {
+            PlayerPrefs.SetInt("_userAuthenticated", 0);
         }
         return this;
     }
