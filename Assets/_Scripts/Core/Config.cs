@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
+using UnityEngine;
 
 public static class Config
 {
@@ -125,20 +127,38 @@ public static class Config
         }
     }
 
-    public static class Text
+    public static class EndScreen
     {
-         public static class EndScreen
-         {
+        private static class Texts
+        {
             //Comments showed on EndScreen depending of score
             //Score = 0
-            public readonly static string[] FirstRange = { "one", "two", "three" };
+            public static readonly string[] FirstRange = {"one", "two", "three"};
             //Score = 1 → 20
-            public readonly static string[] SecondRange = { "one", "two", "Not bad for a limbless person" };
+            public static readonly string[] SecondRange = {"one", "two", "Not bad for a limbless person"};
             //Score = 21 → 40
-            public readonly static string[] ThirdRange = { "one", "two", "three" };
+            public static readonly string[] ThirdRange = {"one", "two", "three"};
             //Score = 41 → 60
-            public readonly static string[] FourthRange = { "one", "two", "three" };
-
+            public static readonly string[] FourthRange = {"one", "two", "three"};
+            //Score = 61 → 80
+            public static readonly string[] FifthRange = { "one", "two", "three" };
+            //Score = 81 → 100
+            public static readonly string[] SixthRange = { "one", "two", "three" };
         }
+
+        
+        public static List<RangeComments> AllRangesComments = new List<RangeComments>()
+        {
+            //The minimum and maximum values are inclusives
+            new RangeComments(Texts.FirstRange, 0, 0),
+            new RangeComments(Texts.SecondRange, 1, 20),
+            new RangeComments(Texts.ThirdRange, 21, 40),
+            new RangeComments(Texts.FourthRange, 41, 60),
+            new RangeComments(Texts.FifthRange, 61, 80),
+            new RangeComments(Texts.SixthRange, 81, 100)
+        };
     }
+
+
 }
+

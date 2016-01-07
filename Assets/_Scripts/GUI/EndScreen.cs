@@ -1,13 +1,15 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using LocalConfig = Config.EndScreen;
 
-public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<EndScreenTextSelected>
+public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 {
     private Text _textCount;
-    private Text _text;
+    private Text _textComment;
 
     private RoachCount _roachCount;
 
@@ -17,12 +19,18 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandl
     private bool _astronautDead = false;
     private Animator _animator;
 
+    private TypeWriting _typeWriting;
+    private SelectEndScreenText _selectEndScreenText;
+    private List<RangeComments> _rangeComments = LocalConfig.AllRangesComments;
+
     public EndScreen Initialize(RoachCount roachCount)
     {
         if (roachCount == null) return this;
         _roachCount = roachCount;
         _textCount = GetComponentsInChildren<Text>(true)[0];
-        _text = GetComponentsInChildren<Text>(true)[1];
+        _textComment = GetComponentsInChildren<Text>(true)[1];
+        _typeWriting = gameObject.AddComponent<TypeWriting>();
+        _selectEndScreenText = new SelectEndScreenText();
         return this;
     }
 
@@ -70,6 +78,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandl
     public EndScreen Reset()
     {
         _astronautDead = false;
+        _textComment.text = "";
         if (_isInCountUp)
         {
             StopCoroutine(_countUp);
@@ -96,6 +105,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandl
             _textCount.text = scoreCount.ToString();
         }
         _isInCountUp = false;
+        WriteComment(numDeathRoaches);
     }
 
     private void Start()
@@ -103,8 +113,9 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandl
         Initialize();
     }
 
-    public void Handle(EndScreenTextSelected message)
+    public EndScreen WriteComment(int deathRoaches)
     {
-        _text.text = message.Text;
+        _typeWriting.StartWrite(_selectEndScreenText.CommentByScore(deathRoaches, _rangeComments), _textComment);
+        return this;
     }
 }

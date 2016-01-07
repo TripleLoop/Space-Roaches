@@ -1,42 +1,19 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
-using LocalConfig = Config.Text.EndScreen;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class SelectEndScreenText : MonoBehaviourEx, IHandle<ScoreCountFinished>
+public class SelectEndScreenText
 {
-    private SelectEndScreenText SelectText(String[] textArray)
+    public String CommentByScore(int score, List<RangeComments> rangesComments)
     {
-        var text = textArray[Random.Range(0, textArray.Length)];
-        Messenger.Publish(new EndScreenTextSelected(text));
-        return this;
-    }
-
-    public void Handle(ScoreCountFinished message)
-    {
-        var score = message.Score;
-        String[] textRange = new string[] { };
-        if (score == 0)
+        foreach (var range in rangesComments)
         {
-            textRange = LocalConfig.FirstRange;
-            SelectText(textRange);
+            if (range.Min <= score && score <= range.Max)
+            {
+                return range.Comments[Random.Range(0, range.Comments.Length)];
+            }
         }
-        if (score > 0 && score <= 20)
-        {
-            textRange = LocalConfig.SecondRange;
-            SelectText(textRange);
-        }
-        if (score > 20 && score <= 40)
-        {
-            textRange = LocalConfig.ThirdRange;
-            SelectText(textRange);
-        }
-        if (score > 40)
-        {
-            textRange = LocalConfig.FourthRange;
-            SelectText(textRange);
-        }
+        return null;
     }
 
     // Use this for initialization
