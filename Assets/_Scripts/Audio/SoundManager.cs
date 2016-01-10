@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IHandle<PlayMusicMessage>, IHandle<AudioStateMessage>, IHandle<AudioSetUpMessage>
 {
-    public AudioMixer AudioMixer;
+    private AudioMixer _audioMixer;
 
     private GameObject _soundEffects;
     private GameObject _music;
@@ -27,11 +27,17 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         _music.transform.SetParent(this.gameObject.transform, false);
 
         _cancelClip = SRResources.Core.Audio.Clips.SoundEffects.BasicCancel;
+
+        _audioMixer = GetComponentInChildren<AudioSource>().outputAudioMixerGroup.audioMixer;
         return this;
     }
 
     public void Handle(PlaySoundEffectMessage message)
     {
+        if (_soundEffects == null)
+        {
+            return;
+        }
         AudioSource soundEffectsSource = _soundEffects.GetComponent<AudioSource>();
         if (message.Tracked)
         {
@@ -46,6 +52,10 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
 
     public void Handle(PlayMusicMessage message)
     {
+        if (_music == null)
+        {
+            return;
+        }
         AudioSource musicSource = _music.GetComponent<AudioSource>();
         musicSource.clip = message.MusicClip;
         musicSource.Play();
@@ -63,13 +73,17 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
 
     private SoundManager SetVolume(float? effectsVolume, float? musicVolume)
     {
+        if (_audioMixer == null)
+        {
+            return this;
+        }
         if (effectsVolume != null)
         {
-            AudioMixer.SetFloat("effectsVolume", AudioLevelBalancer(effectsVolume.Value));
+            _audioMixer.SetFloat("effectsVolume", AudioLevelBalancer(effectsVolume.Value));
         }
         if (musicVolume != null)
         {
-            AudioMixer.SetFloat("musicVolume", AudioLevelBalancer(musicVolume.Value));
+            _audioMixer.SetFloat("musicVolume", AudioLevelBalancer(musicVolume.Value));
         }
         return this;
     }

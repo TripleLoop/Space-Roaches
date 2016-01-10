@@ -30,13 +30,13 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     void Start()
     {
-        this.InitializeCamera()
-            .InitializeBackend()
-            .InitializeUserInput()
+             InitializeBackend()
             .InitializePlayerPrefsManager()
+            .InitializeSoundManager()
+            .InitializeUserInput()
             .InitializeParticlePool()
             .InitializeWaveManager()
-            .InitializeSoundManager()
+            .InitializeCamera()
             .InitializeCanvas()
             .InitializeBackground()
             .InitializeForeGround()
