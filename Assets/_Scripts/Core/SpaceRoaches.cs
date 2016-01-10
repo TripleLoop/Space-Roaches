@@ -243,8 +243,10 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
         eventSystem.transform.SetParent(transform, false);
-        if (Debug.isDebugBuild)
+        if (Debug.isDebugBuild || Application.isEditor)
+        {
             SRDebug.Init();
+        }
         return this;
     }
 

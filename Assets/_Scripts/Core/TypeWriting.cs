@@ -59,9 +59,8 @@ public class TypeWriting : MonoBehaviour {
         //showAvailabeAction.gameObject.SetActive(false);
         foreach (char letter in text/*[line]*/.ToCharArray())
         {
-            
             dialogueBox.text += letter;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
         //showAvailabeAction.gameObject.SetActive(true);
         _typing = false;

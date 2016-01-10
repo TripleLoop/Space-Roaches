@@ -151,6 +151,10 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         GameObject eventSystem = SRResources.Menu.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
         eventSystem.transform.SetParent(transform, false);
+        if (Debug.isDebugBuild || Application.isEditor)
+        {
+            SRDebug.Init();
+        }
         _menuCanvas.DisableButtons();
         return this;
     }
