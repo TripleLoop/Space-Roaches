@@ -61,7 +61,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
     public void Kill()
     {
-        if (_immortal)
+        if (_immortal || SROptions.Current.GodMode)
         {
             return;
         }
