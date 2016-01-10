@@ -133,17 +133,75 @@ public static class Config
         {
             //Comments showed on EndScreen depending of score
             //Score = 0
-            public static readonly string[] FirstRange = {"one", "two", "three"};
+            public static readonly string[] FirstRange = {
+                "You are a non-germinated seed",
+                "You have not made a good start",
+                "Next time you better off",
+                "It seems that in space the score can not be transmitted",
+                "The object of the game is to earn points",
+                "The spiked spiked balls are not good to begin",
+                "Score = gravity in space",
+                "Nothing dies faster than an idea on a closed mind, except you"
+            };
             //Score = 1 → 20
-            public static readonly string[] SecondRange = {"one", "two", "Not bad for a limbless person"};
+            public static readonly string[] SecondRange =
+            {
+                "If you were an astronaut, your ship would be a bottle of water pressure",
+                "Tell your grandmother that you return the mobile",
+                "Tip: Open your eyes while playing",
+                "We will like this has not happened",
+                "Your score is as low as the gravity on the moon",
+                "Start planting potatoes and waiting to rescue you",
+                "Note: This game is not for people without limbs",
+                "Stop kidding yourself, you are the cause of your failure"
+
+            };
             //Score = 21 → 40
-            public static readonly string[] ThirdRange = {"one", "two", "three"};
+            public static readonly string[] ThirdRange =
+            {
+                "You could see worse",
+                "For something one starts",
+                "Have you raised be supermarket cashier?",
+                "Sorry, the suit is puncture-proof",
+                "Houston we have a problem",
+                "Houston says the problem is you",
+                "What was that?",
+                "It is a trap"
+            };
             //Score = 41 → 60
-            public static readonly string[] FourthRange = {"one", "two", "three"};
+            public static readonly string[] FourthRange =
+            {
+                "You looked like a shooting star, but you've broken up ...",
+                "It seems you start to take off",
+                "He has not left you too bad",
+                "Maybe for this Valgas",
+                "Every time you do best",
+                "The stars begin to shine",
+                "You can smell the fear cockroaches",
+                "Everything is practice"
+            };
             //Score = 61 → 80
-            public static readonly string[] FifthRange = { "one", "two", "three" };
+            public static readonly string[] FifthRange =
+            {
+                "The universe is in your favor",
+                "The strength is in you",
+                "Are you good at this float",
+                "You are a human insecticide",
+                "One small step for man, one giant leap for your ranking",
+                "The sun comes up, And it shines all around you",
+                "You are a space cowboy"
+            };
             //Score = 81 → 100
-            public static readonly string[] SixthRange = { "one", "two", "three" };
+            public static readonly string[] SixthRange =
+            {
+                "You left the land to transform into a star",
+                "There are 3 things are infinite: the universe and human stupidity your score",
+                "Your rating has entered supernova",
+                "You started as a loser and came back as a legend",
+                "You have a stratospheric score",
+                "Next stop, the limits of the universe",
+                "Your power level is above 9000"
+            };
         }
 
         

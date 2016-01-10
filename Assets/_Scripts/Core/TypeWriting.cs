@@ -52,16 +52,15 @@ public class TypeWriting : MonoBehaviour {
         }
         currentLine++;
     }*/
-
+    
     IEnumerator TypeText(string text, Text dialogueBox/*, int line*/)
     {
         _typing = true;
         //showAvailabeAction.gameObject.SetActive(false);
         foreach (char letter in text/*[line]*/.ToCharArray())
         {
-            
             dialogueBox.text += letter;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.01f);
         }
         //showAvailabeAction.gameObject.SetActive(true);
         _typing = false;

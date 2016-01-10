@@ -90,22 +90,22 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         _isInCountUp = true;
         int scoreCount = 0;
-         var numDeathRoaches = _roachCount.GetScore();
+        var numDeathRoaches = _roachCount.GetScore();
         _textCount.text = scoreCount.ToString();
         Messenger.Publish(new NewScoreMessage(numDeathRoaches));
         while (true)
         {
-            if (scoreCount >= numDeathRoaches)
+            if (scoreCount == numDeathRoaches)
             {
-                Messenger.Publish(new ScoreCountFinished(numDeathRoaches));
+                _isInCountUp = false;
+                WriteComment(numDeathRoaches);
                 break;
             }
             yield return new WaitForSeconds(0.05f);
             scoreCount++;
             _textCount.text = scoreCount.ToString();
         }
-        _isInCountUp = false;
-        WriteComment(numDeathRoaches);
+        
     }
 
     private void Start()
