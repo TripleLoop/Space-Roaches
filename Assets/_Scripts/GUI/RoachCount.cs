@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>
+public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<SpikeBallDeathMessage>
 {
     private int _deadCount;
     private Text _text;
@@ -26,8 +26,20 @@ public class RoachCount : MonoBehaviourEx, IHandle<RoachDeathMessage>
 
     public void Handle(RoachDeathMessage message)
     {
+        ScoreUp();
+    }
+
+    public void Handle(SpikeBallDeathMessage message)
+    {
+        ScoreUp();
+    }
+
+    private RoachCount ScoreUp()
+    {
         _deadCount++;
         _text.text = _deadCount.ToString();
+        return this;
     }
+
     
 }
