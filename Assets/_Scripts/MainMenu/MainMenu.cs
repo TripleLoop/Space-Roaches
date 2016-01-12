@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         this.InitializeBackend()
             .InitializePlayerPrefsManager()
             .InitializeSoundManager()
-            .InitializeBackgorund()
+            .InitializeEnvironment()
             .InitializeCanvas()
             .InitializeCamera()
             .SetReferences()
@@ -133,15 +133,6 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         return this;
     }
 
-    private MainMenu InitializeBackgorund()
-    {
-        GameObject background = SRResources.Menu.Environment.MainScreenBG.Instantiate();
-        background.name = "background";
-        background.transform.SetParent(transform);
-        background.transform.position = new Vector3(0, 0, -3.5f);
-        return this;
-    }
-
     private MainMenu InitializeCanvas()
     {
         GameObject canvas = SRResources.Menu.UI.Canvas.Instantiate();
@@ -159,5 +150,13 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         return this;
     }
 
+    private MainMenu InitializeEnvironment()
+    {
+        GameObject environment = SRResources.Menu.Environment.MenuEnvironment.Instantiate();
+        environment.name = "Environment";
+        environment.transform.SetParent(transform);
+        environment.GetComponent<MainScreenEnvironment>().Initialize();
+        return this;
+    }
 
 }
