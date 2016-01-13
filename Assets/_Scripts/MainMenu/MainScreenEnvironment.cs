@@ -15,7 +15,7 @@ public class MainScreenEnvironment : MonoBehaviour
     private MainScreenEnvironment StartEvents()
     {
         _fakeAstronaut.SetPosition(new Vector3(-4, -4, -5))
-            .Push(0.1f, new Vector2(2, 2));
+            .Push(0.1f, new Vector2(1, 0.5f));
         return this;
     }
 
