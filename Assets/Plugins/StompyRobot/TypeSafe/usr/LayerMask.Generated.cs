@@ -44,4 +44,6 @@ public sealed class SRLayerMask {
     public const int Item = 2048;
     
     public const int Entity_Collider = 4096;
+    
+    public const int _3D_Elements = 16384;
 }

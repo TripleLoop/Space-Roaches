@@ -81,6 +81,12 @@ public sealed class SRLayers {
         }
     }
     
+    public static global::TypeSafe.Layer _3D_Elements {
+        get {
+            return __all[10];
+        }
+    }
+    
     private static global::System.Collections.Generic.IList<global::TypeSafe.Layer> __all = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.Layer>(new global::TypeSafe.Layer[] {
                 new global::TypeSafe.Layer("Default", 0),
                 new global::TypeSafe.Layer("TransparentFX", 1),
@@ -91,7 +97,8 @@ public sealed class SRLayers {
                 new global::TypeSafe.Layer("Enemy", 9),
                 new global::TypeSafe.Layer("Player", 10),
                 new global::TypeSafe.Layer("Item", 11),
-                new global::TypeSafe.Layer("Entity Collider", 12)});
+                new global::TypeSafe.Layer("Entity Collider", 12),
+                new global::TypeSafe.Layer("3D Elements", 14)});
     
     public static global::System.Collections.Generic.IList<global::TypeSafe.Layer> All {
         get {
