@@ -53,10 +53,20 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public void AnimationEnded()
     {
-        _animator.SetInteger("EndState", 0);
-        foreach (Transform child in transform)
+        if (_animator.GetInteger("EndState") == 2)
         {
-            child.gameObject.SetActive(false);
+            _animator.SetInteger("EndState", 0);
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            _textComment.text = "";
+            _textCount.text = "0";
+        }
+        if (_animator.GetInteger("EndState") == 1)
+        {
+            _countUp = CountUp();
+            StartCoroutine(_countUp);
         }
     }
 
@@ -70,15 +80,13 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             {
                 child.gameObject.SetActive(true);
             }
-            _countUp = CountUp();
-            StartCoroutine(_countUp);
         }
     }
 
     public EndScreen Reset()
     {
         _astronautDead = false;
-        _textComment.text = "";
+        _typeWriting.StopWriting();
         if (_isInCountUp)
         {
             StopCoroutine(_countUp);
@@ -91,7 +99,6 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         _isInCountUp = true;
         int scoreCount = 0;
         var numDeathRoaches = _roachCount.GetScore();
-        _textCount.text = scoreCount.ToString();
         Messenger.Publish(new NewScoreMessage(numDeathRoaches));
         while (true)
         {
@@ -104,6 +111,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             yield return new WaitForSeconds(0.05f);
             scoreCount++;
             _textCount.text = scoreCount.ToString();
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.tick));
         }
         
     }

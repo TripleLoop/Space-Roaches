@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class TypeWriting : MonoBehaviour {
+public class TypeWriting : MonoBehaviourEx {
     private Text dialogueBox;
     //Image showAvailabeAction;
     private string[] currentDialogLines;
@@ -60,6 +60,7 @@ public class TypeWriting : MonoBehaviour {
         foreach (char letter in text/*[line]*/.ToCharArray())
         {
             dialogueBox.text += letter;
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.keystroke));
             yield return new WaitForSeconds(0.01f);
         }
         //showAvailabeAction.gameObject.SetActive(true);
@@ -78,4 +79,13 @@ public class TypeWriting : MonoBehaviour {
         }
        
     }*/
+
+    public TypeWriting StopWriting()
+    {
+        if (_typing)
+        {
+            StopAllCoroutines();
+        }
+        return this;
+    }
 }
