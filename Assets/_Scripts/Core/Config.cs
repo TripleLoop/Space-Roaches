@@ -134,73 +134,73 @@ public static class Config
             //Comments showed on EndScreen depending of score
             //Score = 0
             public static readonly string[] FirstRange = {
-                "You are a non-germinated seed",
-                "You have not made a good start",
-                "Next time you better off",
-                "It seems that in space the score can not be transmitted",
-                "The object of the game is to earn points",
-                "The spiked spiked balls are not good to begin",
-                "Score = gravity in space",
-                "Nothing dies faster than an idea on a closed mind, except you"
+                "You’re an ungerminated seed.",
+                "Seems like you've not started on the right foot.",
+                "Next time it will SURELY go better.",
+                "Neither sound or your score can be transmitted in space.",
+                "Nope, spikeballs are not good.",
+                "Gravity here is null. So is your score.",
+                "NOPE.",
+                "Nothing dies faster than an idea in a closed mind. Except you."
             };
             //Score = 1 → 20
             public static readonly string[] SecondRange =
             {
-                "If you were an astronaut, your ship would be a bottle of water pressure",
-                "Tell your grandmother that you return the mobile",
-                "Tip: Open your eyes while playing",
-                "We will like this has not happened",
-                "Your score is as low as the gravity on the moon",
-                "Start planting potatoes and waiting to rescue you",
-                "Note: This game is not for people without limbs",
-                "Stop kidding yourself, you are the cause of your failure"
+                "If you were an astronaut, your spaceship would be a water rocket.",
+                "Tell your grandma to give back your phone.",
+                "Small tip: open your eyes while you play.",
+                "Let’s pretend this didn't happen.",
+                "If gravity was based on your score, we’d all be flying.",
+                "Start planting potatoes and pray to be rescued.",
+                "Warning: this game’s not suitable for limbless persons.",
+                "You can do a lot better, and a very little worse."
 
             };
             //Score = 21 → 40
             public static readonly string[] ThirdRange =
             {
-                "You could see worse",
-                "For something one starts",
-                "Have you raised be supermarket cashier?",
-                "Sorry, the suit is puncture-proof",
-                "Houston we have a problem",
-                "Houston says the problem is you",
+                "Well, it could have been worse.",
+                "Everything starts with something.",
+                "Sorry, your suit is not spikeproof.",
+                "Houston, we’ve got a problem.",
+                "Houston says you’re the problem.",
                 "What was that?",
-                "It is a trap"
+                "IT’S A TRAP!",
+                "Life in space isn’t easy, is it?"
             };
             //Score = 41 → 60
             public static readonly string[] FourthRange =
             {
-                "You looked like a shooting star, but you've broken up ...",
-                "It seems you start to take off",
-                "He has not left you too bad",
-                "Maybe for this Valgas",
-                "Every time you do best",
-                "The stars begin to shine",
-                "You can smell the fear cockroaches",
-                "Everything is practice"
+                "You looked just like a shooting star, but you’ve disintegrated.",
+                "Seems like you’re starting to take off.",
+                "Not bad.",
+                "Maybe you’re not THAT bad.",
+                "You’re doing better everytime!",
+                "Stars are starting to shine.",
+                "You can smell the scent of fear coming from the roaches.",
+                "Practise is everything."
             };
             //Score = 61 → 80
             public static readonly string[] FifthRange =
             {
-                "The universe is in your favor",
-                "The strength is in you",
-                "Are you good at this float",
-                "You are a human insecticide",
-                "One small step for man, one giant leap for your ranking",
-                "The sun comes up, And it shines all around you",
-                "You are a space cowboy"
+                "The universe is on your side.",
+                "The force is inside you.",
+                "You’re pretty good at floating around!",
+                "You’re like an insecticide made of human flesh.",
+                "One little step for a man, one giant leap for manking.",
+                "The sun comes up, and it shines all around you.",
+                "You’re a space cowboy."
             };
             //Score = 81 → 100
             public static readonly string[] SixthRange =
             {
-                "You left the land to transform into a star",
-                "There are 3 things are infinite: the universe and human stupidity your score",
-                "Your rating has entered supernova",
-                "You started as a loser and came back as a legend",
-                "You have a stratospheric score",
-                "Next stop, the limits of the universe",
-                "Your power level is above 9000"
+                "You got out from earth to become a star.",
+                "There are 3 infinite things: the universe, human stupidity and your score.",
+                "Your score has entered into a supernova.",
+                "Left as a weirdo. Returned as a legend.",
+                "Your score is stratospheric.",
+                "Next stop, the limits of the universe.",
+                "Your power level is OVER NINE THOUSAAAAND!"
             };
         }
 
