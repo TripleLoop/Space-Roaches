@@ -177,10 +177,10 @@ namespace hpjFonts {
 
 		void ResetResources () {
 			if (theSkin == null) {
-				theSkin = (GUISkin) EditorGUIUtility.Load( "FontSetter/FontSetterSkin.GUISkin" );
+				theSkin = (GUISkin) EditorGUIUtility.Load( "Assets/Editor/FontSetter/FontSetterSkin.GUISkin" );
 			}
 			if (defaultShader == null) {
-				defaultShader = (Shader) EditorGUIUtility.Load( "FontSetter/Textured Text Shader.shader" );
+				defaultShader = (Shader) EditorGUIUtility.Load("Assets/Editor/FontSetter/Textured Text Shader.shader");
 			}
 			if (screenAreas == null) {
 				screenAreas = new Dictionary<ScreenArea, Rect>();
