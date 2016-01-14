@@ -28,7 +28,7 @@ GameObject:
   - 198: {fileID: 19877398}
   - 199: {fileID: 19935998}
   m_Layer: 0
-  m_Name: _SpikeExplosion
+  m_Name: SpikeExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
