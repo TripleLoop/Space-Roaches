@@ -217,6 +217,48 @@ public static class Config
         };
     }
 
+    public static class MainMenu
+    {
+        public static class Environment
+        {
+            public static SideThrower[] Sides = new SideThrower[4]
+            {
+               //top side
+               new SideThrower(UpperLeftLimit,UpperRightLimit,new Vector2(0, 0),0.2f),
+               //left side
+               new SideThrower(LowerLeftLimit,UpperLeftLimit,new Vector2(0, 0),0.2f),
+               //lower side
+               new SideThrower(LowerRightLimit,LowerLeftLimit,new Vector2(0, 0),0.2f),
+               //right side
+               new SideThrower(UpperRightLimit,LowerRightLimit,new Vector2(0, 0),0.2f),
+            };
+
+            public static Vector2 UpperLeftLimit
+            {
+                get { return new Vector2(0, 3); }
+            }
+
+            public static Vector2 UpperRightLimit
+            {
+                get { return new Vector2(10, 3); }
+            }
+
+            public static Vector2 LowerLeftLimit
+            {
+                get { return new Vector2(0, -3); }
+            }
+
+            public static Vector2 LowerRightLimit
+            {
+                get { return new Vector2(10, -3); }
+            }
+
+        }
+    }
+
+
+
+
 
 }
 
