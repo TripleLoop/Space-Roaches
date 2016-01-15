@@ -17,6 +17,9 @@ public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<Astr
 
     private IEnumerator _loadBar;
 
+    [SerializeField]
+    private GameObject _mask;
+
     private bool _immortal = false;
 
     // Use this for initialization
@@ -50,6 +53,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<Astr
     public void Handle(AstronautImmortalityMessage message)
     {
         Reset();
+        _mask.GetComponent<Mask>().enabled = !message.Immortal;
         _immortal = message.Immortal;
     }
 
