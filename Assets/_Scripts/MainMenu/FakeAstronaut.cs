@@ -26,9 +26,21 @@ public class FakeAstronaut : MonoBehaviour
         return this;
     }
 
-    void OnBecameInvisible()
+    public FakeAstronaut Torque(float force)
     {
-        //astronautCallback();
+        _rigidbody2D.AddTorque(force, ForceMode2D.Impulse);
+        return this;
     }
 
+    void OnBecameInvisible()
+    {
+        astronautCallback();
+    }
+
+    public FakeAstronaut Stop()
+    {
+        _rigidbody2D.angularVelocity = 0f;
+        _rigidbody2D.velocity = Vector2.zero;
+        return this;
+    }
 }

@@ -27,7 +27,8 @@ public class SideThrower
         float varianceX = Random.Range(-_directionVariance, _directionVariance);
         float varianceY = Random.Range(-_directionVariance, _directionVariance);
         Vector2 directionPosition = new Vector2(_directionOrigin.x + varianceX, _directionOrigin.y + varianceY);
-        return origin - directionPosition;
+        Vector2 direction = directionPosition - origin;
+        return direction.normalized;
     }
 
     private Vector2 RandomBetweenPositions(Vector2 position1, Vector2 position2)

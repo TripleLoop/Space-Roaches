@@ -8,6 +8,8 @@ public class MainScreenEnvironment : MonoBehaviour
 {
     private FakeAstronaut _fakeAstronaut;
     private Action _astronautDelegate;
+    private bool _activated = true;
+    private bool _inWaitandMove = false;
 
     public MainScreenEnvironment Initialize()
     {
@@ -19,23 +21,30 @@ public class MainScreenEnvironment : MonoBehaviour
 
     private MainScreenEnvironment MoveAstronaut()
     {
-        int index = Random.Range(0,LocalConfig.Sides.Length);
+        int index = Random.Range(0, LocalConfig.Sides.Length);
         SideThrower choosenSide = LocalConfig.Sides[index];
         Vector2 randomPosition = choosenSide.RandomPosition();
         _fakeAstronaut.SetPosition(randomPosition)
-           .Push(0.1f, choosenSide.RandomDirection(randomPosition));
+            .Push(LocalConfig.Astronaut.PushForce, choosenSide.RandomDirection(randomPosition))
+            .Torque(LocalConfig.Astronaut.TorqueForce);
         return this;
     }
 
     private void AstronautDissapears()
     {
-        StartCoroutine(WaitAndMoveAstronaut());
+        if (_activated && !_inWaitandMove)
+        {
+            StartCoroutine(WaitAndMoveAstronaut());
+        }
     }
 
     private IEnumerator WaitAndMoveAstronaut()
     {
-        yield return new WaitForSeconds(5f);
+        _inWaitandMove = true;
+        _fakeAstronaut.Stop();
+        yield return new WaitForSeconds(Random.Range(LocalConfig.Astronaut.MinTimeBetweenExit,LocalConfig.Astronaut.MaxTimeBetweenExit));
         MoveAstronaut();
+        _inWaitandMove = false;
     }
 
     private MainScreenEnvironment InitializeAstronaut()
@@ -56,6 +65,11 @@ public class MainScreenEnvironment : MonoBehaviour
         background.transform.SetParent(transform);
         background.transform.position = new Vector3(0, 0, -3.5f);
         return this;
+    }
+
+    void OnApplicationQuit()
+    {
+        _activated = false;
     }
 
 }
