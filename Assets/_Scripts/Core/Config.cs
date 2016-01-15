@@ -204,7 +204,7 @@ public static class Config
             };
         }
 
-        
+
         public static List<RangeComments> AllRangesComments = new List<RangeComments>()
         {
             //The minimum and maximum values are inclusives
@@ -216,6 +216,56 @@ public static class Config
             new RangeComments(Texts.SixthRange, 81, 100)
         };
     }
+
+    public static class MainMenu
+    {
+        public static class Environment
+        {
+            public static class Astronaut
+            {
+                public const float PushForce = 0.5f;
+                public const float TorqueForce = 0.1f;
+                public const float MinTimeBetweenExit = 0;
+                public const float MaxTimeBetweenExit = 7f;
+            }
+
+            public static SideThrower[] Sides = new SideThrower[2]
+            {
+               //top side
+               //new SideThrower(UpperLeftLimit,UpperRightLimit,new Vector2(0, 0),1f),
+               //left side
+               new SideThrower(LowerLeftLimit,UpperLeftLimit,new Vector2(0, 0),1f),
+               //lower side
+               //new SideThrower(LowerRightLimit,LowerLeftLimit,new Vector2(0, 0),1f),
+               //right side
+               new SideThrower(UpperRightLimit,LowerRightLimit,new Vector2(0, 0),1f),
+            };
+
+            public static Vector2 UpperLeftLimit
+            {
+                get { return new Vector2(-5, 3); }
+            }
+
+            public static Vector2 UpperRightLimit
+            {
+                get { return new Vector2(5, 3); }
+            }
+
+            public static Vector2 LowerLeftLimit
+            {
+                get { return new Vector2(-5, -3); }
+            }
+
+            public static Vector2 LowerRightLimit
+            {
+                get { return new Vector2(5, -3); }
+            }
+
+        }
+    }
+
+
+
 
 
 }

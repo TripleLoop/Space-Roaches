@@ -1,22 +1,50 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using LocalConfig = Config.MainMenu.Environment;
+using Random = UnityEngine.Random;
 
 public class MainScreenEnvironment : MonoBehaviour
 {
     private FakeAstronaut _fakeAstronaut;
-    
+    private Action _astronautDelegate;
+    private bool _activated = true;
+    private bool _inWaitandMove = false;
+
     public MainScreenEnvironment Initialize()
     {
         this.InitializeBackground()
             .InitializeAstronaut()
-            .StartEvents();
+            .MoveAstronaut();
         return this;
     }
 
-    private MainScreenEnvironment StartEvents()
+    private MainScreenEnvironment MoveAstronaut()
     {
-        _fakeAstronaut.SetPosition(new Vector3(-4, -4, -5))
-            .Push(0.1f, new Vector2(1, 0.5f));
+        int index = Random.Range(0, LocalConfig.Sides.Length);
+        SideThrower choosenSide = LocalConfig.Sides[index];
+        Vector2 randomPosition = choosenSide.RandomPosition();
+        _fakeAstronaut.SetPosition(randomPosition)
+            .Push(LocalConfig.Astronaut.PushForce, choosenSide.RandomDirection(randomPosition))
+            .Torque(LocalConfig.Astronaut.TorqueForce);
         return this;
+    }
+
+    private void AstronautDissapears()
+    {
+        if (_activated && !_inWaitandMove)
+        {
+            StartCoroutine(WaitAndMoveAstronaut());
+        }
+    }
+
+    private IEnumerator WaitAndMoveAstronaut()
+    {
+        _inWaitandMove = true;
+        _fakeAstronaut.Stop();
+        yield return new WaitForSeconds(Random.Range(LocalConfig.Astronaut.MinTimeBetweenExit,LocalConfig.Astronaut.MaxTimeBetweenExit));
+        MoveAstronaut();
+        _inWaitandMove = false;
     }
 
     private MainScreenEnvironment InitializeAstronaut()
@@ -25,7 +53,8 @@ public class MainScreenEnvironment : MonoBehaviour
         fakeAstronaut.name = "fakeAstronaut";
         fakeAstronaut.transform.SetParent(transform);
         fakeAstronaut.transform.position = new Vector3(0, 0, -5f);
-        _fakeAstronaut = fakeAstronaut.GetComponent<FakeAstronaut>().Initialize();
+        _astronautDelegate = AstronautDissapears;
+        _fakeAstronaut = fakeAstronaut.GetComponent<FakeAstronaut>().Initialize(_astronautDelegate);
         return this;
     }
 
@@ -36,6 +65,11 @@ public class MainScreenEnvironment : MonoBehaviour
         background.transform.SetParent(transform);
         background.transform.position = new Vector3(0, 0, -3.5f);
         return this;
+    }
+
+    void OnApplicationQuit()
+    {
+        _activated = false;
     }
 
 }
