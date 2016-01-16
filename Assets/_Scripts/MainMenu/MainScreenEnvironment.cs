@@ -32,7 +32,7 @@ public class MainScreenEnvironment : MonoBehaviour
 
     private void AstronautDissapears()
     {
-        if (_activated && !_inWaitandMove)
+        if (_activated && !_inWaitandMove && gameObject.activeInHierarchy)
         {
             StartCoroutine(WaitAndMoveAstronaut());
         }

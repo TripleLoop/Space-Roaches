@@ -52,7 +52,7 @@ public class TypeWriting : MonoBehaviourEx {
         }
         currentLine++;
     }*/
-    
+    //TODO: remove references of UI.text, just use callback and make it more Loosely coupled
     IEnumerator TypeText(string text, Text dialogueBox/*, int line*/)
     {
         _typing = true;

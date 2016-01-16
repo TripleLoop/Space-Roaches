@@ -8,6 +8,7 @@ public class CanvasManager : MonoBehaviour
     private EndScreen _endScreen;
     private AlertPopUp _alertPopUp;
 
+    ///TODO: Instantiate all the canvas components to ensure they are loaded
     public CanvasManager Initialize()
     {
         _roachCount = GetComponentInChildren<RoachCount>();

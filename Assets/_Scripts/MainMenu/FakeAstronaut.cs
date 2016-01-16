@@ -32,6 +32,7 @@ public class FakeAstronaut : MonoBehaviour
         return this;
     }
 
+    //TODO: Should be changed into a proper way of detection
     void OnBecameInvisible()
     {
         astronautCallback();

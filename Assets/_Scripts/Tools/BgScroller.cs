@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//TODO: background scroll inside canvas
 public class BgScroller : MonoBehaviour
 {
     [SerializeField]

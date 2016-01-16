@@ -122,6 +122,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
     }
 
+    ///TODO: change to normal function ensure tutorial is loaded
     private IEnumerator TutorialRoutine()
     {
         while (!_tutorialLoaded)

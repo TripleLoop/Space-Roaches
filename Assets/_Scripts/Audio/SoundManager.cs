@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Audio;
 
+///TODO: in mobile audio can be delayed, specific native audio play for mobile may be needed or more optimization
 public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IHandle<PlayMusicMessage>, IHandle<AudioStateMessage>, IHandle<AudioSetUpMessage>
 {
     private AudioMixer _audioMixer;
@@ -18,6 +19,8 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         return this;
     }
 
+    //TODO: audiomixer loses value and then it finds it again, in mobile and when user is not authenticated why?.
+    //TODO: temporal solution block if null
     public SoundManager InitializeSources()
     {
         _soundEffects = SRResources.Core.Audio._Prefabs.SoundEffects.Instantiate();
@@ -97,6 +100,7 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
 
     /// <summary>
     /// Some magic is done to have proper audio levels, if it's a negative number the audio value has to be multiplied by 4
+    ///TODO: Audio negative values should be exponential not linear
     /// </summary>
     /// <returns>Processed value</returns>
     private float AudioLevelBalancer(float audioVolume)

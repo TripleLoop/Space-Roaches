@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//TODO: should move, try not to create chaos in game
 public class Roach : MonoBehaviourEx, IKillable
 
 {

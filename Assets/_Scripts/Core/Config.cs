@@ -2,6 +2,7 @@
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
+///TODO: use json instead static class for configuration
 public static class Config
 {
     public static class SpaceRoaches
@@ -129,6 +130,7 @@ public static class Config
 
     public static class EndScreen
     {
+        ///TODO: pull all texts into files and loaded them, use json
         private static class Texts
         {
             //Comments showed on EndScreen depending of score
