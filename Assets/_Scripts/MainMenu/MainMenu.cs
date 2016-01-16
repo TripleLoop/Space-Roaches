@@ -89,7 +89,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
 
     private MainMenu SetReferences()
     {
-        _menuCanvas.Initialize(_mainCamera);
+        _menuCanvas.Initialize(_mainCamera, _playerPrefsManager.TutorialForced);
         _loginDelegate = LoginFinished;
         _postingDelegate = PostingFinished;
         return this;

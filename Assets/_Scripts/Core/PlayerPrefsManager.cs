@@ -2,11 +2,12 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMessage>, IHandle<AudioStateMessage>, IHandle<NewScoreMessage>
+public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMessage>, IHandle<AudioStateMessage>, IHandle<NewScoreMessage>, IHandle<TutorialForcedMessage>
 {
     private float _effectsVolume;
     private float _musicVolume;
     private int _tutorialSeen;
+    private int _tutorialForced;
     private int _ownHighScore;
     private int _scorePublished;
     private int _userAuthenticated;
@@ -30,6 +31,16 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         {
             _tutorialSeen = value ? 1 : 0;
             PlayerPrefs.SetInt("_tutorialSeen", _tutorialSeen);
+        }
+    }
+
+    public bool TutorialForced
+    {
+        get { return _tutorialForced == 1; }
+        set
+        {
+            _tutorialForced = value ? 1 : 0;
+            PlayerPrefs.SetInt("_tutorialForced", _tutorialForced);
         }
     }
 
@@ -80,6 +91,11 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         }
     }
 
+    public void Handle(TutorialForcedMessage message)
+    {
+        TutorialForced = message.TutorialForced;
+    }
+
     private void OnApplicationQuit()
     {
         UserAuthenticated = false;
@@ -93,6 +109,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         _ownHighScore = PlayerPrefs.GetInt("_ownHighScore");
         _scorePublished = PlayerPrefs.GetInt("_scorePublished");
         _userAuthenticated = PlayerPrefs.GetInt("_userAuthenticated");
+        _tutorialForced = PlayerPrefs.GetInt("_tutorialForced");
         return this;
     }
 
@@ -122,7 +139,11 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         {
             PlayerPrefs.SetInt("_userAuthenticated", 0);
         }
+        if (!PlayerPrefs.HasKey("_tutorialForced"))
+        {
+            PlayerPrefs.SetInt("_tutorialForced", 0);
+        }
         return this;
     }
-  
+
 }

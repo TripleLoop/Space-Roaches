@@ -23,10 +23,11 @@ public class MenuCanvas : MonoBehaviourEx
     private AlertPopUp _alertPopUp;
     private LoadingScreen _loadingScreen;
 
-    public MenuCanvas Initialize(Camera mainCamera)
+    public MenuCanvas Initialize(Camera mainCamera, bool tutorialForced)
     {
         GetComponent<Canvas>().worldCamera = mainCamera;
         _settingsMenu = GetComponentInChildren<SettingsMenu>();
+        _settingsMenu.Initialize(tutorialForced);
         //_leaderboardMenu = GetComponentInChildren<LeaderboardMenu>();
         _enableDelegate = EnableButtons;
         InitializeAlertPopUp()

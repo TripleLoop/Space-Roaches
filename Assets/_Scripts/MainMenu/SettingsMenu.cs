@@ -11,10 +11,12 @@ public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
     private Slider _effectsSlider;
     [SerializeField]
     private Slider _musicSlider;
+    [SerializeField]
+    private Toggle _tutoriaToggle;
 
     private bool _audioSetUp;
 
-    private void Start()
+    public SettingsMenu Initialize(bool tutorialForced)
     {
         if (!_audioSetUp)
         {
@@ -24,7 +26,8 @@ public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
         _effectsSlider.minValue = LocalConfig.EffectsSlider.MinValue;
         _musicSlider.maxValue = LocalConfig.MusicSlider.MaxValue;
         _musicSlider.minValue = LocalConfig.MusicSlider.MinValue;
-
+        _tutoriaToggle.isOn = tutorialForced;
+        return this;
     }
 
     public SettingsMenu Show(MenuCanvas.EnableDelegate enableDelegate)
@@ -41,18 +44,21 @@ public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
         _enableDelegate();
     }
 
-    //called when slider music moves
     public void OnSliderMusic(float value)
     {
         if (!_audioSetUp) return;
         Messenger.Publish(new AudioStateMessage(null, value));
     }
 
-    //called when slider effects moves 
     public void OnSliderEffects(float value)
     {
         if (!_audioSetUp) return;
         Messenger.Publish(new AudioStateMessage(value, null));
+    }
+
+    public void OnToogleTutorial(bool value)
+    { 
+        Messenger.Publish(new TutorialForcedMessage(value));
     }
 
     public void Handle(AudioSetUpMessage message)
@@ -85,5 +91,5 @@ public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
         }
         return this;
     }
-
+   
 }
