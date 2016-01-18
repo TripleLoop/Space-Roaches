@@ -29,7 +29,7 @@ public class Smooth_Follow : MonoBehaviour {
             //Vector3 point = camera.WorldToViewportPoint(_target.position);
             var delta = _target.position - GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, transform.position.z)); //(new Vector3(0.5, 0.5, point.z));
             var destination = transform.position + delta;
-            _cameraPosition = Vector3.SmoothDamp(new Vector3(transform.position.x, transform.position.y, -15), new Vector3(destination.x, destination.y, -15), ref velocity, _dampTime);
+            _cameraPosition = Vector3.SmoothDamp(new Vector3(transform.position.x, transform.position.y, LocalConfig.ZPosition), new Vector3(destination.x, destination.y, LocalConfig.ZPosition), ref velocity, _dampTime);
             transform.position = _cameraPosition;
         }
 

@@ -108,7 +108,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
                 WriteComment(numDeathRoaches);
                 break;
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(LocalConfig.TimeCountUp);
             scoreCount++;
             _textCount.text = scoreCount.ToString();
             Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.tick));

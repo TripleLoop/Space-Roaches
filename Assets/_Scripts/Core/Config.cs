@@ -33,7 +33,7 @@ public static class Config
     {
         public static class Game
         {
-            //public const float ZPosition = 15;
+            public const float ZPosition = -15;
             public const float ShakeDuration = 0.25f;
             public const float ShakeMagnitude = 0.1f;
             public const float DampTime = 0.2f;
@@ -47,8 +47,10 @@ public static class Config
         {
             //Intensity Astronaut Dash
             public const float DashIntensity = 6f;
-            //Percent of intensity when break (0 = nothing / 1 = all)
+            //Percent of intensity reduction when break (0 = nothing / 1 = all)
             public const float BreakDashIntensity = 0.8f;
+            public const float TimeToBreak = 0.5f;
+            public const float TimeBreak = 0.1f;
             //Velocity when idle State
             public const float MinVelocity = 2f;
             public const float ImmortalityTime = 8.0f;
@@ -128,8 +130,17 @@ public static class Config
         }
     }
 
+    public static class DashMeter
+    {
+        public const float TimeLoadBar = 0.025f;
+        public const float SizeUpLoadBar = 0.0025f;
+        public const float SizeDownDownloadBar = 0.15f;
+    }
+
     public static class EndScreen
     {
+        public const float TimeCountUp = 0.05f;
+
         ///TODO: pull all texts into files and loaded them, use json
         private static class Texts
         {
@@ -266,7 +277,10 @@ public static class Config
         }
     }
 
-
+    public static class TypeWritting
+    {
+        public const float TimePerLetter = 0.01f;
+    }
 
 
 

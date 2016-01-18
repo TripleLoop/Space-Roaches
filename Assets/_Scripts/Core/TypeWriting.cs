@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using LocalConfig = Config.TypeWritting;
 
 public class TypeWriting : MonoBehaviourEx {
     private Text dialogueBox;
@@ -61,7 +62,7 @@ public class TypeWriting : MonoBehaviourEx {
         {
             dialogueBox.text += letter;
             Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.keystroke));
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(LocalConfig.TimePerLetter);
         }
         //showAvailabeAction.gameObject.SetActive(true);
         _typing = false;

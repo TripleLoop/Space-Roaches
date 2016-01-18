@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using LocalConfig = Config.DashMeter;
 
 public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<AstronautDeathMessage>, IHandle<AstronautImmortalityMessage>
 {
@@ -61,8 +62,8 @@ public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<Astr
     {
         while (_scrollbar.size < 1.0f)
         {
-            yield return new WaitForSeconds(0.025f);
-            _scrollbar.size += 0.0025f;
+            yield return new WaitForSeconds(LocalConfig.TimeLoadBar);
+            _scrollbar.size += LocalConfig.SizeUpLoadBar;
             CheckCharges();
             AddCharge(_charges);
         }
@@ -82,7 +83,7 @@ public class DashMeter : MonoBehaviourEx, IHandle<CanDashQuestion>, IHandle<Astr
         {
             return this;
         }
-        _scrollbar.size -= 0.15f;
+        _scrollbar.size -= LocalConfig.SizeDownDownloadBar;
         UseCharge(_charges);
         StopCoroutine(_loadBar);
         _loadBar = LoadBar();

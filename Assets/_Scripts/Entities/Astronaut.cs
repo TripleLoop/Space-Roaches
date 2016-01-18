@@ -202,10 +202,10 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     {
         _enableSlowDown = true;
         //Debug.Log("entro");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(LocalConfig.TimeToBreak);
         while (_rigidbody2D.velocity.magnitude > LocalConfig.MinVelocity)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(LocalConfig.TimeBreak);
             _rigidbody2D.velocity *= _breakIntensity;
         }
         SetState(State.Moving);
