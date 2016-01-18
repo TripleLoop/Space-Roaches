@@ -2,10 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 using LocalConfig = Config.Audio;
+using System;
 
 public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
 {
     private MenuCanvas.EnableDelegate _enableDelegate;
+    private Action _onCloseEndedDelegate;
+
+    private BasePopupComponent _basePopupComponent;
 
     [SerializeField]
     private Slider _effectsSlider;
@@ -27,20 +31,29 @@ public class SettingsMenu : MonoBehaviourEx, IHandle<AudioSetUpMessage>
         _musicSlider.maxValue = LocalConfig.MusicSlider.MaxValue;
         _musicSlider.minValue = LocalConfig.MusicSlider.MinValue;
         _tutoriaToggle.isOn = tutorialForced;
+        _onCloseEndedDelegate = OnCloseEnded;
+        _basePopupComponent = gameObject.GetComponent<BasePopupComponent>();
+        _basePopupComponent.Initialize(_onCloseEndedDelegate);
         return this;
     }
 
     public SettingsMenu Show(MenuCanvas.EnableDelegate enableDelegate)
     {
         EnableChildren();
+        _basePopupComponent.ShowPopUp();
         _enableDelegate = enableDelegate;
         return this;
+    }
+
+    private void OnCloseEnded()
+    {
+        DisableChildren();
     }
 
     //Function executed on pressing popup x button
     public void Close()
     {
-        DisableChildren();
+        _basePopupComponent.ClosePopUp();
         _enableDelegate();
     }
 
