@@ -105,7 +105,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             if (scoreCount == numDeathRoaches)
             {
                 _isInCountUp = false;
-                WriteComment(numDeathRoaches);
+                SendComment(numDeathRoaches);
                 break;
             }
             yield return new WaitForSeconds(LocalConfig.TimeCountUp);
@@ -121,9 +121,14 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         Initialize();
     }
 
-    public EndScreen WriteComment(int deathRoaches)
+    private EndScreen SendComment(int deathRoaches)
     {
-        _typeWriting.StartWrite(_selectEndScreenText.CommentByScore(deathRoaches, _rangeComments), _textComment);
+        _typeWriting.StartWrite(_selectEndScreenText.CommentByScore(deathRoaches, _rangeComments), WriteLetter);
         return this;
+    }
+
+    private void WriteLetter(Char letter)
+    {
+        _textComment.text += letter;
     }
 }

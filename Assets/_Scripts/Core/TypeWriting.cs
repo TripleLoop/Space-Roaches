@@ -4,7 +4,10 @@ using System.Collections;
 using UnityEngine.UI;
 using LocalConfig = Config.TypeWritting;
 
-public class TypeWriting : MonoBehaviourEx {
+public class TypeWriting : MonoBehaviourEx
+{
+
+    private Action<char> _callback;
     private Text dialogueBox;
     //Image showAvailabeAction;
     private string[] currentDialogLines;
@@ -18,7 +21,7 @@ public class TypeWriting : MonoBehaviourEx {
 	    dialogueBox.text ="";
 	}*/
 
-    public void StartWrite(string text, Text commentBox)
+    public void StartWrite(string text, Action<char> callback)
     {
         /*foreach (Transform child in transform)
         {
@@ -30,7 +33,8 @@ public class TypeWriting : MonoBehaviourEx {
         currentLine = 0;*/
         //StartCoroutine(DetectInput());
         //NextLine();
-        StartCoroutine(TypeText(text, commentBox));
+        _callback = callback;
+        StartCoroutine(TypeText(text));
     }
 
     /*public void NextLine()
@@ -54,13 +58,13 @@ public class TypeWriting : MonoBehaviourEx {
         currentLine++;
     }*/
     //TODO: remove references of UI.text, just use callback and make it more Loosely coupled
-    IEnumerator TypeText(string text, Text dialogueBox/*, int line*/)
+    IEnumerator TypeText(string text/*, int line*/)
     {
         _typing = true;
         //showAvailabeAction.gameObject.SetActive(false);
         foreach (char letter in text/*[line]*/.ToCharArray())
         {
-            dialogueBox.text += letter;
+            _callback(letter);
             Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.keystroke));
             yield return new WaitForSeconds(LocalConfig.TimePerLetter);
         }
