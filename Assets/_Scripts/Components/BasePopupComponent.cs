@@ -26,6 +26,7 @@ public class BasePopupComponent : MonoBehaviour {
 
     public void OnPopupClosed()
     {
+        _popUpAnimator.SetInteger("Anim", 0);
         _onClosePopup();
     }
 }
