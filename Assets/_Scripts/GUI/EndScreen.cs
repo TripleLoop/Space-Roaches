@@ -105,6 +105,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             if (scoreCount == numDeathRoaches)
             {
                 _isInCountUp = false;
+                yield return new WaitForSeconds(0.5f);
                 SendComment(numDeathRoaches);
                 break;
             }
@@ -113,7 +114,6 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             _textCount.text = scoreCount.ToString();
             Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.tick));
         }
-        
     }
 
     private void Start()

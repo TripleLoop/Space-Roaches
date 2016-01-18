@@ -279,7 +279,7 @@ public static class Config
 
     public static class TypeWritting
     {
-        public const float TimePerLetter = 0.01f;
+        public const float TimePerLetter = 0.03f;
     }
 
 
