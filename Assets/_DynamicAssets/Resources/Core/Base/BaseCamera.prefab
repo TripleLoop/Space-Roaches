@@ -71,7 +71,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_BackGroundColor: {r: 0.14901961, g: 0.15294118, b: 0.12941177, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -206,11 +206,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_BackGroundColor.g
-      value: 0.14901961
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_BackGroundColor.b
-      value: 0.1254902
+      value: 0.12941177
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: field of view
