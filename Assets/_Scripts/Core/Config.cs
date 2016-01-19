@@ -46,13 +46,13 @@ public static class Config
         public static class Astronaut
         {
             //Intensity Astronaut Dash
-            public const float DashIntensity = 6f;
+            public const float DashIntensity = 5.5f;
             //Percent of intensity reduction when break (0 = nothing / 1 = all)
             public const float BreakDashIntensity = 0.8f;
             public const float TimeToBreak = 0.5f;
             public const float TimeBreak = 0.1f;
             //Velocity when idle State
-            public const float MinVelocity = 2f;
+            public const float MinVelocity = 2.5f;
             public const float ImmortalityTime = 8.0f;
         }
 
@@ -132,8 +132,8 @@ public static class Config
 
     public static class DashMeter
     {
-        public const float TimeLoadBar = 0.025f;
-        public const float SizeUpLoadBar = 0.0025f;
+        public const float TimeLoadBar = 0.001f;
+        public const float SizeUpLoadBar = 0.0045f;
         public const float SizeDownDownloadBar = 0.15f;
     }
 
