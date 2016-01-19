@@ -24,6 +24,7 @@ public class DeathBall : MonoBehaviourEx, IKillable
 
     public void Kill()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.SpikeExplosion));
         Messenger.Publish(new SpikeBallDeathMessage(gameObject));
     }
 

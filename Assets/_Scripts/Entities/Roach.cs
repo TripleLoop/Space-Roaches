@@ -9,7 +9,7 @@ public class Roach : MonoBehaviourEx, IKillable
 
     public void Kill()
     {
-        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.MediumHit));
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.RoachSplat));
         Messenger.Publish(new RoachDeathMessage(gameObject));
     }
 

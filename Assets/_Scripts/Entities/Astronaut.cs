@@ -248,6 +248,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private IEnumerator Immortal()
     {
         _immortal = true;
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Invincibility));
         _immortalParticle.Play();
         StartCoroutine(Flash());
         yield return new WaitForSeconds(LocalConfig.ImmortalityTime);

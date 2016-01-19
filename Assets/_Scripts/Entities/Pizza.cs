@@ -74,7 +74,7 @@ public class Pizza : MonoBehaviourEx {
         if (coll.gameObject.CompareTag(SRTags.Player))
         {
             Messenger.Publish(new PizzaEatenMessage(gameObject));
-            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.MediumHit));
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.GetPizza));
         }
     }
 
