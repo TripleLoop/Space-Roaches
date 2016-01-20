@@ -1337,27 +1337,20 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource temp_background {
+            public static global::TypeSafe.PrefabResource background {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource background {
+            public static global::TypeSafe.PrefabResource gameWalls {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource gameWalls {
-                get {
-                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
-                }
-            }
-            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
                         new global::TypeSafe.PrefabResource("background3D", "Core/Environment/background3D"),
-                        new global::TypeSafe.PrefabResource("temp_background", "Core/Environment/temp_background"),
                         new global::TypeSafe.PrefabResource("background", "Core/Environment/background"),
                         new global::TypeSafe.PrefabResource("gameWalls", "Core/Environment/gameWalls")});
             
