@@ -2,7 +2,7 @@
 using System.Collections;
 using LocalConfig = Config.Camera.Game;
 
-public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>
+public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle<AstronautDeathMessage>, IHandle<SpikeBallDeathMessage>
 {
 
     private float _duration = LocalConfig.ShakeDuration;
@@ -20,12 +20,24 @@ public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>
 
     public void Handle(RoachDeathMessage message)
     {
-        StartCoroutine(Shake());
+        StartCoroutine(Shake(1f));
     }
 
-    public IEnumerator Shake()
+    public void Handle(SpikeBallDeathMessage message)
+    {
+        StartCoroutine(Shake(1.5f));
+    }
+
+    public void Handle(AstronautDeathMessage message)
+    {
+        StartCoroutine(Shake(2f));
+    }
+
+    public IEnumerator Shake(float scaleMagnitude)
     {
         float elapsed = 0.0f;
+        _magnitude = _magnitude*scaleMagnitude;
+        _duration = _duration * scaleMagnitude;
 
         while (elapsed < _duration)
         {
