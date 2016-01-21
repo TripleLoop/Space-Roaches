@@ -226,7 +226,7 @@ public static class Config
             new RangeComments(Texts.ThirdRange, 21, 40),
             new RangeComments(Texts.FourthRange, 41, 60),
             new RangeComments(Texts.FifthRange, 61, 80),
-            new RangeComments(Texts.SixthRange, 81, 100)
+            new RangeComments(Texts.SixthRange, 81, 1000)
         };
     }
 
