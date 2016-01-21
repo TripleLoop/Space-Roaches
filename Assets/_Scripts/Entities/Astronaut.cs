@@ -65,6 +65,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         {
             return;
         }
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.AstronautDeath));
         SetState(State.Die);
     }
 
@@ -192,7 +193,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         }
         if (_currentState == Dash)
         {
-            
             Vector2 bouncePos = new Vector2(transform.position.x, transform.position.y);
             StartCoroutine(BounceDirection(bouncePos));
         }
@@ -248,13 +248,14 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     private IEnumerator Immortal()
     {
         _immortal = true;
-        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Invincibility));
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Invincibility_m));
         _immortalParticle.Play();
         StartCoroutine(Flash());
         yield return new WaitForSeconds(LocalConfig.ImmortalityTime);
         _immortal = false;
         _immortalParticle.Stop();
         Messenger.Publish(new AstronautImmortalityMessage(false));
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Invincibility_m));
     }
 
     private IEnumerator Flash()
