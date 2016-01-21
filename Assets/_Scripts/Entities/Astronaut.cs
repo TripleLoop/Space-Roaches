@@ -84,7 +84,6 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
     public void Handle(UserInputMessage message)
     {
-        
         if (!_astronautDead)
         {
             _location = message.Location;
@@ -138,6 +137,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
                 _slowDown = StartCoroutine(SlowDown());
 
                 _dashParticle.Play();
+                Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Dash));
                 break;
             case State.Moving:
                 _currentState = Moving;

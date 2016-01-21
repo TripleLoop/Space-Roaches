@@ -36,8 +36,6 @@ public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle
     public IEnumerator Shake(float scaleMagnitude)
     {
         float elapsed = 0.0f;
-        _magnitude = _magnitude*scaleMagnitude;
-        _duration = _duration * scaleMagnitude;
 
         while (elapsed < _duration)
         {
@@ -49,8 +47,8 @@ public class Shake_Camera : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandle
             // map value to [-1, 1]
             float x = Random.value * 2.0f - 1.0f;
             float y = Random.value * 2.0f - 1.0f;
-            x *= _magnitude * damper;
-            y *= _magnitude * damper;
+            x *= _magnitude * damper * scaleMagnitude;
+            y *= _magnitude * damper * scaleMagnitude;
 
             _cameraPosition = _smoothFollow.SendCameraPosition();
             gameObject.transform.position = new Vector3(x + _cameraPosition.x, y + _cameraPosition.y, _cameraPosition.z);
