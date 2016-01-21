@@ -6,7 +6,7 @@ using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 using LocalConfig = Config.Entities.Spikeball;
 
-public class DeathBall : MonoBehaviourEx, IKillable
+public class SpikeBall : MonoBehaviourEx, IKillable
 {
     private Rigidbody2D _rigidbody2D;
 
