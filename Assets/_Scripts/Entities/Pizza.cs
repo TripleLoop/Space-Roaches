@@ -39,7 +39,7 @@ public class Pizza : MonoBehaviourEx, IWakeable
 
             case State.Moving:
                 _currentState = Moving;
-                _rigidbody2D.AddForce(Random_dir() * _pushForce);
+                _rigidbody2D.AddForce(Random_dir() * _pushForce, ForceMode2D.Impulse);
                 break;
             case State.Death:
                 _currentState = Death;

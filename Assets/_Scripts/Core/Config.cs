@@ -58,7 +58,7 @@ public static class Config
 
         public static class Spikeball
         {
-            public const float PushForce = 50f;
+            public const float PushForce = 1.5f;
             public const float MinDirectionX = -1f;
             public const float MaxDirectionX = 1f;
             public const float MinDirectionY = -1f;
@@ -67,7 +67,7 @@ public static class Config
 
         public static class Pizza
         {
-            public const float PushForce = 75f;
+            public const float PushForce = 2f;
             public const float MinDirectionX = -1f;
             public const float MaxDirectionX = 1f;
             public const float MinDirectionY = -1f;
