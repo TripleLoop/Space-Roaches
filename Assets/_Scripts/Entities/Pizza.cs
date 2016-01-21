@@ -4,9 +4,11 @@ using System.Collections;
 using Random = UnityEngine.Random;
 using LocalConfig = Config.Entities.Pizza;
 
-public class Pizza : MonoBehaviourEx {
+public class Pizza : MonoBehaviourEx, IWakeable
+{
 
     private Rigidbody2D _rigidbody2D;
+    private bool _hasInitialized;
 
     private float _pushForce = LocalConfig.PushForce;
 
@@ -19,6 +21,12 @@ public class Pizza : MonoBehaviourEx {
 
     private Action _currentState;
     public State CurrentStateName;
+
+    public void WakeUp()
+    {
+        if (!_hasInitialized) Initialize();
+        SetState(State.Moving);
+    }
 
     private void SetState(State state)
     {
@@ -35,6 +43,7 @@ public class Pizza : MonoBehaviourEx {
                 break;
             case State.Death:
                 _currentState = Death;
+                _rigidbody2D.velocity = Vector2.zero;
                 break;
             default:
                 Debug.Log("unrecognized state");
@@ -78,16 +87,12 @@ public class Pizza : MonoBehaviourEx {
         }
     }
 
-    public override void Awake()
-    {
-        base.Awake();
-        _rigidbody2D = this.GetComponent<Rigidbody2D>();
-    }
-
-    void OnEnable()
+    public Pizza Initialize()
     {
         _currentState = Idle;
-        SetState(State.Moving);
+        _rigidbody2D = this.GetComponent<Rigidbody2D>();
+        _hasInitialized = true;
+        return this;
     }
 
 }

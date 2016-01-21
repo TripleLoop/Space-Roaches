@@ -26,13 +26,16 @@ public class EntitySpawner : MonoBehaviourEx, IHandle<RoachDeathMessage>, IHandl
         switch (entity)
         {
             case "roach":
-                _roachPool.Spawn(SRResources.Core.Characters.Roach, position, Quaternion.identity);
+                Transform _roachTransform = _roachPool.Spawn(SRResources.Core.Characters.Roach, position, Quaternion.identity);
+                _roachTransform.gameObject.GetComponent<Roach>().WakeUp();
                 return this;
             case "Spikeball":
-                _spikeBallPool.Spawn(SRResources.Core.Characters.Spikeball, position, Quaternion.identity);
+                Transform _spikeballTransform = _spikeBallPool.Spawn(SRResources.Core.Characters.Spikeball, position, Quaternion.identity);
+                _spikeballTransform.gameObject.GetComponent<SpikeBall>().WakeUp();
                 return this;
             case "pizza":
-                _pizzaPool.Spawn(SRResources.Core.Items.PizzaSlize, position, Quaternion.identity);
+                Transform _pizzaTransform = _pizzaPool.Spawn(SRResources.Core.Items.PizzaSlize, position, Quaternion.identity);
+                _pizzaTransform.gameObject.GetComponent<Pizza>().WakeUp();
                 return this;
         }
         return this;
