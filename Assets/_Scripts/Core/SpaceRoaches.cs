@@ -36,6 +36,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeWaveManager()
             .InitializeCamera()
             .InitializeCanvas()
+            .InitializeBackground()
             .Initialize3DBackground()
             .InitializeForeGround()
             .InitializeAstronaut()
@@ -202,6 +203,14 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         userInput.name = "userInput";
         userInput.transform.parent = this.gameObject.transform;
         _userInput = userInput.GetComponent<UserInput>();
+        return this;
+    }
+
+    private SpaceRoaches InitializeBackground()
+    {
+        GameObject background = SRResources.Core.Environment.background.Instantiate();
+        background.name = "background";
+        background.transform.parent = this.gameObject.transform;
         return this;
     }
 
