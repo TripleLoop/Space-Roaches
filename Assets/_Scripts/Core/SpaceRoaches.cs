@@ -36,7 +36,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             .InitializeWaveManager()
             .InitializeCamera()
             .InitializeCanvas()
-            .InitializeBackground()
+            .InitializeMovingBackground()
             .Initialize3DBackground()
             .InitializeForeGround()
             .InitializeAstronaut()
@@ -206,7 +206,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return this;
     }
 
-    private SpaceRoaches InitializeBackground()
+    private SpaceRoaches InitializeMovingBackground()
     {
         GameObject background = SRResources.Core.Environment.background.Instantiate();
         background.name = "background";
