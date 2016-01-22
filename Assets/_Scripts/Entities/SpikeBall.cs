@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
@@ -24,7 +26,8 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
     public void WakeUp()
     {
         if (!hasInitialized) Initialize();
-        SetState(State.Moving);
+        StartCoroutine(Spawn());
+        _currentState = Idle;
     }
 
     public void Kill()
@@ -32,6 +35,18 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
         Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.SpikeExplosion));
         Messenger.Publish(new SpikeBallDeathMessage(gameObject));
         SetState(State.Death);
+    }
+
+    private IEnumerator Spawn()
+    {
+        Messenger.Publish(new SpawnSpikeBallParticleMessage(gameObject));
+        yield return new WaitForSeconds(2.0f);
+        
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponentsInChildren<Collider2D>()[1].enabled = true;
+        
+        SetState(State.Moving);
     }
 
     private void SetState(State state)
@@ -96,11 +111,10 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
     private SpikeBall Initialize()
     {
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
-        _currentState = Idle;
+        
         hasInitialized = true;
         return this;
     }
-
 }
 
 
