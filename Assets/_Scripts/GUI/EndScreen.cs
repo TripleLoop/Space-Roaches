@@ -60,8 +60,8 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             {
                 child.gameObject.SetActive(false);
             }
-            _textComment.text = "";
             _textCount.text = "0";
+            _textComment.text = "";
         }
         if (_animator.GetInteger("EndState") == 1)
         {
@@ -86,11 +86,11 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     public EndScreen Reset()
     {
         _astronautDead = false;
-        _typeWriting.StopWriting();
         if (_isInCountUp)
         {
             StopCoroutine(_countUp);
         }
+        _typeWriting.StopWriting();
         return this;
     }
 
@@ -104,8 +104,8 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         {
             if (scoreCount == numDeathRoaches)
             {
-                _isInCountUp = false;
                 yield return new WaitForSeconds(0.5f);
+                _isInCountUp = false;
                 SendComment(numDeathRoaches);
                 break;
             }
