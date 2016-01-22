@@ -112,7 +112,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
             yield return new WaitForSeconds(LocalConfig.TimeCountUp);
             scoreCount++;
             _textCount.text = scoreCount.ToString();
-            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.tick));
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects._tick));
         }
     }
 

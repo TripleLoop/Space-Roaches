@@ -43,18 +43,9 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
             return;
         }
         AudioSource soundEffectsSource = _soundEffects.GetComponent<AudioSource>();
-        if (message.SoundEffectClip == SRResources.Core.Audio.Clips.SoundEffects.Invincibility_m)
-        {
-            if (soundEffectsSource.clip)
-            {
-                soundEffectsSource.Stop();
-                soundEffectsSource.clip = null;
-                return;
-            }
-            soundEffectsSource.clip = message.SoundEffectClip;
-            soundEffectsSource.Play();
-            return;
-        }
+
+        PlaySoundEffect(message.SoundEffectClip, soundEffectsSource);
+
         if (message.Tracked)
         {
             if (IsPlaying())
@@ -64,6 +55,23 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
             _startTime = Time.time;
         }
         soundEffectsSource.PlayOneShot(message.SoundEffectClip);
+    }
+
+    public bool PlaySoundEffect(AudioClip effectClip, AudioSource source)
+    {
+        if (effectClip == SRResources.Core.Audio.Clips.SoundEffects.Invincibility_m)
+        {
+            if (source.clip)
+            {
+                source.Stop();
+                source.clip = null;
+                return false;
+            }
+            source.clip = effectClip;
+            source.Play();
+            return true;
+        }
+        return false;
     }
 
     public void Handle(PlayMusicMessage message)

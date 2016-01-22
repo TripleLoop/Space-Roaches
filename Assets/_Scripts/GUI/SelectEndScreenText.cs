@@ -13,7 +13,8 @@ public class SelectEndScreenText
                 return range.Comments[Random.Range(0, range.Comments.Length)];
             }
         }
-        return null;
+        RangeComments tempRangeComments = rangesComments.Last();
+        return tempRangeComments.Comments[Random.Range(0, tempRangeComments.Comments.Length)];
     }
    
 }
