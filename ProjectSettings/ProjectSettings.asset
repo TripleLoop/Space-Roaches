@@ -89,7 +89,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.tripleloopgames.spaceroaches
-  bundleVersion: 0.0.1
+  bundleVersion: 1.0.0.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -333,7 +333,7 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    1: 
+    1: VersionNumber
     2: ConfigurationMenu
     7: ConfigurationMenu
   metroPackageName: Space Roaches
