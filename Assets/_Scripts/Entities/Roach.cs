@@ -2,20 +2,22 @@
 using System.Collections;
 
 //TODO: should move, try not to create chaos in game
-public class Roach : MonoBehaviourEx, IKillable
+public class Roach : MonoBehaviourEx, IKillable, IWakeable
 
 {
     private ParticleSystem _spawnParticle;
+    private bool _hasInitialized;
+
+    public void WakeUp()
+    {
+        if (!_hasInitialized) Initialize();
+        StartCoroutine(Spawn());
+    }
 
     public void Kill()
     {
         Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.RoachSplat));
         Messenger.Publish(new RoachDeathMessage(gameObject));
-    }
-
-    private void OnEnable()
-    {
-        StartCoroutine(Spawn());
     }
 
     private IEnumerator Spawn()
@@ -24,5 +26,10 @@ public class Roach : MonoBehaviourEx, IKillable
         yield return new WaitForSeconds(0.5f);
     }
 
-
+    public Roach Initialize()
+    {
+        _hasInitialized = true;
+        return this;
+    }
+  
 }

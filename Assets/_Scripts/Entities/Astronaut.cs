@@ -75,6 +75,8 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         SetState(State.Idle);
         _astronautDead = false;
         transform.position = new Vector2(0, 0);
+        transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().isKinematic = false;
@@ -120,7 +122,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
                 break;
             case State.Dash:
                 _currentState = Dash;
-                
+
                 _animatorAst.SetInteger("State", 1);
 
                 _rigidbody2D.velocity = Vector2.zero;
@@ -128,7 +130,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
                 transform.rotation = Quaternion.FromToRotation(transform.parent.right, _direction);
                 _rigidbody2D.AddForce(_direction * _intensity, ForceMode2D.Impulse);
                 FlipChar();
-                
+
                 if (_enableSlowDown)
                 {
                     StopCoroutine(_slowDown);
@@ -160,13 +162,13 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         }
     }
 
-    private void Idle(){}
+    private void Idle() { }
 
-    private void Dash(){}
+    private void Dash() { }
 
-    private void Moving(){}
+    private void Moving() { }
 
-    private void Die(){}
+    private void Die() { }
 
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
@@ -174,7 +176,7 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
         {
             if (_immortal)
             {
-                otherCollider.GetComponent<DeathBall>().Kill();
+                otherCollider.GetComponent<SpikeBall>().Kill();
                 return;
             }
         }
@@ -289,5 +291,5 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     {
         _currentState();
     }
-  
+
 }
