@@ -813,7 +813,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6a04bbce9e53fe5428628b1aaea97e95, type: 2}
+    m_Font: {fileID: 12800000, guid: 29ea3dd36873e244982712d22aa3a067, type: 2}
     m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'There are 3 infinite things: the universe, human stupidity and your score.'
+  m_Text: 
 --- !u!114 &11465744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -997,7 +997,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6a04bbce9e53fe5428628b1aaea97e95, type: 2}
+    m_Font: {fileID: 12800000, guid: 29ea3dd36873e244982712d22aa3a067, type: 2}
     m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
