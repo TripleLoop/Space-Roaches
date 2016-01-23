@@ -116,38 +116,45 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource PizzaAura {
+            public static global::TypeSafe.PrefabResource _PizzaAura {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[1]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource RoachExplosion {
+            public static global::TypeSafe.PrefabResource PizzaAura {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[2]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource SmokeAppear {
+            public static global::TypeSafe.PrefabResource RoachExplosion {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[3]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource AstronautExplosion {
+            public static global::TypeSafe.PrefabResource SmokeAppear {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource SpikeAppear {
+            public static global::TypeSafe.PrefabResource AstronautExplosion {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
                 }
             }
             
+            public static global::TypeSafe.PrefabResource SpikeAppear {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[6]));
+                }
+            }
+            
             private static global::System.Collections.Generic.IList<global::TypeSafe.IResource> __ts_internal_resources = new global::System.Collections.ObjectModel.ReadOnlyCollection<global::TypeSafe.IResource>(new global::TypeSafe.IResource[] {
                         new global::TypeSafe.PrefabResource("Dash", "Core/Particles/Dash"),
+                        new global::TypeSafe.PrefabResource("_PizzaAura", "Core/Particles/_PizzaAura"),
                         new global::TypeSafe.PrefabResource("PizzaAura", "Core/Particles/PizzaAura"),
                         new global::TypeSafe.PrefabResource("RoachExplosion", "Core/Particles/RoachExplosion"),
                         new global::TypeSafe.PrefabResource("SmokeAppear", "Core/Particles/SmokeAppear"),
@@ -619,45 +626,51 @@ public sealed class SRResources {
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> GetPizza {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> _RoachSplat {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[10]));
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> BasicCancel {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> GetPizza {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[11]));
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> RoachSplat {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> BasicCancel {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[12]));
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> WeakHit {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> RoachSplat {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[13]));
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> Bee_Buzz_1 {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> WeakHit {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[14]));
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> WallHit {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> Bee_Buzz_1 {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[15]));
                         }
                     }
                     
-                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> Invincibility {
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> WallHit {
                         get {
                             return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[16]));
+                        }
+                    }
+                    
+                    public static global::TypeSafe.Resource<global::UnityEngine.AudioClip> Invincibility {
+                        get {
+                            return ((global::TypeSafe.Resource<global::UnityEngine.AudioClip>)(__ts_internal_resources[17]));
                         }
                     }
                     
@@ -672,6 +685,7 @@ public sealed class SRResources {
                                 new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("AstronautDeath", "Core/Audio/Clips/SoundEffects/AstronautDeath"),
                                 new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("Dash", "Core/Audio/Clips/SoundEffects/Dash"),
                                 new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("_tick", "Core/Audio/Clips/SoundEffects/_tick"),
+                                new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("_RoachSplat", "Core/Audio/Clips/SoundEffects/_RoachSplat"),
                                 new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("GetPizza", "Core/Audio/Clips/SoundEffects/GetPizza"),
                                 new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("BasicCancel", "Core/Audio/Clips/SoundEffects/BasicCancel"),
                                 new global::TypeSafe.Resource<global::UnityEngine.AudioClip>("RoachSplat", "Core/Audio/Clips/SoundEffects/RoachSplat"),
