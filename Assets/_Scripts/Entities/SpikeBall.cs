@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
@@ -9,7 +8,7 @@ using LocalConfig = Config.Entities.Spikeball;
 public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
 {
     private Rigidbody2D _rigidbody2D;
-    private bool hasInitialized;
+    private bool _hasInitialized;
 
     private float _pushForce = LocalConfig.PushForce;
 
@@ -25,10 +24,10 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
 
     public void WakeUp()
     {
-        if (!hasInitialized) Initialize();
+        if (!_hasInitialized) Initialize();
         else Reset();
-        StartCoroutine(Spawn());
         _currentState = Idle;
+        StartCoroutine(Spawn());
     }
 
     public void Kill()
@@ -42,11 +41,9 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
     {
         Messenger.Publish(new SpawnSpikeBallParticleMessage(gameObject));
         yield return new WaitForSeconds(2.0f);
-
         GetComponent<Collider2D>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponentsInChildren<Collider2D>()[1].enabled = true;
-
         SetState(State.Moving);
     }
 
@@ -119,7 +116,10 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
     private SpikeBall Initialize()
     {
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
-        hasInitialized = true;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponentsInChildren<Collider2D>()[1].enabled = false;
+        _hasInitialized = true;
         return this;
     }
 }
