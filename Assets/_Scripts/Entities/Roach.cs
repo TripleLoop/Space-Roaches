@@ -11,6 +11,7 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
     private bool _hasInitialized;
 
     private float _pushForce = LocalConfig.PushForce;
+    private float _localScaleX;
 
     public enum State
     {
@@ -43,6 +44,7 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
         {
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.AddForce(Random_dir() * _pushForce, ForceMode2D.Impulse);
+            FlipChar();
             yield return new WaitForSeconds(Random.Range(3f,4f));
         }
     }
@@ -96,9 +98,24 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
     private void Reset()
     {
         StopAllCoroutines();
+        transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        _localScaleX = transform.localScale.x;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponentsInChildren<Collider2D>()[1].enabled = false;
+    }
+
+    private void FlipChar()
+    {
+        if (_rigidbody2D.velocity.x <= 0)
+        {
+            transform.localScale = new Vector2(_localScaleX, transform.localScale.y);
+        }
+
+        else
+        {
+            transform.localScale = new Vector2(-_localScaleX, transform.localScale.y);
+        }
     }
 
     private Vector2 Random_dir()
@@ -111,6 +128,7 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
     public Roach Initialize()
     {
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
+        _localScaleX = transform.localScale.x;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponentsInChildren<Collider2D>()[1].enabled = false;
@@ -118,4 +136,11 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
         return this;
     }
 
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag(SRTags.Wall))
+        {
+            FlipChar();
+        }
+    }
 }
