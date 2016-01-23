@@ -327,7 +327,7 @@ namespace SRDebugger.Editor
 
             EditorGUI.BeginDisabledGroup(string.IsNullOrEmpty(Settings.Instance.ApiKey));
 
-            Settings.Instance.EnableBugReporter = EditorGUILayout.Toggle("Enable Bug Reporter",
+            Settings.Instance.EnableBugReporter = EditorGUILayout.Toggle("Show Bug Reporter",
                 Settings.Instance.EnableBugReporter);
 
             EditorGUI.EndDisabledGroup();
@@ -359,7 +359,7 @@ namespace SRDebugger.Editor
 
                 EditorGUILayout.BeginHorizontal();
 
-                _enableButton = EditorGUILayout.Toggle("Enable Button", _enableButton, GUILayout.ExpandWidth(false));
+                _enableButton = EditorGUILayout.Toggle("Show Button", _enableButton, GUILayout.ExpandWidth(false));
 
                 EditorGUI.BeginDisabledGroup(!_enableButton);
 
@@ -524,7 +524,7 @@ namespace SRDebugger.Editor
             EditorGUILayout.BeginHorizontal();
 
             Settings.Instance.EnableKeyboardShortcuts = EditorGUILayout.Toggle(
-                new GUIContent("Enable", SRDebugStrings.Current.SettingsKeyboardShortcutsTooltip),
+                new GUIContent("Show", SRDebugStrings.Current.SettingsKeyboardShortcutsTooltip),
                 Settings.Instance.EnableKeyboardShortcuts);
 
             EditorGUI.BeginDisabledGroup(!Settings.Instance.EnableKeyboardShortcuts);
