@@ -91,7 +91,16 @@ public class Pizza : MonoBehaviourEx, IWakeable
     {
         _currentState = Idle;
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
+        InitializePizzaAura();
         _hasInitialized = true;
+        return this;
+    }
+
+    private Pizza InitializePizzaAura()
+    {
+        GameObject pizzaAuraParticle = SRResources.Core.Particles._PizzaAura.Instantiate();
+        pizzaAuraParticle.transform.parent = gameObject.transform;
+        pizzaAuraParticle.transform.localPosition = Vector3.zero;
         return this;
     }
 
