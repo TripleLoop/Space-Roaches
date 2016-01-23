@@ -42,7 +42,8 @@ public class MenuCanvas : MonoBehaviourEx
     {
         PlayerPrefs.Save();
         DisableButtons();
-        SceneManager.LoadScene(SRScenes.MainGame);
+        _loadingScreen.Show();
+        SceneManager.LoadSceneAsync(SRScenes.MainGame);
     }
 
     /// <summary>
@@ -85,13 +86,13 @@ public class MenuCanvas : MonoBehaviourEx
 
     public MenuCanvas EnableLoading()
     {
-        _loadingScreen.Enable();
+        _loadingScreen.Show();
         return this;
     }
 
     public MenuCanvas DisableLoading()
     {
-        _loadingScreen.Disable();
+        _loadingScreen.Hide();
         return this;
     }
 
