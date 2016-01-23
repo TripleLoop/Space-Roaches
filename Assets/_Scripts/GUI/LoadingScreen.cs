@@ -14,6 +14,13 @@ public class LoadingScreen : MonoBehaviour {
         return this;
     }
 
+    public LoadingScreen ChangeScene()
+    {
+        _ownAnimator.SetInteger("LoadingState", 2);
+        _childrenController.EnableChildren();
+        return this;
+    }
+
     public LoadingScreen Show()
     {
         _ownAnimator.SetInteger("LoadingState", 1);

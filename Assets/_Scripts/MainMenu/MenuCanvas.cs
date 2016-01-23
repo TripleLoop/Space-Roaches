@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -42,10 +44,19 @@ public class MenuCanvas : MonoBehaviourEx
     {
         PlayerPrefs.Save();
         DisableButtons();
-        _loadingScreen.Show();
-        SceneManager.LoadSceneAsync(SRScenes.MainGame);
+        _loadingScreen.ChangeScene();
+        StartCoroutine(LoadSceneAsync(SRScenes.MainGame));
     }
 
+    private IEnumerator LoadSceneAsync(TypeSafe.Scene scene)
+    {
+        yield return new WaitForSeconds(1f);
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+    }
     /// <summary>
     /// Function executed by pressing the _leaderboardButton button
     /// </summary>

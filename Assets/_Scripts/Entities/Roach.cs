@@ -143,4 +143,9 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
             FlipChar();
         }
     }
+
+    private void Update()
+    {
+        _currentState();
+    }
 }
