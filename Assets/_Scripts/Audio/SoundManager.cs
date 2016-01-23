@@ -44,7 +44,8 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
         }
         AudioSource soundEffectsSource = _soundEffects.GetComponent<AudioSource>();
 
-        PlaySoundEffect(message.SoundEffectClip, soundEffectsSource);
+        if(PlaySoundEffect(message.SoundEffectClip, soundEffectsSource))
+            return;
 
         if (message.Tracked)
         {
@@ -65,7 +66,7 @@ public class SoundManager : MonoBehaviourEx, IHandle<PlaySoundEffectMessage>, IH
             {
                 source.Stop();
                 source.clip = null;
-                return false;
+                return true;
             }
             source.clip = effectClip;
             source.Play();
