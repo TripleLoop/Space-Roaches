@@ -73,6 +73,15 @@ public static class Config
             public const float MinDirectionY = -1f;
             public const float MaxDirectionY = 1f;
         }
+
+        public static class Roach
+        {
+            public const float PushForce = 1f;
+            public const float MinDirectionX = -1f;
+            public const float MaxDirectionX = 1f;
+            public const float MinDirectionY = -1f;
+            public const float MaxDirectionY = 1f;
+        }
     }
 
     public static class Audio

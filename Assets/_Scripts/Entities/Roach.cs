@@ -1,12 +1,16 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using LocalConfig = Config.Entities.Roach;
+using Random = UnityEngine.Random;
 
 //TODO: should move, try not to create chaos in game
 public class Roach : MonoBehaviourEx, IKillable, IWakeable
 {
     private Rigidbody2D _rigidbody2D;
     private bool _hasInitialized;
+
+    private float _pushForce = LocalConfig.PushForce;
 
     public enum State
     {
@@ -32,6 +36,16 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
         Messenger.Publish(new RoachDeathMessage(gameObject));
         SetState(State.Death);
     }
+    
+    private IEnumerator EndlessPush()
+    {
+        while (true)
+        {
+            _rigidbody2D.velocity = Vector2.zero;
+            _rigidbody2D.AddForce(Random_dir() * _pushForce, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(Random.Range(3f,4f));
+        }
+    }
 
     private IEnumerator Spawn()
     {
@@ -39,6 +53,7 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
         yield return new WaitForSeconds(0.2f);
         GetComponent<Collider2D>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
+        GetComponentsInChildren<Collider2D>()[1].enabled = true;
         SetState(State.Moving);
     }
 
@@ -50,9 +65,9 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
             case State.Idle:
                 _currentState = Idle;
                 break;
-
             case State.Moving:
                 _currentState = Moving;
+                StartCoroutine(EndlessPush());
                 break;
             case State.Death:
                 _currentState = Death;
@@ -80,8 +95,17 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
 
     private void Reset()
     {
+        StopAllCoroutines();
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
+        GetComponentsInChildren<Collider2D>()[1].enabled = false;
+    }
+
+    private Vector2 Random_dir()
+    {
+        var randomX = Random.Range(LocalConfig.MinDirectionX, LocalConfig.MaxDirectionX);
+        var randomY = Random.Range(LocalConfig.MinDirectionY, LocalConfig.MaxDirectionY);
+        return new Vector2(randomX, randomY);
     }
 
     public Roach Initialize()
@@ -89,8 +113,9 @@ public class Roach : MonoBehaviourEx, IKillable, IWakeable
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
+        GetComponentsInChildren<Collider2D>()[1].enabled = false;
         _hasInitialized = true;
         return this;
     }
-  
+
 }

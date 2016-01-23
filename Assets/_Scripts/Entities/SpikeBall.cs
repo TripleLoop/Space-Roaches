@@ -84,13 +84,6 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
 
     }
 
-    private Vector2 Random_dir()
-    {
-        var randomX = Random.Range(LocalConfig.MinDirectionX, LocalConfig.MaxDirectionX);
-        var randomY = Random.Range(LocalConfig.MinDirectionY, LocalConfig.MaxDirectionY);
-        return new Vector2(randomX, randomY);
-    }
-
     private void Update()
     {
         _currentState();
@@ -107,10 +100,18 @@ public class SpikeBall : MonoBehaviourEx, IKillable, IWakeable
 
     private void Reset()
     {
+        StopAllCoroutines();
         _rigidbody2D.velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponentsInChildren<Collider2D>()[1].enabled = false;
+    }
+
+    private Vector2 Random_dir()
+    {
+        var randomX = Random.Range(LocalConfig.MinDirectionX, LocalConfig.MaxDirectionX);
+        var randomY = Random.Range(LocalConfig.MinDirectionY, LocalConfig.MaxDirectionY);
+        return new Vector2(randomX, randomY);
     }
 
     private SpikeBall Initialize()
