@@ -12,6 +12,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private Text _textComment;
 
     private RoachCount _roachCount;
+    private SpaceRoaches _spaceRoaches;
 
     private bool _isInCountUp;
     private IEnumerator _countUp;
@@ -23,10 +24,11 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private SelectEndScreenText _selectEndScreenText;
     private List<RangeComments> _rangeComments = LocalConfig.AllRangesComments;
 
-    public EndScreen Initialize(RoachCount roachCount)
+    public EndScreen Initialize(RoachCount roachCount, SpaceRoaches spaceRoaches)
     {
         if (roachCount == null) return this;
         _roachCount = roachCount;
+        _spaceRoaches = spaceRoaches;
         _textCount = GetComponentsInChildren<Text>(true)[0];
         _textComment = GetComponentsInChildren<Text>(true)[1];
         _typeWriting = gameObject.AddComponent<TypeWriting>();
@@ -43,7 +45,7 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     public void Menu()
     {
         Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
-        SceneManager.LoadScene(SRScenes.MainMenu);
+        _spaceRoaches.TransitionToMenu();
     }
 
     public void Restart()

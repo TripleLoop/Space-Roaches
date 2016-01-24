@@ -11,12 +11,12 @@ public class CanvasManager : MonoBehaviour
     private LoadingScreen _loadingScreen;
 
     ///TODO: Instantiate all the canvas components to ensure they are loaded
-    public CanvasManager Initialize()
+    public CanvasManager Initialize(SpaceRoaches spaceRoaches)
     {
         _roachCount = GetComponentInChildren<RoachCount>();
         _dashMeter = GetComponentInChildren<DashMeter>();
         _endScreen = GetComponentInChildren<EndScreen>();
-        _endScreen.Initialize(_roachCount);
+        _endScreen.Initialize(_roachCount, spaceRoaches);
         InitializeAlertPopUp()
             .InitializeLoadingScreen();
         return this;
@@ -27,6 +27,12 @@ public class CanvasManager : MonoBehaviour
         _roachCount.Reset();
         _dashMeter.Reset();
         _endScreen.Reset();
+        return this;
+    }
+
+    public CanvasManager LoadingToBlack(Action callback)
+    {
+        _loadingScreen.ToBlack(callback);
         return this;
     }
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 using LocalConfig = Config.SpaceRoaches;
 
 public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>, IHandle<TutorialLoadedMessage>
@@ -88,6 +89,17 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             Time.timeScale += LocalConfig.AddedTimeScale;
             Debug.Log("Speed increased, current speed: " + Time.timeScale);
         }
+    }
+
+    public SpaceRoaches TransitionToMenu()
+    {
+        _canvasManager.LoadingToBlack(ChangeSceneMenu);
+        return this;
+    }
+
+    private void ChangeSceneMenu()
+    {
+        SceneManager.LoadScene(SRScenes.MainMenu);
     }
 
     private IEnumerator WaveCycle()
@@ -261,7 +273,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         canvas.transform.SetParent(this.gameObject.transform, false);
         _canvasObject = canvas.GetComponent<Canvas>();
         _canvasManager = canvas.GetComponent<CanvasManager>();
-        _canvasManager.Initialize();
+        _canvasManager.Initialize(this);
         GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
         eventSystem.transform.SetParent(transform, false);
