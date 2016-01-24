@@ -12,7 +12,10 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     private UserInput _userInput;
     private Smooth_Follow _smoothFollow;
     //private Shake_Camera _shakeCamera;
+
     private WaveManager _waveManager;
+    private WaveSequence _waveSequence;
+
     private Astronaut _astronaut;
     private CanvasManager _canvasManager;
     private SoundManager _soundManager;
@@ -112,7 +115,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
                 break;
             }
             _waveCount++;
-            _waveManager.EntitySpawn();
+            _waveManager.SpawnWave(ChangeWave());
             while (_secondsToNextWave > 0)
             {
                 yield return new WaitForSeconds(1f);
@@ -120,6 +123,20 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             }
             _secondsToNextWave = LocalConfig.SecondsBetweenWaves;
         }
+    }
+
+    private Wave ChangeWave()
+    {
+        if (_waveCount == 1)
+        {
+            
+            return _waveSequence.SequenceWave[0];
+        }
+        float tempWaveCount = _waveCount;
+        int wave = Mathf.CeilToInt(tempWaveCount / 5);
+        Debug.Log(wave);
+        
+        return _waveSequence.SequenceWave[wave];
     }
 
     ///TODO: change to normal function ensure tutorial is loaded
@@ -260,6 +277,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches InitializeWaveManager()
     {
+        _waveSequence = new WaveSequence();
         GameObject waveManager = SRResources.Core.Base.WaveManager.Instantiate();
         waveManager.name = "WaveManager";
         waveManager.transform.SetParent(this.gameObject.transform, false);

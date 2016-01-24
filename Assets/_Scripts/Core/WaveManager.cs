@@ -23,11 +23,18 @@ public class WaveManager : MonoBehaviourEx
     private int _roachCount;
     private int _spikeBallCount;
 
+    private int _tempPizzaCount;
+    private int _tempRoachCount;
+    private int _tempSpikeBallCount;
+
     private bool _inPizzaCooldown;
     private IEnumerator _pizzaCooldown;
 
     private bool _inSpawnRoutine;
     private IEnumerator _spawnRoutine;
+
+    //Wave specification
+    private Wave _waveConditions;
 
     public WaveManager InitializeWaveManager()
     {
@@ -39,8 +46,11 @@ public class WaveManager : MonoBehaviourEx
         return this;
     }
 
-    public WaveManager EntitySpawn()
+    public WaveManager SpawnWave(Wave wave)
     {
+        _waveConditions = wave;
+        _minSpawnElements = wave.RangesPerWave[0][0] + wave.RangesPerWave[1][0] + wave.RangesPerWave[2][0];
+        _maxSpawnElements = wave.RangesPerWave[0][1] + wave.RangesPerWave[1][1] + wave.RangesPerWave[2][1];
         int number = Random.Range(_minSpawnElements, _maxSpawnElements);
         _spawnRoutine = SpawnRoutine(number);
         StartCoroutine(_spawnRoutine);
@@ -116,6 +126,10 @@ public class WaveManager : MonoBehaviourEx
 
     private IEnumerator SpawnRoutine(int spawnNumber)
     {
+        _tempPizzaCount = 0;
+        _tempRoachCount = 0;
+        _tempSpikeBallCount = 0;
+
         _inSpawnRoutine = true;
         for (int i = 0; i < spawnNumber; i++)
         {
@@ -125,12 +139,36 @@ public class WaveManager : MonoBehaviourEx
                 continue;
             }
             EntityWeight tempChosen = this.RandomWeightedChooser(weights);
+            if (RangeReached(tempChosen.Name))
+            {
+                continue;
+            }
             CountEntity(tempChosen.Name);
             Vector2 tempPosition = GetAvaliablePosition();
             _entitySpawner.SpawnEntity(tempChosen.Name, tempPosition);
             yield return null;
         }
         _inSpawnRoutine = false;
+    }
+
+    private bool RangeReached(string entity)
+    {
+        if (entity == "roach" && _waveConditions.RangesPerWave[0][1] == _tempRoachCount)
+        {
+            Debug.Log("roach: " + _waveConditions.RangesPerWave[1][1]);
+            return true;
+        }
+        if (entity == "Spikeball" && _waveConditions.RangesPerWave[1][1] == _tempSpikeBallCount)
+        {
+            Debug.Log("Spikeball: "+_waveConditions.RangesPerWave[1][1]);
+            return true;
+        }
+        if (entity == "pizza" && _waveConditions.RangesPerWave[2][1] == _tempPizzaCount)
+        {
+            Debug.Log("pizza: " + _waveConditions.RangesPerWave[1][1]);
+            return true;
+        }
+        return false;
     }
 
     private Vector2 GetAvaliablePosition()
@@ -174,16 +212,19 @@ public class WaveManager : MonoBehaviourEx
         if (entity == "roach")
         {
             _roachCount++;
+            _tempRoachCount++;
             return this;
         }
         if (entity == "Spikeball")
         {
             _spikeBallCount++;
+            _tempSpikeBallCount++;
             return this;
         }
         if (entity == "pizza")
         {
             _pizzaCount++;
+            _tempPizzaCount++;
             return this;
         }
         return this;
@@ -192,17 +233,17 @@ public class WaveManager : MonoBehaviourEx
     private List<EntityWeight> GetCustomWeights()
     {
         List<EntityWeight> tempweights = new List<EntityWeight>();
-        if (_spikeBallCount < LocalConfig.SpikeBall.MaxCount)
+        if (_spikeBallCount < /*LocalConfig.SpikeBall.MaxCount*/_waveConditions.LimitsInScene[1])
         {
-            tempweights.Add(new EntityWeight("Spikeball", LocalConfig.SpikeBall.Weight));
+            tempweights.Add(new EntityWeight("Spikeball", /*LocalConfig.SpikeBall.Weight*/_waveConditions.SpawnWeights[1]));
         }
-        if (_pizzaCount < LocalConfig.Pizza.MaxCount && !_inPizzaCooldown)
+        if (_pizzaCount < /*LocalConfig.Pizza.MaxCount*/_waveConditions.LimitsInScene[2] && !_inPizzaCooldown)
         {
-            tempweights.Add(new EntityWeight("pizza", LocalConfig.Pizza.Weight));
+            tempweights.Add(new EntityWeight("pizza", /*LocalConfig.Pizza.Weight */ _waveConditions.SpawnWeights[2]));
         }
-        if (_roachCount < LocalConfig.Roach.MaxCount)
+        if (_roachCount < /*LocalConfig.Roach.MaxCount*/_waveConditions.LimitsInScene[0])
         {
-            tempweights.Add(new EntityWeight("roach", LocalConfig.Roach.Weight));
+            tempweights.Add(new EntityWeight("roach", /*LocalConfig.Roach.Weight*/ _waveConditions.SpawnWeights[0]));
         }
         return tempweights;
     }
@@ -229,5 +270,4 @@ public class WaveManager : MonoBehaviourEx
         _entitySpawner.InitializeSpawner(this);
         return this;
     }
-
 }
