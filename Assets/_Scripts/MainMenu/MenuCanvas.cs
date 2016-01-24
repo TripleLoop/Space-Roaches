@@ -44,18 +44,13 @@ public class MenuCanvas : MonoBehaviourEx
     {
         PlayerPrefs.Save();
         DisableButtons();
-        //_loadingScreen.ChangeScene();
-        StartCoroutine(LoadSceneAsync(SRScenes.MainGame));
+        Action callback = StartSceneChange;
+        _loadingScreen.ToBlack(callback);
     }
 
-    private IEnumerator LoadSceneAsync(TypeSafe.Scene scene)
+    private void StartSceneChange()
     {
-        //yield return new WaitForSeconds(1f);
-        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
-        while (!async.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadSceneAsync(SRScenes.MainGame);
     }
     /// <summary>
     /// Function executed by pressing the _leaderboardButton button

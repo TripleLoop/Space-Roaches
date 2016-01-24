@@ -7,6 +7,7 @@ public class LoadingScreen : MonoBehaviour {
     private ChildrenControllerComponent _childrenController;
     private Animator _ownAnimator;
     private Action _loadingDoneCallback;
+    private Action _fadeToBlackCallback;
 
     public LoadingScreen Initialize()
     {
@@ -22,6 +23,19 @@ public class LoadingScreen : MonoBehaviour {
         _ownAnimator.SetInteger("LoadingState", 2);
         _childrenController.EnableChildren();
         return this;
+    }
+
+    public LoadingScreen ToBlack(Action callback)
+    {
+        _fadeToBlackCallback = callback;
+        _ownAnimator.SetInteger("LoadingState", 3);
+        _childrenController.EnableChildren();
+        return this;
+    }
+
+    public void Blacked()
+    {
+        _fadeToBlackCallback();
     }
 
     public void LoaderReady()
