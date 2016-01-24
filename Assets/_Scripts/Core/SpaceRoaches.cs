@@ -164,21 +164,22 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private IEnumerator AsyncInitialization()
     {
-         InitializeBackend()
-        .InitializePlayerPrefsManager()
-        .InitializeSoundManager()
-        .InitializeUserInput()
-        .InitializeParticlePool()
-        .InitializeWaveManager()
-        .InitializeMovingBackground()
-        .Initialize3DBackground()
-        .InitializeForeGround()
+        InitializeBackend()
+            .InitializePlayerPrefsManager()
+            .InitializeSoundManager()
+            .InitializeUserInput();
+        yield return null;
+        InitializeParticlePool()
+            .InitializeWaveManager()
+            .InitializeMovingBackground()
+            .Initialize3DBackground();
+         yield return null;
+        InitializeForeGround()
         .InitializeAstronaut()
         .SetReferences()
         .AudioSetUp();
         StartCoroutine(TutorialRoutine());
-        yield return null;
-        _canvasManager.HideLoading();
+        _canvasManager.HideLoading(false);
     }
 
     private SpaceRoaches SetReferences()

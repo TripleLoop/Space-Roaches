@@ -36,9 +36,9 @@ public class CanvasManager : MonoBehaviour
         return this;
     }
 
-    public CanvasManager HideLoading()
+    public CanvasManager HideLoading(bool forced)
     {
-        _loadingScreen.Hide();
+        _loadingScreen.Hide(forced);
         return this;
     }
 

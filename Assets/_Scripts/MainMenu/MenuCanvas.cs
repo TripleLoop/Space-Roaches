@@ -96,9 +96,9 @@ public class MenuCanvas : MonoBehaviourEx
         return this;
     }
 
-    public MenuCanvas DisableLoading()
+    public MenuCanvas DisableLoading(bool forced)
     {
-        _loadingScreen.Hide();
+        _loadingScreen.Hide(forced);
         return this;
     }
 

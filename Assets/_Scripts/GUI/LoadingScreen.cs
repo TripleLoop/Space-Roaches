@@ -50,15 +50,18 @@ public class LoadingScreen : MonoBehaviour {
         return this;
     }
 
-    public LoadingScreen Hide()
+    public LoadingScreen Hide(bool forced)
     {
         _ownAnimator.SetInteger("LoadingState", 0);
-        _childrenController.DisableChildren();
+        if (forced)
+        {
+            _childrenController.DisableChildren();
+        }
         return this;
     }
 
     public void Hidden()
     {
-       // _childrenController.DisableChildren();
+       _childrenController.DisableChildren();
     }
 }
