@@ -28,21 +28,11 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     void Start()
     {
-             InitializeBackend()
-            .InitializePlayerPrefsManager()
-            .InitializeSoundManager()
-            .InitializeUserInput()
-            .InitializeParticlePool()
-            .InitializeWaveManager()
-            .InitializeCamera()
-            .InitializeCanvas()
-            .InitializeMovingBackground()
-            .Initialize3DBackground()
-            .InitializeForeGround()
-            .InitializeAstronaut()
-            .SetReferences()
-            .AudioSetUp();
-          StartCoroutine(TutorialRoutine());
+        this.InitializeCanvas()
+            .InitializeCamera();
+        _canvasObject.worldCamera = _mainCamera;
+        Action callback = LoadingScreenReady;
+        _canvasManager.ShowLoading(callback);
     }
 
     public SpaceRoaches FasterWaveCycle()
@@ -122,6 +112,11 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
     }
 
+    private void LoadingScreenReady()
+    {
+        StartCoroutine(AsyncInitialization());
+    }
+
     ///TODO: change to normal function ensure tutorial is loaded
     private IEnumerator TutorialRoutine()
     {
@@ -167,12 +162,30 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return this;
     }
 
+    private IEnumerator AsyncInitialization()
+    {
+         InitializeBackend()
+        .InitializePlayerPrefsManager()
+        .InitializeSoundManager()
+        .InitializeUserInput()
+        .InitializeParticlePool()
+        .InitializeWaveManager()
+        .InitializeMovingBackground()
+        .Initialize3DBackground()
+        .InitializeForeGround()
+        .InitializeAstronaut()
+        .SetReferences()
+        .AudioSetUp();
+        StartCoroutine(TutorialRoutine());
+        yield return null;
+        _canvasManager.HideLoading();
+    }
+
     private SpaceRoaches SetReferences()
     {
         _smoothFollow.SetCameraTarget(_astronautObject);
         _userInput.SetCamera(_mainCamera);
         _waveManager.SetSpaceRoaches(this);
-        _canvasObject.worldCamera = _mainCamera;
         return this;
     }
 

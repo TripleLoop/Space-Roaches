@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class LoadingScreen : MonoBehaviour {
 
     private ChildrenControllerComponent _childrenController;
     private Animator _ownAnimator;
+    private Action _loadingDoneCallback;
 
     public LoadingScreen Initialize()
     {
@@ -14,11 +16,17 @@ public class LoadingScreen : MonoBehaviour {
         return this;
     }
 
-    public LoadingScreen ChangeScene()
+    public LoadingScreen PreSceneLoading(Action callback)
     {
+        _loadingDoneCallback = callback;
         _ownAnimator.SetInteger("LoadingState", 2);
         _childrenController.EnableChildren();
         return this;
+    }
+
+    public void LoaderReady()
+    {
+        _loadingDoneCallback();
     }
 
     public LoadingScreen Show()
