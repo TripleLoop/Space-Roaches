@@ -42,6 +42,7 @@ public class MenuCanvas : MonoBehaviourEx
     /// </summary>
     public void Play()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         PlayerPrefs.Save();
         DisableButtons();
         Action callback = StartSceneChange;
@@ -61,6 +62,7 @@ public class MenuCanvas : MonoBehaviourEx
         //DisableButtons();
         //_leaderboardMenu.Show(_enableDelegate);
         //Debug.Log("opened _leaderboardButton");
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         Messenger.Publish(new PublishScoreMessage());
     }
 
@@ -69,6 +71,7 @@ public class MenuCanvas : MonoBehaviourEx
     /// </summary>
     public void Configuration()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         DisableButtons();
         _settingsMenu.Show(_enableDelegate);
         //Debug.Log("opened _configurationButton");

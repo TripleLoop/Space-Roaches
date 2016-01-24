@@ -42,11 +42,13 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public void Menu()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         SceneManager.LoadScene(SRScenes.MainMenu);
     }
 
     public void Restart()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         _animator.SetInteger("EndState", 2);
         Messenger.Publish(new RestartGameMessage());
     }
