@@ -460,7 +460,7 @@ PlayerSettings:
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: 3d293ddc-1526-4271-b091-b7251eb351a6
+  projectName: Space Roaches
+  organizationId: triple-loop
   cloudEnabled: 0
