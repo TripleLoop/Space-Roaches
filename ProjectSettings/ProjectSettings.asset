@@ -9,8 +9,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Space_Roaches
+  companyName: Triple Loop
+  productName: Space Roaches
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
@@ -89,7 +89,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.tripleloopgames.spaceroaches
-  bundleVersion: 0.9.0.0
+  bundleVersion: 1.0.0.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -156,9 +156,9 @@ PlayerSettings:
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: C:/git/Space-Roaches/user.keystore
   AndroidKeyaliasName: space-roaches-key
-  AndroidTVCompatibility: 1
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -169,9 +169,9 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
-      m_Width: 0
-      m_Height: 0
+      m_Icon: {fileID: 2800000, guid: e889dbb9923c58543aa6d6d1a83c0c25, type: 3}
+      m_Width: 128
+      m_Height: 128
   m_BuildTargetBatching:
   - m_BuildTarget: Android
     m_StaticBatching: 1
