@@ -155,17 +155,14 @@ public class WaveManager : MonoBehaviourEx
     {
         if (entity == "roach" && _waveConditions.RangesPerWave[0][1] == _tempRoachCount)
         {
-            Debug.Log("roach: " + _waveConditions.RangesPerWave[1][1]);
             return true;
         }
         if (entity == "Spikeball" && _waveConditions.RangesPerWave[1][1] == _tempSpikeBallCount)
         {
-            Debug.Log("Spikeball: "+_waveConditions.RangesPerWave[1][1]);
             return true;
         }
         if (entity == "pizza" && _waveConditions.RangesPerWave[2][1] == _tempPizzaCount)
         {
-            Debug.Log("pizza: " + _waveConditions.RangesPerWave[1][1]);
             return true;
         }
         return false;

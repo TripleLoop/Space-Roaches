@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         }
         if (!_playerPrefsManager.ScorePublished)
         {
-            _menuCanvas.DisableLoading();
+            _menuCanvas.DisableLoading(true);
             _menuCanvas.DisableButtons();
             int score = _playerPrefsManager.GetScore();
             _backendProxy.PublishScore(score, _postingDelegate);
@@ -56,7 +56,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         {
             _playerPrefsManager.UserAuthenticated = true;
         }
-        _menuCanvas.DisableLoading();
+        _menuCanvas.DisableLoading(true);
         _menuCanvas.EnableButtons();
     }
 
@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         {
             Messenger.Publish(new ShowAlertMessage("Score Posting failed \n try again later"));
         }
-        _menuCanvas.DisableLoading();
+        _menuCanvas.DisableLoading(true);
         _menuCanvas.EnableButtons();
         _backendProxy.ShowLeaderboard();
     }

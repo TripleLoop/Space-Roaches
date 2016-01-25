@@ -42,20 +42,16 @@ public class MenuCanvas : MonoBehaviourEx
     /// </summary>
     public void Play()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         PlayerPrefs.Save();
         DisableButtons();
-        _loadingScreen.ChangeScene();
-        StartCoroutine(LoadSceneAsync(SRScenes.MainGame));
+        Action callback = StartSceneChange;
+        _loadingScreen.ToBlack(callback);
     }
 
-    private IEnumerator LoadSceneAsync(TypeSafe.Scene scene)
+    private void StartSceneChange()
     {
-        yield return new WaitForSeconds(1f);
-        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
-        while (!async.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadSceneAsync(SRScenes.MainGame);
     }
     /// <summary>
     /// Function executed by pressing the _leaderboardButton button
@@ -66,6 +62,7 @@ public class MenuCanvas : MonoBehaviourEx
         //DisableButtons();
         //_leaderboardMenu.Show(_enableDelegate);
         //Debug.Log("opened _leaderboardButton");
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         Messenger.Publish(new PublishScoreMessage());
     }
 
@@ -74,6 +71,7 @@ public class MenuCanvas : MonoBehaviourEx
     /// </summary>
     public void Configuration()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
         DisableButtons();
         _settingsMenu.Show(_enableDelegate);
         //Debug.Log("opened _configurationButton");
@@ -101,9 +99,9 @@ public class MenuCanvas : MonoBehaviourEx
         return this;
     }
 
-    public MenuCanvas DisableLoading()
+    public MenuCanvas DisableLoading(bool forced)
     {
-        _loadingScreen.Hide();
+        _loadingScreen.Hide(forced);
         return this;
     }
 

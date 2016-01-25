@@ -7,10 +7,16 @@ public class WaveSequence
 
 	public WaveSequence()
 	{
+        //The First Add it's only the first Wave
+        //The rest change every 5 waves (See SpaceRoaches → line 130)
+
         SequenceWave.Add(
             new Wave(
+                //Weights (Roach, SpikeBall, Pizza)
                 AddWeights(75, 23, 2),
+                //Ranges In Wave (Roach {min, max}, SpikeBall {min, max}, Pizza {min, max})
                 AddRanges(new int[] { 6, 8 }, new int[] { 0, 0 }, new int[] { 0, 0 }),
+                //Limits In Scene (Roach, SpikeBall, Pizza)
                 AddLimits(15, 5, 1)
             )
         );

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 using LocalConfig = Config.SpaceRoaches;
 
 public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>, IHandle<TutorialLoadedMessage>
@@ -31,21 +32,12 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     void Start()
     {
-             InitializeBackend()
-            .InitializePlayerPrefsManager()
-            .InitializeSoundManager()
-            .InitializeUserInput()
-            .InitializeParticlePool()
-            .InitializeWaveManager()
-            .InitializeCamera()
-            .InitializeCanvas()
-            .InitializeMovingBackground()
-            .Initialize3DBackground()
-            .InitializeForeGround()
-            .InitializeAstronaut()
-            .SetReferences()
-            .AudioSetUp();
-          StartCoroutine(TutorialRoutine());
+        this.InitializeCanvas()
+        .InitializeCamera();
+        _canvasObject.worldCamera = _mainCamera;
+        Action callback = LoadingScreenReady;
+        _canvasManager.ShowLoading(callback);
+
     }
 
     public SpaceRoaches FasterWaveCycle()
@@ -56,6 +48,12 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
         return this;
     }
+
+    private void LoadingScreenReady()
+    {
+        StartCoroutine(AsyncInitialization());
+    }
+
 
     public void Handle(AstronautDeathMessage message)
     {
@@ -103,6 +101,18 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
     }
 
+    public SpaceRoaches TransitionToMenu()
+    {
+        _canvasManager.LoadingToBlack(ChangeSceneMenu);
+        return this;
+    }
+
+    private void ChangeSceneMenu()
+    {
+        SceneManager.LoadScene(SRScenes.MainMenu);
+    }
+
+
     private IEnumerator WaveCycle()
     {
         //some magic to controll the waves sorry :(
@@ -134,7 +144,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
         float tempWaveCount = _waveCount;
         int wave = Mathf.CeilToInt(tempWaveCount / 5);
-        Debug.Log(wave);
         
         return _waveSequence.SequenceWave[wave];
     }
@@ -184,12 +193,32 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return this;
     }
 
+    private IEnumerator AsyncInitialization()
+    {
+        InitializeBackend()
+            .InitializePlayerPrefsManager()
+            .InitializeSoundManager()
+            .InitializeUserInput();
+        yield return null;
+        InitializeParticlePool()
+            .InitializeWaveManager()
+            .InitializeMovingBackground()
+            .Initialize3DBackground();
+        yield return null;
+        InitializeForeGround()
+        .InitializeAstronaut()
+        .SetReferences()
+        .AudioSetUp();
+        StartCoroutine(TutorialRoutine());
+        _canvasManager.HideLoading(false);
+    }
+
+
     private SpaceRoaches SetReferences()
     {
         _smoothFollow.SetCameraTarget(_astronautObject);
         _userInput.SetCamera(_mainCamera);
         _waveManager.SetSpaceRoaches(this);
-        _canvasObject.worldCamera = _mainCamera;
         return this;
     }
 
@@ -264,7 +293,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         canvas.transform.SetParent(this.gameObject.transform, false);
         _canvasObject = canvas.GetComponent<Canvas>();
         _canvasManager = canvas.GetComponent<CanvasManager>();
-        _canvasManager.Initialize();
+        _canvasManager.Initialize(this);
         GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
         eventSystem.transform.SetParent(transform, false);
