@@ -44,13 +44,13 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 
     public void Menu()
     {
-        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicButton));
         _spaceRoaches.TransitionToMenu();
     }
 
     public void Restart()
     {
-        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.Confirm));
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicButton));
         _animator.SetInteger("EndState", 2);
         Messenger.Publish(new RestartGameMessage());
     }

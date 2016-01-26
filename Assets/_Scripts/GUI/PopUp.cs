@@ -14,6 +14,7 @@ public class PopUp : MonoBehaviourEx, IHandle<ShowTutorialMessage>
 
     public void ClosePopUp()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicButton));
         Messenger.Publish(new TutorialEndedMessage());
         _popUpAnimator.SetInteger("Anim", 2);
     }
