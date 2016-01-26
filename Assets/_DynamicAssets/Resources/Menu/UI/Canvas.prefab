@@ -1406,13 +1406,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 47
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0.0.0
+  m_Text: 0.0.0
 --- !u!114 &11478242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1765,7 +1765,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327, y: -247.4}
+  m_AnchoredPosition: {x: 292.3, y: -247.4}
   m_SizeDelta: {x: 149, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22404530
