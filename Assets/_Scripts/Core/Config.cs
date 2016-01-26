@@ -12,7 +12,7 @@ public static class Config
         //max speed in the game
         public const float MaxTimeScale = 3f;
         //time added in each checkpoint
-        public const float AddedTimeScale = 0.3f;
+        public const float AddedTimeScale = 0.2f;
         public const float TimeBeforeFirstWave = 3f;
         public const int SecondsBetweenWaves = 10;
         public const int SecondsBetweenFastWaves = 3;
@@ -209,7 +209,7 @@ public static class Config
                 "The force is inside you.",
                 "You’re pretty good at floating around!",
                 "You’re like an insecticide made of human flesh.",
-                "One little step for a man, one giant leap for manking.",
+                "One little step for a man, one giant leap for mankind.",
                 "The sun comes up, and it shines all around you.",
                 "You’re a space cowboy."
             };
@@ -230,12 +230,12 @@ public static class Config
         public static List<RangeComments> AllRangesComments = new List<RangeComments>()
         {
             //The minimum and maximum values are inclusives
-            new RangeComments(Texts.FirstRange, 0, 0),
-            new RangeComments(Texts.SecondRange, 1, 20),
-            new RangeComments(Texts.ThirdRange, 21, 40),
-            new RangeComments(Texts.FourthRange, 41, 60),
-            new RangeComments(Texts.FifthRange, 61, 80),
-            new RangeComments(Texts.SixthRange, 81, 1000)
+            new RangeComments(Texts.FirstRange, 0, 15),
+            new RangeComments(Texts.SecondRange, 16, 30),
+            new RangeComments(Texts.ThirdRange, 31, 50),
+            new RangeComments(Texts.FourthRange, 51, 80),
+            new RangeComments(Texts.FifthRange, 81, 120),
+            new RangeComments(Texts.SixthRange, 121, 500)
         };
     }
 
