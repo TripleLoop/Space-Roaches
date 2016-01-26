@@ -8,7 +8,7 @@ Font:
   m_Name: _bitmap_font(Font)
   serializedVersion: 4
   m_AsciiStartOffset: 0
-  m_Tracking: 0.97
+  m_Tracking: 0.9
   m_LineSpacing: 64
   m_CharacterSpacing: 1
   m_CharacterPadding: 0
