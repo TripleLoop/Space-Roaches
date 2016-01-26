@@ -13,7 +13,7 @@ public class WaveSequence
         SequenceWave.Add(
             new Wave(
                 //Weights (Roach, SpikeBall, Pizza)
-                AddWeights(75, 23, 2),
+                AddWeights(75, 23, 4),
                 //Ranges In Wave (Roach {min, max}, SpikeBall {min, max}, Pizza {min, max})
                 AddRanges(new int[] { 6, 8 }, new int[] { 0, 0 }, new int[] { 0, 0 }),
                 //Limits In Scene (Roach, SpikeBall, Pizza)
@@ -22,35 +22,35 @@ public class WaveSequence
         );
         SequenceWave.Add(
             new Wave(
-                AddWeights(75, 23, 2),
+                AddWeights(75, 23, 4),
                 AddRanges(new int[] { 6, 8 }, new int[] { 0, 1 }, new int[] { 0, 1 }),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
             new Wave(
-                AddWeights(75, 23, 2),
+                AddWeights(75, 23, 4),
                 AddRanges(new int[] { 6, 8 }, new int[] { 0, 2 }, new int[] { 0, 1 }),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
             new Wave(
-                AddWeights(75, 23, 2),
+                AddWeights(75, 23, 4),
                 AddRanges(new int[] { 8, 10 }, new int[] { 0, 2 }, new int[] { 0, 1 }),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
             new Wave(
-                AddWeights(75, 23, 2),
+                AddWeights(75, 23, 4),
                 AddRanges(new int[] { 8, 10 }, new int[] { 0, 3 }, new int[] { 0, 1 }),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
             new Wave(
-                AddWeights(75, 23, 2),
+                AddWeights(75, 23, 4),
                 AddRanges(new int[] { 8, 10 }, new int[] { 0, 4 }, new int[] { 0, 1 }),
                 AddLimits(15, 5, 1)
             )
