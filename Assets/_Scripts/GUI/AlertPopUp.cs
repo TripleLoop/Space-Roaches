@@ -35,6 +35,7 @@ public class AlertPopUp : MonoBehaviourEx, IHandle<ShowAlertMessage>
 
     public void ClosePopUp()
     {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicButton));
         _basePopupComponent.ClosePopUp();
         return;
     }
