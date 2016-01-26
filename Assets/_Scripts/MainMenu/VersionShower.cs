@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Assets.Scripts.VersionEditor;
 using UnityEngine.UI;
 
 namespace Assets._Scripts.MainMenu
@@ -10,7 +9,7 @@ namespace Assets._Scripts.MainMenu
         void Start()
         {
             _versionText = GetComponent<Text>();
-            _versionText.text = VersionInformation.ToString();
+            _versionText.text = Application.version;
         }
     }
 }
