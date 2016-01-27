@@ -20,7 +20,7 @@ public class ModifyImmortalityParticle : MonoBehaviourEx, IHandle<AstronautImmor
         this.GetComponent<ParticleSystem>().startColor = Color.red;
         this.GetComponent<ParticleSystem>().startSize = 3f;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.6f);
         this.GetComponent<ParticleSystem>().startColor = _startColor;
         this.GetComponent<ParticleSystem>().startSize = _startSize;
     }
