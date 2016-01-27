@@ -143,8 +143,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
         float tempWaveCount = _waveCount;
         int wave = Mathf.CeilToInt(tempWaveCount / 5);
-
-        if (wave < 5)
+        if (wave > 5)
         {
             return _waveSequence.SequenceWave[5];
         }
