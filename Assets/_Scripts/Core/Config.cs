@@ -14,8 +14,8 @@ public static class Config
         //time added in each checkpoint
         public const float AddedTimeScale = 0.25f;
         public const float TimeBeforeFirstWave = 3f;
-        public const int SecondsBetweenWaves = 5;
-        public const int SecondsBetweenFastWaves = 3;
+        public const int SecondsBetweenWaves = 10;
+        public const int SecondsBetweenFastWaves = 1;
     }
 
     public static class BackendProxy
