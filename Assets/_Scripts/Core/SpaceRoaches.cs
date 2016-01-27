@@ -139,12 +139,15 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         if (_waveCount == 1)
         {
-            
             return _waveSequence.SequenceWave[0];
         }
         float tempWaveCount = _waveCount;
         int wave = Mathf.CeilToInt(tempWaveCount / 5);
-        
+
+        if (wave < 5)
+        {
+            return _waveSequence.SequenceWave[5];
+        }
         return _waveSequence.SequenceWave[wave];
     }
 
