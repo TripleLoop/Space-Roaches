@@ -61,7 +61,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         set
         {
             _userAuthenticated = value ? 1 : 0;
-            PlayerPrefs.SetInt("_scorePublished", _userAuthenticated);
+            PlayerPrefs.SetInt("_userAuthenticated", _userAuthenticated);
         }
     }
 
@@ -87,6 +87,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         if (message.Score > _ownHighScore)
         {
             PlayerPrefs.SetInt("_ownHighScore", message.Score);
+            _ownHighScore = message.Score;
             ScorePublished = false;
         }
     }
