@@ -4,12 +4,6 @@ using System.Collections;
 
 public class CanvasManager : MonoBehaviour
 {
-    private RoachCount _roachCount;
-    private DashMeter _dashMeter;
-    private EndScreen _endScreen;
-    private AlertPopUp _alertPopUp;
-    private LoadingScreen _loadingScreen;
-
     ///TODO: Instantiate all the canvas components to ensure they are loaded
     public CanvasManager Initialize(SpaceRoaches spaceRoaches)
     {
@@ -18,7 +12,8 @@ public class CanvasManager : MonoBehaviour
         _endScreen = GetComponentInChildren<EndScreen>();
         _endScreen.Initialize(_roachCount, spaceRoaches);
         InitializeAlertPopUp()
-            .InitializeLoadingScreen();
+            .InitializeLoadingScreen()
+            .InitializeTutorialPopUp();
         return this;
     }
 
@@ -48,10 +43,16 @@ public class CanvasManager : MonoBehaviour
         return this;
     }
 
+    public CanvasManager ShowTutorial()
+    {
+        _tutorialPopUp.OpenPopUp();
+        return this;
+    }
+
     private CanvasManager InitializeAlertPopUp()
     {
         GameObject alertPopUp = SRResources.Core.UI.AlertPopUp.Instantiate();
-        alertPopUp.transform.SetParent(gameObject.transform,false);
+        alertPopUp.transform.SetParent(gameObject.transform, false);
         _alertPopUp = alertPopUp.GetComponent<AlertPopUp>();
         _alertPopUp.Initialize();
         return this;
@@ -66,4 +67,19 @@ public class CanvasManager : MonoBehaviour
         return this;
     }
 
+    private CanvasManager InitializeTutorialPopUp()
+    {
+        GameObject tutorialPopUp = SRResources.Core.UI.TutorialPopup.Instantiate();
+        tutorialPopUp.transform.SetParent(gameObject.transform, false);
+        _tutorialPopUp = tutorialPopUp.GetComponent<TutorialPopUp>();
+        _tutorialPopUp.Initialize();
+        return this;
+    }
+
+    private RoachCount _roachCount;
+    private DashMeter _dashMeter;
+    private EndScreen _endScreen;
+    private AlertPopUp _alertPopUp;
+    private LoadingScreen _loadingScreen;
+    private TutorialPopUp _tutorialPopUp;
 }

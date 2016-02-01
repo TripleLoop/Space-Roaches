@@ -4,7 +4,7 @@ using System;
 using UnityEngine.SceneManagement;
 using LocalConfig = Config.SpaceRoaches;
 
-public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>, IHandle<TutorialLoadedMessage>
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>
 {
     private Camera _mainCamera;
     private GameObject _astronautObject;
@@ -61,11 +61,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _userInput.DisableInput();
         Time.timeScale = 1f;
         Debug.Log("Speed normalized, current speed: " + Time.timeScale);
-    }
-
-    public void Handle(TutorialLoadedMessage message)
-    {
-        _tutorialLoaded = true;
     }
 
     public void Handle(TutorialEndedMessage message)
@@ -150,21 +145,17 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return _waveSequence.SequenceWave[wave];
     }
 
-    ///TODO: change to normal function ensure tutorial is loaded
-    private IEnumerator TutorialRoutine()
+    private SpaceRoaches TutorialShow()
     {
-        while (!_tutorialLoaded)
-        {
-            yield return null;
-        }
-        if (!_playerPrefsManager.TutorialForced && _playerPrefsManager.TutorialSeen)
+       if (!_playerPrefsManager.TutorialForced && _playerPrefsManager.TutorialSeen)
         {
             StartGame();
             _astronaut.GetComponent<SpriteRenderer>().enabled = true;
-            yield break;
+            return this;
         }
-        Messenger.Publish(new ShowTutorialMessage());
+        _canvasManager.ShowTutorial();
         _playerPrefsManager.TutorialSeen = true;
+        return this;
     }
 
     private SpaceRoaches RestartGame()
@@ -210,8 +201,8 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         InitializeForeGround()
         .InitializeAstronaut()
         .SetReferences()
-        .AudioSetUp();
-        StartCoroutine(TutorialRoutine());
+        .AudioSetUp()
+        .TutorialShow();
         _canvasManager.HideLoading(false);
     }
 
