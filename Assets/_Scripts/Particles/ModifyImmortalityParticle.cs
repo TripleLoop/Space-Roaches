@@ -25,15 +25,15 @@ public class ModifyImmortalityParticle : MonoBehaviourEx, IHandle<AstronautImmor
 
     private IEnumerator AlertImmortalityEnd()
     {
-        yield return new WaitForSeconds(LocalConfig.ImmortalityTime - 3);
+        yield return new WaitForSeconds(LocalConfig.ImmortalityTime - LocalConfig.AlertFinishImmortalityTime);
         _particles[0].startColor = Color.red;
         _particles[0].startSize = 3f;
         _particles[1].startColor = Color.red;
         _particles[1].startSize = 3f;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(LocalConfig.AlertFinishImmortalityTime - LocalConfig.TimeAfterFinishImmortalityParticle);
         _particles[0].startSize = 0;
         _particles[1].startSize = 0;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(LocalConfig.TimeAfterFinishImmortalityParticle);
         _particles[0].startColor = _startColor;
         _particles[0].startSize = _startSize;
         _particles[1].startColor = _secondaryStartColor;
