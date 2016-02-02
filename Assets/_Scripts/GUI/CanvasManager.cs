@@ -5,8 +5,9 @@ using System.Collections;
 public class CanvasManager : MonoBehaviour
 {
     ///TODO: Instantiate all the canvas components to ensure they are loaded
-    public CanvasManager Initialize(SpaceRoaches spaceRoaches)
+    public CanvasManager Initialize(SpaceRoaches spaceRoaches, Camera gameCamera)
     {
+        GetComponent<Canvas>().worldCamera = gameCamera;
         _roachCount = GetComponentInChildren<RoachCount>();
         _dashMeter = GetComponentInChildren<DashMeter>();
         _endScreen = GetComponentInChildren<EndScreen>();

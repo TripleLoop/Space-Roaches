@@ -6,35 +6,10 @@ using LocalConfig = Config.SpaceRoaches;
 
 public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>
 {
-    private Camera _mainCamera;
-    private GameObject _astronautObject;
-    private Canvas _canvasObject;
-
-    private UserInput _userInput;
-    private Smooth_Follow _smoothFollow;
-    //private Shake_Camera _shakeCamera;
-
-    private WaveManager _waveManager;
-    private WaveSequence _waveSequence;
-
-    private Astronaut _astronaut;
-    private CanvasManager _canvasManager;
-    private SoundManager _soundManager;
-    private BackendProxy _backendProxy;
-    private PlayerPrefsManager _playerPrefsManager;
-
-    private IEnumerator _waveCycle;
-    private int _secondsToNextWave;
-    private int _waveCount;
-    private int _roachDeathCount;
-    private bool _astronautDead;
-    private bool _tutorialLoaded;
-
     void Start()
     {
         this.InitializeCanvas()
         .InitializeCamera();
-        _canvasObject.worldCamera = _mainCamera;
         Action callback = LoadingScreenReady;
         _canvasManager.ShowLoading(callback);
 
@@ -53,7 +28,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         StartCoroutine(AsyncInitialization());
     }
-
 
     public void Handle(AstronautDeathMessage message)
     {
@@ -106,7 +80,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         SceneManager.LoadScene(SRScenes.MainMenu);
     }
-
 
     private IEnumerator WaveCycle()
     {
@@ -206,7 +179,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _canvasManager.HideLoading(false);
     }
 
-
     private SpaceRoaches SetReferences()
     {
         _smoothFollow.SetCameraTarget(_astronautObject);
@@ -284,9 +256,8 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         GameObject canvas = SRResources.Core.UI.Canvas.Instantiate();
         canvas.name = "Canvas";
         canvas.transform.SetParent(this.gameObject.transform, false);
-        _canvasObject = canvas.GetComponent<Canvas>();
         _canvasManager = canvas.GetComponent<CanvasManager>();
-        _canvasManager.Initialize(this);
+        _canvasManager.Initialize(this, _mainCamera);
         GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
         eventSystem.name = "EventSystem";
         eventSystem.transform.SetParent(transform, false);
@@ -342,4 +313,24 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return this;
     }
 
+    private Camera _mainCamera;
+    private GameObject _astronautObject;
+
+    private UserInput _userInput;
+    private Smooth_Follow _smoothFollow;
+
+    private WaveManager _waveManager;
+    private WaveSequence _waveSequence;
+
+    private Astronaut _astronaut;
+    private CanvasManager _canvasManager;
+    private SoundManager _soundManager;
+    private BackendProxy _backendProxy;
+    private PlayerPrefsManager _playerPrefsManager;
+
+    private IEnumerator _waveCycle;
+    private int _secondsToNextWave;
+    private int _waveCount;
+    private int _roachDeathCount;
+    private bool _astronautDead;
 }
