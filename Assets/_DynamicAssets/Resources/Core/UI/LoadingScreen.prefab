@@ -209,6 +209,14 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _background
+      value: 
+      objectReference: {fileID: 11462208}
+    - target: {fileID: 0}
+      propertyPath: _loadingIcon
+      value: 
+      objectReference: {fileID: 11433208}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 125646}

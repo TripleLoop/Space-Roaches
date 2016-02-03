@@ -32,10 +32,9 @@ public class CanvasManager : MonoBehaviour
         return this;
     }
 
-    public CanvasManager ShowLoading(Action callback)
+    public IEnumerator ShowLoading()
     {
-        _loadingScreen.PreSceneLoading(callback);
-        return this;
+        yield return StartCoroutine(_loadingScreen.PreSceneLoading());
     }
 
     public CanvasManager HideLoading(bool forced)
