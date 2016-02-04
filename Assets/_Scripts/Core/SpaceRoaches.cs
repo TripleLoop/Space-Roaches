@@ -34,7 +34,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     public void Handle(TutorialEndedMessage message)
     {
         StartGame();
-        _astronaut.GetComponent<SpriteRenderer>().enabled = true;
+        _astronaut.Show();
     }
 
     public void Handle(RestartGameMessage message)
@@ -117,7 +117,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
        if (!_playerPrefsManager.TutorialForced && _playerPrefsManager.TutorialSeen)
         {
             StartGame();
-            _astronaut.GetComponent<SpriteRenderer>().enabled = true;
+            _astronaut.Show();
             return this;
         }
         _canvasManager.ShowTutorial();
@@ -176,7 +176,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private SpaceRoaches SetReferences()
     {
-        _smoothFollow.SetCameraTarget(_astronautObject);
+        _smoothFollow.SetCameraTarget(_astronaut.gameObject);
         _userInput.SetCamera(_mainCamera);
         _waveManager.SetSpaceRoaches(this);
         return this;
@@ -240,9 +240,10 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         GameObject astronaut = SRResources.Core.Characters.Astronaut.Instantiate();
         astronaut.name = "Astronaut";
-        astronaut.transform.parent = this.gameObject.transform;
+        astronaut.transform.SetParent(transform);
         _astronaut = astronaut.GetComponent<Astronaut>();
-        _astronautObject = astronaut;
+        _astronaut.Initialize();
+        _astronaut.Hide();
         return this;
     }
 
@@ -309,7 +310,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     }
 
     private Camera _mainCamera;
-    private GameObject _astronautObject;
 
     private UserInput _userInput;
     private Smooth_Follow _smoothFollow;

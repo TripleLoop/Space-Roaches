@@ -5,43 +5,7 @@ using LocalConfig = Config.Entities.Astronaut;
 
 public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<CanDashAnswers>, IHandle<PizzaEatenMessage>
 {
-    private Coroutine _slowDown;
-    private bool _enableSlowDown;
-
-    private Rigidbody2D _rigidbody2D;
-
-    private Vector2 _location;
-    private Vector2 _direction;
-
-    private float _intensity;
-    private float _breakIntensity;
-
-    private Animator _animatorAst;
-
-    private float _scale;
-
-    private bool _immortal;
-    private bool _astronautDead;
-
-    private ParticleSystem _dashParticle;
-    private ParticleSystem _immortalParticle;
-
-    private Material _astronautMaterial;
-
-    //Define Stats Machine's variables
-    public enum State
-    {
-        Idle,
-        Dash,
-        Moving,
-        Die,
-    }
-
-    private Action _currentState;
-    public State CurrentStateName;
-
-    // Use this for initialization
-    private void Start()
+    public Astronaut Initialize()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animatorAst = GetComponent<Animator>();
@@ -57,6 +21,19 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
 
         InitializeDashParticle();
         InitializeImmortalParticle();
+        return this;
+    }
+
+    public Astronaut Show()
+    {
+        GetComponent<SpriteRenderer>().enabled = true;
+        return this;
+    }
+
+    public Astronaut Hide()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        return this;
     }
 
     public void Kill()
@@ -291,5 +268,39 @@ public class Astronaut : MonoBehaviourEx, IHandle<UserInputMessage>, IHandle<Can
     {
         _currentState();
     }
+
+    private Coroutine _slowDown;
+    private bool _enableSlowDown;
+
+    private Rigidbody2D _rigidbody2D;
+
+    private Vector2 _location;
+    private Vector2 _direction;
+
+    private float _intensity;
+    private float _breakIntensity;
+
+    private Animator _animatorAst;
+
+    private float _scale;
+
+    private bool _immortal;
+    private bool _astronautDead;
+
+    private ParticleSystem _dashParticle;
+    private ParticleSystem _immortalParticle;
+
+    private Material _astronautMaterial;
+
+    public enum State
+    {
+        Idle,
+        Dash,
+        Moving,
+        Die,
+    }
+
+    private Action _currentState;
+    public State CurrentStateName;
 
 }
