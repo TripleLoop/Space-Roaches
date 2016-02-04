@@ -43,10 +43,9 @@ public class CanvasManager : MonoBehaviour
         return this;
     }
 
-    public CanvasManager ShowTutorial()
+    public IEnumerator ShowTutorial()
     {
-        _tutorialPopUp.OpenPopUp();
-        return this;
+       yield return StartCoroutine(_tutorialPopUp.OpenPopUp());
     }
 
     private CanvasManager InitializeAlertPopUp()

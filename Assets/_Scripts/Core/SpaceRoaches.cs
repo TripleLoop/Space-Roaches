@@ -5,9 +5,9 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using LocalConfig = Config.SpaceRoaches;
 
-public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>, IHandle<TutorialEndedMessage>
+public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>
 {
-    void Start()
+    private void Start()
     {
         this.InitializeCanvas()
         .InitializeCamera();
@@ -29,12 +29,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         _userInput.DisableInput();
         Time.timeScale = 1f;
         Debug.Log("Speed normalized, current speed: " + Time.timeScale);
-    }
-
-    public void Handle(TutorialEndedMessage message)
-    {
-        StartGame();
-        _astronaut.Show();
     }
 
     public void Handle(RestartGameMessage message)
@@ -112,17 +106,22 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return _waveSequence.SequenceWave[wave];
     }
 
-    private SpaceRoaches TutorialShow()
+    private IEnumerator TutorialShow()
     {
-       if (!_playerPrefsManager.TutorialForced && _playerPrefsManager.TutorialSeen)
+        Action callback = () =>
         {
             StartGame();
             _astronaut.Show();
-            return this;
+        };
+        if (!_playerPrefsManager.TutorialForced && _playerPrefsManager.TutorialSeen)
+        {
+            callback();
+            yield break;
         }
-        _canvasManager.ShowTutorial();
+        yield return null;
+        yield return StartCoroutine(_canvasManager.ShowTutorial());
         _playerPrefsManager.TutorialSeen = true;
-        return this;
+        callback();
     }
 
     private SpaceRoaches RestartGame()
@@ -169,9 +168,9 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         InitializeForeGround()
         .InitializeAstronaut()
         .SetReferences()
-        .AudioSetUp()
-        .TutorialShow();
+        .AudioSetUp();
         _canvasManager.HideLoading(false);
+        StartCoroutine(TutorialShow());
     }
 
     private SpaceRoaches SetReferences()

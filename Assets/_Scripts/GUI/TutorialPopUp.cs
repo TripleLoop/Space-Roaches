@@ -5,19 +5,17 @@ public class TutorialPopUp : MonoBehaviourEx
 {
     public TutorialPopUp Initialize()
     {
-        //_popUpAnimator = GetComponent<Animator>();
+        _popUpAnimator = GetComponent<Animator>();
         _childrenController = gameObject.AddComponent<ChildrenControllerComponent>();
-        _basePopUpAnimation = GetComponent<BasePopUpAnimation>();
-        _basePopUpAnimation.Initialize();
         return this;
     }
 
     public void ClosePopUp()
     {
+        if (_popupClosed) return;
         Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicButton));
-        Messenger.Publish(new TutorialEndedMessage());
-        //_popUpAnimator.SetInteger("Anim", 2);
-        _basePopUpAnimation.PlayAnimation();
+        _popUpAnimator.SetInteger("Anim", 2);
+        _popupClosed = true;
     }
 
     public void PopupClosed()
@@ -25,15 +23,18 @@ public class TutorialPopUp : MonoBehaviourEx
         _childrenController.DisableChildren();
     }
 
-    public TutorialPopUp OpenPopUp()
+    public IEnumerator OpenPopUp()
     {
         _childrenController.EnableChildren();
-        //_popUpAnimator.SetInteger("Anim", 1);
-        _basePopUpAnimation.PlayAnimation(false, PopupClosed);
-        return this;
+        _popUpAnimator.SetInteger("Anim", 1);
+        _popupClosed = false;
+        while (!_popupClosed)
+        {
+            yield return null;
+        }
     }
 
-    //private Animator _popUpAnimator;
+    private bool _popupClosed;
+    private Animator _popUpAnimator;
     private ChildrenControllerComponent _childrenController;
-    private BasePopUpAnimation _basePopUpAnimation;
 }
