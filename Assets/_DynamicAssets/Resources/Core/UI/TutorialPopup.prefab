@@ -77,6 +77,7 @@ GameObject:
   - 224: {fileID: 22414046}
   - 114: {fileID: 11497546}
   - 95: {fileID: 9525068}
+  - 114: {fileID: 11402326}
   m_Layer: 0
   m_Name: TutorialPopup
   m_TagString: Untagged
@@ -91,7 +92,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195934}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b1b40b0ab14815540a102532c75dc996, type: 2}
   m_CullingMode: 0
@@ -101,6 +102,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11402326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2d7f41e1a72564e96bbfe55624369b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _popUp: {fileID: 195798}
+  _backgroundPopUp: {fileID: 168948}
 --- !u!114 &11427054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,7 +372,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _backgroundPopUp
+      value: 
+      objectReference: {fileID: 168948}
+    - target: {fileID: 0}
+      propertyPath: _popUp
+      value: 
+      objectReference: {fileID: 195798}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 195934}
