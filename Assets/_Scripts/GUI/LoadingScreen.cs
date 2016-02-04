@@ -1,12 +1,16 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
+using UnityEngine.UI;
 
-public class LoadingScreen : MonoBehaviour {
-
+public class LoadingScreen : MonoBehaviour
+{
     private ChildrenControllerComponent _childrenController;
     private Animator _ownAnimator;
-    private Action _loadingDoneCallback;
+
+    private bool loadingReady = false;
+  
     private Action _fadeToBlackCallback;
 
     public LoadingScreen Initialize()
@@ -17,12 +21,15 @@ public class LoadingScreen : MonoBehaviour {
         return this;
     }
 
-    public LoadingScreen PreSceneLoading(Action callback)
+    public IEnumerator PreSceneLoading()
     {
-        _loadingDoneCallback = callback;
         _ownAnimator.SetInteger("LoadingState", 2);
         _childrenController.EnableChildren();
-        return this;
+        loadingReady = false;
+        while (!loadingReady)
+        {
+            yield return null;
+        }
     }
 
     public LoadingScreen ToBlack(Action callback)
@@ -40,7 +47,7 @@ public class LoadingScreen : MonoBehaviour {
 
     public void LoaderReady()
     {
-        _loadingDoneCallback();
+        loadingReady = true;
     }
 
     public LoadingScreen Show()
@@ -62,6 +69,6 @@ public class LoadingScreen : MonoBehaviour {
 
     public void Hidden()
     {
-       _childrenController.DisableChildren();
+        _childrenController.DisableChildren();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using DG.Tweening;
 using UnityEngine.SceneManagement;
 using LocalConfig = Config.SpaceRoaches;
 
@@ -10,9 +11,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
     {
         this.InitializeCanvas()
         .InitializeCamera();
-        Action callback = LoadingScreenReady;
-        _canvasManager.ShowLoading(callback);
-
+        StartCoroutine(AsyncInitialization());
     }
 
     public SpaceRoaches FasterWaveCycle()
@@ -22,11 +21,6 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
             _secondsToNextWave = LocalConfig.SecondsBetweenFastWaves;
         }
         return this;
-    }
-
-    private void LoadingScreenReady()
-    {
-        StartCoroutine(AsyncInitialization());
     }
 
     public void Handle(AstronautDeathMessage message)
@@ -161,6 +155,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
 
     private IEnumerator AsyncInitialization()
     {
+        yield return StartCoroutine(_canvasManager.ShowLoading());
         InitializeBackend()
             .InitializePlayerPrefsManager()
             .InitializeSoundManager()
