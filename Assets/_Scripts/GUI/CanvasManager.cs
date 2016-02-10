@@ -10,8 +10,8 @@ public class CanvasManager : MonoBehaviour
         GetComponent<Canvas>().worldCamera = gameCamera;
         _roachCount = GetComponentInChildren<RoachCount>();
         _dashMeter = GetComponentInChildren<DashMeter>();
-        _endScreen = GetComponentInChildren<EndScreen>();
-        _endScreen.Initialize(_roachCount, spaceRoaches);
+        _endScreenPopUp = GetComponentInChildren<EndScreenPopUp>();
+        _endScreenPopUp.Initialize(_roachCount, spaceRoaches);
         InitializeAlertPopUp()
             .InitializeLoadingScreen()
             .InitializeTutorialPopUp();
@@ -22,7 +22,7 @@ public class CanvasManager : MonoBehaviour
     {
         _roachCount.Reset();
         _dashMeter.Reset();
-        _endScreen.Reset();
+        _endScreenPopUp.Reset();
         return this;
     }
 
@@ -77,7 +77,7 @@ public class CanvasManager : MonoBehaviour
 
     private RoachCount _roachCount;
     private DashMeter _dashMeter;
-    private EndScreen _endScreen;
+    private EndScreenPopUp _endScreenPopUp;
     private AlertPopUp _alertPopUp;
     private LoadingScreen _loadingScreen;
     private TutorialPopUp _tutorialPopUp;

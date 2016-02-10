@@ -43,6 +43,8 @@ public sealed class SRTags {
     
     public const string Wall = "Wall";
     
+    public const string Points = "Points";
+    
     private static global::System.Collections.Generic.IList<string> __all = new global::System.Collections.ObjectModel.ReadOnlyCollection<string>(new string[] {
                 "Untagged",
                 "Respawn",
@@ -54,7 +56,8 @@ public sealed class SRTags {
                 "Roach",
                 "Spikeball",
                 "Pizza",
-                "Wall"});
+                "Wall",
+                "Points"});
     
     public static global::System.Collections.Generic.IList<string> All {
         get {

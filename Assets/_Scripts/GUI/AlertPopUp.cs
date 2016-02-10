@@ -4,12 +4,7 @@ using UnityEngine.UI;
 
 public class AlertPopUp : MonoBehaviourEx, IHandle<ShowAlertMessage>
 {
-    private ChildrenControllerComponent _childrenController;
-    private Action _onCloseEndedDelegate;
-
-    private Text _messageText;
-    private BasePopupComponent _basePopupComponent;
-
+    
     public AlertPopUp Initialize()
     {
         _childrenController = gameObject.AddComponent<ChildrenControllerComponent>();
@@ -39,4 +34,10 @@ public class AlertPopUp : MonoBehaviourEx, IHandle<ShowAlertMessage>
         _basePopupComponent.ClosePopUp();
         return;
     }
+
+    private ChildrenControllerComponent _childrenController;
+    private Action _onCloseEndedDelegate;
+
+    private Text _messageText;
+    private BasePopupComponent _basePopupComponent;
 }

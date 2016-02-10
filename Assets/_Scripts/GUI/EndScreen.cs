@@ -8,22 +8,7 @@ using LocalConfig = Config.EndScreen;
 
 public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
 {
-    private Text _textCount;
-    private Text _textComment;
-
-    private RoachCount _roachCount;
-    private SpaceRoaches _spaceRoaches;
-
-    private bool _isInCountUp;
-    private IEnumerator _countUp;
-
-    private bool _astronautDead = false;
-    private Animator _animator;
-
-    private TypeWriting _typeWriting;
-    private SelectEndScreenText _selectEndScreenText;
-    private List<RangeComments> _rangeComments = LocalConfig.AllRangesComments;
-
+    
     public EndScreen Initialize(RoachCount roachCount, SpaceRoaches spaceRoaches)
     {
         if (roachCount == null) return this;
@@ -135,4 +120,20 @@ public class EndScreen : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         _textComment.text += letter;
     }
+
+    private Text _textCount;
+    private Text _textComment;
+
+    private RoachCount _roachCount;
+    private SpaceRoaches _spaceRoaches;
+
+    private bool _isInCountUp;
+    private IEnumerator _countUp;
+
+    private bool _astronautDead = false;
+    private Animator _animator;
+
+    private TypeWriting _typeWriting;
+    private SelectEndScreenText _selectEndScreenText;
+    private List<RangeComments> _rangeComments = LocalConfig.AllRangesComments;
 }
