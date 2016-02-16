@@ -8,6 +8,7 @@ TagManager:
   - Spikeball
   - Pizza
   - Wall
+  - Points
   layers:
   - Default
   - TransparentFX

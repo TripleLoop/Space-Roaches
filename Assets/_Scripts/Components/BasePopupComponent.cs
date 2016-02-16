@@ -3,10 +3,7 @@ using System;
 
 [RequireComponent(typeof(Animator))]
 public class BasePopupComponent : MonoBehaviour {
-
-    private Animator _popUpAnimator;
-    private Action _onClosePopup;
-
+    
     public void Initialize(Action onClose)
     {
         _popUpAnimator = GetComponent<Animator>();
@@ -28,4 +25,7 @@ public class BasePopupComponent : MonoBehaviour {
         _popUpAnimator.SetInteger("Anim", 0);
         _onClosePopup();
     }
+
+    private Animator _popUpAnimator;
+    private Action _onClosePopup;
 }

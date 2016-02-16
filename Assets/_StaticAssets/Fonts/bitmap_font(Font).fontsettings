@@ -8,7 +8,7 @@ Font:
   m_Name: bitmap_font(Font)
   serializedVersion: 4
   m_AsciiStartOffset: 0
-  m_Tracking: 1
+  m_Tracking: 0.95
   m_LineSpacing: 58
   m_CharacterSpacing: 1
   m_CharacterPadding: 0
@@ -25,8 +25,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -41,8 +41,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 42
       height: -53
     advance: 42
@@ -57,8 +57,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -73,8 +73,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -89,8 +89,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -105,8 +105,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -121,8 +121,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -137,8 +137,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -153,8 +153,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 23
       height: -53
     advance: 23
@@ -169,8 +169,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -185,8 +185,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -201,8 +201,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -217,8 +217,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 60
       height: -53
     advance: 60
@@ -233,8 +233,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -249,8 +249,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -265,8 +265,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -281,8 +281,8 @@ Font:
       height: 0.29591838
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -58
     advance: 41
@@ -297,8 +297,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -313,8 +313,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -329,8 +329,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -345,8 +345,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -361,8 +361,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -377,8 +377,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 59
       height: -53
     advance: 59
@@ -393,8 +393,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -409,8 +409,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -425,8 +425,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -441,8 +441,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 24
       height: -53
     advance: 24
@@ -457,8 +457,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -473,8 +473,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -489,8 +489,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -505,8 +505,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -521,8 +521,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -537,8 +537,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -553,8 +553,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -569,8 +569,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -585,8 +585,8 @@ Font:
       height: 0.27040815
     vert:
       serializedVersion: 2
-      x: -1
-      y: -7
+      x: -0
+      y: 0
       width: 41
       height: -53
     advance: 41
@@ -601,8 +601,8 @@ Font:
       height: 0.07653061
     vert:
       serializedVersion: 2
-      x: -1
-      y: -45
+      x: -0
+      y: -38
       width: 16
       height: -15
     advance: 16
@@ -617,8 +617,8 @@ Font:
       height: 0.10204082
     vert:
       serializedVersion: 2
-      x: -1
-      y: -45
+      x: -0
+      y: -38
       width: 15
       height: -20
     advance: 15
@@ -633,8 +633,8 @@ Font:
       height: 0.19897959
     vert:
       serializedVersion: 2
-      x: -1
-      y: -26
+      x: -0
+      y: -19
       width: 16
       height: -39
     advance: 16
@@ -649,8 +649,8 @@ Font:
       height: 0.17857143
     vert:
       serializedVersion: 2
-      x: -1
-      y: -16
+      x: -0
+      y: -9
       width: 16
       height: -35
     advance: 16
@@ -665,8 +665,8 @@ Font:
       height: 0.0051020407
     vert:
       serializedVersion: 2
-      x: -0
-      y: 1
+      x: 1
+      y: 8
       width: 20
       height: -1
     advance: 20
