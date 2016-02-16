@@ -28,6 +28,13 @@ public class EndScreenPopUp : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     {
         _childrenController.EnableChildren();
         _basePopupComponent.ShowPopUp();
+
+        _highScore = PlayerPrefs.GetInt("_ownHighScore");
+        _highScore_Points.text = _highScore.ToString();
+
+        _countUpPoints = CountUpPoints();
+        StartCoroutine(_countUpPoints);
+
         _popupClosed = false;
         while (!_popupClosed)
         {
@@ -46,6 +53,9 @@ public class EndScreenPopUp : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     public void OnCloseEnded()
     {
         _childrenController.DisableChildren();
+        _score_Points.text = "0";
+        _highScore_Points.text = "0";
+        _totalSP_Points.text = "0";
     }
 
     public void Menu()
@@ -65,7 +75,7 @@ public class EndScreenPopUp : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         _astronautDead = false;
         if (_isInCountUp)
         {
-            StopCoroutine(_countUp);
+            StopCoroutine(_countUpPoints);
         }
         return this;
     }
@@ -79,24 +89,51 @@ public class EndScreenPopUp : MonoBehaviourEx, IHandle<AstronautDeathMessage>
         }
     }
 
-    private IEnumerator CountUp()
+    private IEnumerator CountUpPoints()
     {
         _isInCountUp = true;
         int scoreCount = 0;
-        var numDeathRoaches = _roachCount.GetScore();
-        Messenger.Publish(new NewScoreMessage(numDeathRoaches));
+        _numDeathRoaches = _roachCount.GetScore();
+        Messenger.Publish(new NewScoreMessage(_numDeathRoaches));
         while (true)
         {
-            if (scoreCount == numDeathRoaches)
+            if (scoreCount == _numDeathRoaches)
+            {
+                yield return new WaitForSeconds(0.5f);
+                _isInCountUp = false;
+                _countUpSP = CountUpSP();
+                StartCoroutine(_countUpSP);
+                break;
+            }
+            yield return new WaitForSeconds(LocalConfig.TimeCountUp);
+            scoreCount++;
+            _score_Points.text = scoreCount.ToString();
+            if (_highScore <= scoreCount)
+            {
+                _highScore_Points.text = scoreCount.ToString();
+            }
+            Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects._tick));
+        }
+    }
+
+    private IEnumerator CountUpSP()
+    {
+        _isInCountUp = true;
+        int spCount = 0;
+        while (true)
+        {
+            if (spCount == _numDeathRoaches)
             {
                 yield return new WaitForSeconds(0.5f);
                 _isInCountUp = false;
                 break;
             }
             yield return new WaitForSeconds(LocalConfig.TimeCountUp);
-            scoreCount++;
+            spCount++;
+            _totalSP_Points.text = spCount.ToString();
             Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects._tick));
         }
+
     }
 
     void Start ()
@@ -114,8 +151,11 @@ public class EndScreenPopUp : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private RoachCount _roachCount;
     private SpaceRoaches _spaceRoaches;
 
+    private int _numDeathRoaches;
+
     private bool _isInCountUp;
-    private IEnumerator _countUp;
+    private IEnumerator _countUpPoints;
+    private IEnumerator _countUpSP;
 
     private bool _astronautDead = false;
 
@@ -123,4 +163,6 @@ public class EndScreenPopUp : MonoBehaviourEx, IHandle<AstronautDeathMessage>
     private ChildrenControllerComponent _childrenController;
     private BasePopupComponent _basePopupComponent;
     private Action _onCloseEndedDelegate;
+
+    private int _highScore;
 }
