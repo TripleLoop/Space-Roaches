@@ -3,55 +3,59 @@ using System.Collections.Generic;
 
 public class WaveSequence
 {
-    public List<Wave> SequenceWave = new List<Wave>();
+    public List<WaveData> SequenceWave = new List<WaveData>();
 
 	public WaveSequence()
 	{
-        //The First Add it's only the first Wave
+        //The First Add it's only the first WaveData
         //The rest change every 5 waves (See SpaceRoaches → line 130)
 
         SequenceWave.Add(
-            new Wave(
+            new WaveData(
                 //Weights (Roach, SpikeBall, Pizza)
                 AddWeights(75, 23, 4),
-                //Ranges In Wave (Roach {min, max}, SpikeBall {min, max}, Pizza {min, max})
-                AddRanges(new int[] { 6, 8 }, new int[] { 0, 0 }, new int[] { 0, 0 }),
-                //Limits In Scene (Roach, SpikeBall, Pizza)
+                AddMinPerWave(6, 0, 0),
+                AddMaxPerWave(8, 0, 0),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
-            new Wave(
+            new WaveData(
                 AddWeights(75, 23, 4),
-                AddRanges(new int[] { 6, 8 }, new int[] { 0, 1 }, new int[] { 0, 1 }),
+                AddMinPerWave(6, 0, 0),
+                AddMaxPerWave(8, 1, 1),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
-            new Wave(
+            new WaveData(
                 AddWeights(75, 23, 4),
-                AddRanges(new int[] { 6, 8 }, new int[] { 0, 2 }, new int[] { 0, 1 }),
+                AddMinPerWave(6, 0, 0),
+                AddMaxPerWave(8, 2, 1),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
-            new Wave(
+            new WaveData(
                 AddWeights(75, 23, 4),
-                AddRanges(new int[] { 8, 10 }, new int[] { 0, 2 }, new int[] { 0, 1 }),
+                AddMinPerWave(6, 0, 0),
+                AddMaxPerWave(8, 2, 1),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
-            new Wave(
+            new WaveData(
                 AddWeights(75, 23, 4),
-                AddRanges(new int[] { 8, 10 }, new int[] { 0, 3 }, new int[] { 0, 1 }),
+                AddMinPerWave(6, 0, 0),
+                AddMaxPerWave(8, 3, 1),
                 AddLimits(15, 5, 1)
             )
         );
         SequenceWave.Add(
-            new Wave(
+            new WaveData(
                 AddWeights(75, 23, 4),
-                AddRanges(new int[] { 8, 10 }, new int[] { 0, 4 }, new int[] { 0, 1 }),
+                AddMinPerWave(6, 0, 0),
+                AddMaxPerWave(8, 4, 1),
                 AddLimits(15, 5, 1)
             )
         );
@@ -62,13 +66,14 @@ public class WaveSequence
         return new int[] { roach, spikeBall, pizza };
     }
 
-    private List<int[]> AddRanges(int[] roach, int[] spikeBall, int[] pizza)
+    private int[] AddMinPerWave(int roach, int spikeBall, int pizza)
     {
-        List<int[]> rangesList = new List<int[]>();
-        rangesList.Add(roach);
-        rangesList.Add(spikeBall);
-        rangesList.Add(pizza);
-        return rangesList;
+        return new int[] { roach, spikeBall, pizza };
+    }
+
+    private int[] AddMaxPerWave(int roach, int spikeBall, int pizza)
+    {
+        return new int[] { roach, spikeBall, pizza };
     }
 
     private int[] AddLimits(int roach, int spikeBall, int pizza)

@@ -91,7 +91,7 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         }
     }
 
-    private Wave ChangeWave()
+    private WaveData ChangeWave()
     {
         if (_waveCount == 1)
         {

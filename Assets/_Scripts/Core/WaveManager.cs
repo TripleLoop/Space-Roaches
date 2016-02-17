@@ -7,34 +7,7 @@ using LocalConfig = Config.WaveManager;
 
 public class WaveManager : MonoBehaviourEx
 {
-    private SpaceRoaches _spaceRoaches;
-    private EntitySpawner _entitySpawner;
-
-    [SerializeField]
-    private LayerMask _avoidSpawnInLayers;
-
-    private Vector2 _originPosition;
-    private Vector2 _endPosition;
-
-    private int _maxSpawnElements;
-    private int _minSpawnElements;
-
-    private int _pizzaCount;
-    private int _roachCount;
-    private int _spikeBallCount;
-
-    private int _tempPizzaCount;
-    private int _tempRoachCount;
-    private int _tempSpikeBallCount;
-
-    private bool _inPizzaCooldown;
-    private IEnumerator _pizzaCooldown;
-
-    private bool _inSpawnRoutine;
-    private IEnumerator _spawnRoutine;
-
-    //Wave specification
-    private Wave _waveConditions;
+    
 
     public WaveManager InitializeWaveManager()
     {
@@ -46,11 +19,11 @@ public class WaveManager : MonoBehaviourEx
         return this;
     }
 
-    public WaveManager SpawnWave(Wave wave)
+    public WaveManager SpawnWave(WaveData waveData)
     {
-        _waveConditions = wave;
-        _minSpawnElements = wave.RangesPerWave[0][0] + wave.RangesPerWave[1][0] + wave.RangesPerWave[2][0];
-        _maxSpawnElements = wave.RangesPerWave[0][1] + wave.RangesPerWave[1][1] + wave.RangesPerWave[2][1];
+        _waveDataConditions = waveData;
+        _minSpawnElements = waveData.MinPerWave[0] + waveData.MinPerWave[1] + waveData.MinPerWave[2];
+        _maxSpawnElements = waveData.MaxPerWave[0] + waveData.MaxPerWave[1] + waveData.MaxPerWave[2];
         int number = Random.Range(_minSpawnElements, _maxSpawnElements);
         _spawnRoutine = SpawnRoutine(number);
         StartCoroutine(_spawnRoutine);
@@ -85,6 +58,7 @@ public class WaveManager : MonoBehaviourEx
         _pizzaCount = 0;
         _roachCount = 0;
         _spikeBallCount = 0;
+
         if (_inPizzaCooldown)
         {
             StopCoroutine(_pizzaCooldown);
@@ -98,11 +72,6 @@ public class WaveManager : MonoBehaviourEx
         _entitySpawner.Reset();
         return this;
     }
-
-    /*private int CurrentElementCount()
-    {
-        return _roachCount + _spikeBallCount + _pizzaCount;
-    }*/
 
     private EntityWeight RandomWeightedChooser(List<EntityWeight> entityWeights)
     {
@@ -141,6 +110,7 @@ public class WaveManager : MonoBehaviourEx
             EntityWeight tempChosen = this.RandomWeightedChooser(weights);
             if (RangeReached(tempChosen.Name))
             {
+                i--;
                 continue;
             }
             CountEntity(tempChosen.Name);
@@ -153,15 +123,15 @@ public class WaveManager : MonoBehaviourEx
 
     private bool RangeReached(string entity)
     {
-        if (entity == "roach" && _waveConditions.RangesPerWave[0][1] == _tempRoachCount)
+        if (entity == "roach" && _waveDataConditions.MaxPerWave[0] == _tempRoachCount)
         {
             return true;
         }
-        if (entity == "Spikeball" && _waveConditions.RangesPerWave[1][1] == _tempSpikeBallCount)
+        if (entity == "Spikeball" && _waveDataConditions.MaxPerWave[1] == _tempSpikeBallCount)
         {
             return true;
         }
-        if (entity == "pizza" && _waveConditions.RangesPerWave[2][1] == _tempPizzaCount)
+        if (entity == "pizza" && _waveDataConditions.MaxPerWave[2] == _tempPizzaCount)
         {
             return true;
         }
@@ -230,17 +200,17 @@ public class WaveManager : MonoBehaviourEx
     private List<EntityWeight> GetCustomWeights()
     {
         List<EntityWeight> tempweights = new List<EntityWeight>();
-        if (_spikeBallCount < /*LocalConfig.SpikeBall.MaxCount*/_waveConditions.LimitsInScene[1])
+        if (_spikeBallCount < _waveDataConditions.LimitsInScene[1])
         {
-            tempweights.Add(new EntityWeight("Spikeball", /*LocalConfig.SpikeBall.Weight*/_waveConditions.SpawnWeights[1]));
+            tempweights.Add(new EntityWeight("Spikeball", _waveDataConditions.SpawnWeights[1]));
         }
-        if (_pizzaCount < /*LocalConfig.Pizza.MaxCount*/_waveConditions.LimitsInScene[2] && !_inPizzaCooldown)
+        if (_pizzaCount < _waveDataConditions.LimitsInScene[2] && !_inPizzaCooldown)
         {
-            tempweights.Add(new EntityWeight("pizza", /*LocalConfig.Pizza.Weight */ _waveConditions.SpawnWeights[2]));
+            tempweights.Add(new EntityWeight("pizza", _waveDataConditions.SpawnWeights[2]));
         }
-        if (_roachCount < /*LocalConfig.Roach.MaxCount*/_waveConditions.LimitsInScene[0])
+        if (_roachCount < _waveDataConditions.LimitsInScene[0])
         {
-            tempweights.Add(new EntityWeight("roach", /*LocalConfig.Roach.Weight*/ _waveConditions.SpawnWeights[0]));
+            tempweights.Add(new EntityWeight("roach", _waveDataConditions.SpawnWeights[0]));
         }
         return tempweights;
     }
@@ -267,4 +237,33 @@ public class WaveManager : MonoBehaviourEx
         _entitySpawner.InitializeSpawner(this);
         return this;
     }
+
+    private SpaceRoaches _spaceRoaches;
+    private EntitySpawner _entitySpawner;
+
+    [SerializeField]
+    private LayerMask _avoidSpawnInLayers;
+
+    private Vector2 _originPosition;
+    private Vector2 _endPosition;
+
+    private int _maxSpawnElements;
+    private int _minSpawnElements;
+
+    private int _pizzaCount;
+    private int _roachCount;
+    private int _spikeBallCount;
+
+    private int _tempPizzaCount;
+    private int _tempRoachCount;
+    private int _tempSpikeBallCount;
+
+    private bool _inPizzaCooldown;
+    private IEnumerator _pizzaCooldown;
+
+    private bool _inSpawnRoutine;
+    private IEnumerator _spawnRoutine;
+
+    //WaveData specification
+    private WaveData _waveDataConditions;
 }
