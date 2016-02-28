@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Diagnostics;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 using LocalConfig = Config.SpaceRoaches;
 
 public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHandle<RoachDeathMessage>, IHandle<RestartGameMessage>
 {
     private void Start()
-    {
+    {       
         this.InitializeCanvas()
         .InitializeCamera();
         StartCoroutine(AsyncInitialization());
@@ -31,16 +34,19 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         Debug.Log("Speed normalized, current speed: " + Time.timeScale);
     }
 
+    
+    /// <summary>
+    /// TODO: M.B 28/02/2016 someone is calling restart message at the wrong time, temp fix
+    /// </summary>
+    /// <param name="message"></param>
     public void Handle(RestartGameMessage message)
     {
-        if (_astronautDead)
+        if (!_astronautDead)
         {
-            this.RestartGame();
+            Debug.Log("Should not restart! fix these please ;(");
+            return;
         }
-        else
-        {
-            Debug.Log("Should not restart!");
-        }
+        this.RestartGame();
 
     }
 
@@ -246,6 +252,11 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         return this;
     }
 
+
+    /// <summary>
+    /// TODO: 28/02/2016 temp fix for SRDebugger that creates an Event system
+    /// </summary>
+    /// <returns></returns>
     private SpaceRoaches InitializeCanvas()
     {
         GameObject canvas = SRResources.Core.UI.Canvas.Instantiate();
@@ -253,10 +264,13 @@ public class SpaceRoaches : MonoBehaviourEx, IHandle<AstronautDeathMessage>, IHa
         canvas.transform.SetParent(this.gameObject.transform, false);
         _canvasManager = canvas.GetComponent<CanvasManager>();
         _canvasManager.Initialize(this, _mainCamera);
-        GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
-        eventSystem.name = "EventSystem";
-        eventSystem.transform.SetParent(transform, false);
-        if (Debug.isDebugBuild && SRDebug.Instance == null)
+        if (EventSystem.current == null)
+        {
+            GameObject eventSystem = SRResources.Core.UI.EventSystem.Instantiate();
+            eventSystem.name = "EventSystemIn";
+            eventSystem.transform.SetParent(transform, false);
+        }
+        if (Debug.isDebugBuild)
         {
             SRDebug.Init();
         }

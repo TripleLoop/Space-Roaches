@@ -51,7 +51,7 @@ public class MenuCanvas : MonoBehaviourEx
 
     private void StartSceneChange()
     {
-        SceneManager.LoadSceneAsync(SRScenes.MainGame);
+        SceneManager.LoadScene(SRScenes.MainGame);
     }
     /// <summary>
     /// Function executed by pressing the _leaderboardButton button

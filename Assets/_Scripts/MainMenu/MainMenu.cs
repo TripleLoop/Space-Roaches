@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
 {
@@ -139,10 +140,13 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         canvas.name = "Canvas";
         canvas.transform.SetParent(this.gameObject.transform, false);
         _menuCanvas = canvas.GetComponent<MenuCanvas>();
-        GameObject eventSystem = SRResources.Menu.UI.EventSystem.Instantiate();
-        eventSystem.name = "EventSystem";
-        eventSystem.transform.SetParent(transform, false);
-        if (Debug.isDebugBuild && SRDebug.Instance == null)
+        if (EventSystem.current == null)
+        {
+            GameObject eventSystem = SRResources.Menu.UI.EventSystem.Instantiate();
+            eventSystem.name = "EventSystemIn";
+            eventSystem.transform.SetParent(transform, false);
+        }
+        if (Debug.isDebugBuild)
         {
             SRDebug.Init();
         }
