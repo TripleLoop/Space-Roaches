@@ -5,17 +5,7 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
 {
-
-    private Camera _mainCamera;
-    private MenuCanvas _menuCanvas;
-
-    private SoundManager _soundManager;
-    private BackendProxy _backendProxy;
-    private PlayerPrefsManager _playerPrefsManager;
-
-    private Action<bool> _loginDelegate;
-    private Action<bool> _postingDelegate;
-
+    
     private void Start()
     {
         this.InitializeBackend()
@@ -90,7 +80,7 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
 
     private MainMenu SetReferences()
     {
-        _menuCanvas.Initialize(_mainCamera, _playerPrefsManager.TutorialForced);
+        _menuCanvas.Initialize(_mainCamera, _playerPrefsManager, _playerPrefsManager.TutorialForced);
         _loginDelegate = LoginFinished;
         _postingDelegate = PostingFinished;
         return this;
@@ -162,5 +152,16 @@ public class MainMenu : MonoBehaviourEx, IHandle<PublishScoreMessage>
         environment.GetComponent<MainScreenEnvironment>().Initialize();
         return this;
     }
+
+    private Camera _mainCamera;
+    private MenuCanvas _menuCanvas;
+
+    private SoundManager _soundManager;
+    private BackendProxy _backendProxy;
+    private PlayerPrefsManager _playerPrefsManager;
+
+    private Action<bool> _loginDelegate;
+    private Action<bool> _postingDelegate;
+
 
 }

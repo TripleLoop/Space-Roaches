@@ -6,26 +6,7 @@ using UnityEngine.UI;
 
 public class MenuCanvas : MonoBehaviourEx
 {
-    //Menu Buttons
-    [SerializeField]
-    private Button _playButton;
-    [SerializeField]
-    private Button _leaderboardButton;
-    [SerializeField]
-    private Button _configurationButton;
-
-    //SubMenu Classes
-    private SettingsMenu _settingsMenu;
-    //private LeaderboardMenu _leaderboardMenu;
-
-    public delegate MenuCanvas EnableDelegate();
-    private EnableDelegate _enableDelegate;
-
-    //Helpers
-    private AlertPopUp _alertPopUp;
-    private LoadingScreen _loadingScreen;
-
-    public MenuCanvas Initialize(Camera mainCamera, bool tutorialForced)
+    public MenuCanvas Initialize(Camera mainCamera, PlayerPrefsManager playerPrefsManager, bool tutorialForced)
     {
         GetComponent<Canvas>().worldCamera = mainCamera;
         _settingsMenu = GetComponentInChildren<SettingsMenu>();
@@ -33,7 +14,8 @@ public class MenuCanvas : MonoBehaviourEx
         //_leaderboardMenu = GetComponentInChildren<LeaderboardMenu>();
         _enableDelegate = EnableButtons;
         InitializeAlertPopUp()
-            .InitializeLoadingScreen();
+            .InitializeLoadingScreen()
+            .InitializeUserMenu(playerPrefsManager);
         return this;
     }
 
@@ -75,6 +57,20 @@ public class MenuCanvas : MonoBehaviourEx
         _settingsMenu.Show(_enableDelegate);
         //Debug.Log("opened _configurationButton");
     }
+
+    /// <summary>
+    /// Function executed by pressing the UserMenu button
+    /// </summary>
+    public void UserMenu()
+    {
+        Messenger.Publish(new PlaySoundEffectMessage(SRResources.Core.Audio.Clips.SoundEffects.BasicButton));
+        DisableButtons();
+        _userMenu.Show(_enableDelegate);
+        //Debug.Log("opened _configurationButton");
+    }
+
+
+
 
     public MenuCanvas EnableButtons()
     {
@@ -121,4 +117,33 @@ public class MenuCanvas : MonoBehaviourEx
         _loadingScreen.Initialize();
         return this;
     }
+
+    private MenuCanvas InitializeUserMenu(PlayerPrefsManager playerPrefsManager)
+    {
+        GameObject userMenu = SRResources.Core.UI.UserMenu.Instantiate();
+        userMenu.transform.SetParent(gameObject.transform, false);
+        _userMenu = userMenu.GetComponent<UserMenu>();
+        _userMenu.Initialize(playerPrefsManager);
+        return this;
+    }
+
+    //Menu Buttons
+    [SerializeField]
+    private Button _playButton;
+    [SerializeField]
+    private Button _leaderboardButton;
+    [SerializeField]
+    private Button _configurationButton;
+
+    //SubMenu Classes
+    private SettingsMenu _settingsMenu;
+    private UserMenu _userMenu;
+    //private LeaderboardMenu _leaderboardMenu;
+
+    public delegate MenuCanvas EnableDelegate();
+    private EnableDelegate _enableDelegate;
+
+    //Helpers
+    private AlertPopUp _alertPopUp;
+    private LoadingScreen _loadingScreen;
 }

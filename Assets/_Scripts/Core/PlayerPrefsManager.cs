@@ -4,19 +4,22 @@ using UnityEngine.Networking;
 
 public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMessage>, IHandle<AudioStateMessage>, IHandle<NewScoreMessage>, IHandle<TutorialForcedMessage>
 {
-    private float _effectsVolume;
-    private float _musicVolume;
-    private int _tutorialSeen;
-    private int _tutorialForced;
-    private int _ownHighScore;
-    private int _scorePublished;
-    private int _userAuthenticated;
 
     public PlayerPrefsManager Initialize()
     {
         InitializeKeys().
         InitializeValues();
         return this;
+    }
+
+    public int SpaceCoins
+    {
+        get { return _spaceCoins; }
+        set
+        {
+            _spaceCoins = value;
+            PlayerPrefs.SetInt("_spaceCoins", _spaceCoins);
+        }
     }
 
     public int GetScore()
@@ -54,7 +57,6 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         }
     }
 
-
     public bool UserAuthenticated
     {
         get { return _userAuthenticated == 1; }
@@ -90,6 +92,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
             _ownHighScore = message.Score;
             ScorePublished = false;
         }
+        SpaceCoins += message.SpaceCoins;
     }
 
     public void Handle(TutorialForcedMessage message)
@@ -111,6 +114,7 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         _scorePublished = PlayerPrefs.GetInt("_scorePublished");
         _userAuthenticated = PlayerPrefs.GetInt("_userAuthenticated");
         _tutorialForced = PlayerPrefs.GetInt("_tutorialForced");
+        _spaceCoins = PlayerPrefs.GetInt("_spaceCoins");
         return this;
     }
 
@@ -144,7 +148,19 @@ public class PlayerPrefsManager : MonoBehaviourEx, IHandle<RequestAudioStateMess
         {
             PlayerPrefs.SetInt("_tutorialForced", 0);
         }
+        if (!PlayerPrefs.HasKey("_spaceCoins"))
+        {
+            PlayerPrefs.SetInt("_spaceCoins", 0);
+        }
         return this;
     }
 
+    private float _effectsVolume;
+    private float _musicVolume;
+    private int _tutorialSeen;
+    private int _tutorialForced;
+    private int _ownHighScore;
+    private int _scorePublished;
+    private int _userAuthenticated;
+    private int _spaceCoins;
 }
