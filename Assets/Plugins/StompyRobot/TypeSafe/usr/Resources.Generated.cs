@@ -1177,21 +1177,27 @@ public sealed class SRResources {
                 }
             }
             
-            public static global::TypeSafe.PrefabResource LoadingScreen {
+            public static global::TypeSafe.PrefabResource UserMenu {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[4]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource EndScreenPopUp {
+            public static global::TypeSafe.PrefabResource LoadingScreen {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[5]));
                 }
             }
             
-            public static global::TypeSafe.PrefabResource Canvas {
+            public static global::TypeSafe.PrefabResource EndScreenPopUp {
                 get {
                     return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[6]));
+                }
+            }
+            
+            public static global::TypeSafe.PrefabResource Canvas {
+                get {
+                    return ((global::TypeSafe.PrefabResource)(__ts_internal_resources[7]));
                 }
             }
             
@@ -1200,6 +1206,7 @@ public sealed class SRResources {
                         new global::TypeSafe.PrefabResource("BackgroundBlur", "Core/UI/BackgroundBlur"),
                         new global::TypeSafe.PrefabResource("EventSystem", "Core/UI/EventSystem"),
                         new global::TypeSafe.PrefabResource("TutorialPopup", "Core/UI/TutorialPopup"),
+                        new global::TypeSafe.PrefabResource("UserMenu", "Core/UI/UserMenu"),
                         new global::TypeSafe.PrefabResource("LoadingScreen", "Core/UI/LoadingScreen"),
                         new global::TypeSafe.PrefabResource("EndScreenPopUp", "Core/UI/EndScreenPopUp"),
                         new global::TypeSafe.PrefabResource("Canvas", "Core/UI/Canvas")});
