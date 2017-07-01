@@ -17,10 +17,10 @@
 
 #import "GPGSAppController.h"
 
-#import <GoogleSignIn/GIDSignIn.h>
-#import <GoogleSignIn/GIDGoogleUser.h>
-#import <GoogleSignIn/GIDAuthentication.h>
-#import <GoogleSignIn/GIDProfileData.h>
+#import <GIDSignIn.h>
+#import <GIDGoogleUser.h>
+#import <GIDAuthentication.h>
+#import <GIDProfileData.h>
 #import <gpg/ios_support.h>
 #import <gpg/GPGEnums.h>
 
@@ -34,14 +34,10 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-
-  // Uncomment this if you extend another AppController class that needs to handle
-  // being opened from a url.
-  //[super application:application
-  //           openURL:url
-  // sourceApplication:sourceApplication
-  //        annotation:annotation];
-
+  [super application:application
+             openURL:url
+   sourceApplication:sourceApplication
+          annotation:annotation];
   return [[GIDSignIn sharedInstance] handleURL:url
                              sourceApplication:sourceApplication
                                     annotation:annotation];
@@ -78,6 +74,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
+  [super application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
   NSLog(@"Got Token for APNS: %@", deviceToken);
 
 
@@ -85,7 +82,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   // NOTE: GPGPushNotificationEnvironmentProduction indicates this is
   // using the production APNS service.
   // GPGPushNotificationEnvironmentSandbox indicates that the sandbox
-  // service should be used.  This value needs to match the
+  // service should be used.  This value needs to match the cooresponding
   // certificate registered in the play app console, under linked apps > ios in
   // the section for push notifications.
   gpg::RegisterDeviceToken(deviceToken, GPGPushNotificationEnvironmentProduction);
@@ -93,6 +90,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+  [super application:application didFailToRegisterForRemoteNotificationsWithError:error];
   NSLog(@"Error registering for remote notifications! %@", error);
 }
 
@@ -148,15 +146,6 @@ char* __MakeStringCopy(NSString* nstring)
 #endif
 
 extern "C" {
-
-  void UnpauseUnityPlayer() {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      if (UnityIsPaused() > 0) {
-        UnityPause(0);
-      }
-    });
-  }
-
   const char* _GooglePlayGetIdToken() {
     const char* idToken = nil;
     GIDGoogleUser* guser = [GIDSignIn sharedInstance].currentUser;
