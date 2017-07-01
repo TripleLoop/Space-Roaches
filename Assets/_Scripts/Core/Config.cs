@@ -54,6 +54,8 @@ public static class Config
             //Velocity when idle State
             public const float MinVelocity = 2.5f;
             public const float ImmortalityTime = 8.0f;
+            public const float AlertFinishImmortalityTime = 3.0f;
+            public const float TimeAfterFinishImmortalityParticle = 0.5f;
         }
 
         public static class Spikeball
