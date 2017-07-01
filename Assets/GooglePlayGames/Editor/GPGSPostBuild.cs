@@ -14,16 +14,13 @@
 //    limitations under the License.
 // </copyright>
 
-// Keep this file if NO_GPGS so we can clean up the xcode project
-#if (UNITY_ANDROID || UNITY_IPHONE )
-
-namespace GooglePlayGames.Editor
+namespace GooglePlayGames
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using UnityEditor.Callbacks;
     using UnityEditor;
-    using UnityEngine;
 
     // Use the included xcode support for unity 5+,
     // otherwise use the backported code.
@@ -34,6 +31,9 @@ namespace GooglePlayGames.Editor
         using GooglePlayGames.xcode;
     #endif
 #endif
+    using GooglePlayGames;
+    using GooglePlayGames.Editor.Util;
+    using UnityEngine;
 
     public static class GPGSPostBuild
     {
@@ -43,7 +43,7 @@ namespace GooglePlayGames.Editor
         private const string BundleSchemeKey = "com.google.BundleId";
         private const string ReverseClientIdSchemeKey = "com.google.ReverseClientId";
 
-        [PostProcessBuild (99999)]
+        [PostProcessBuild]
         public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
         {
 #if UNITY_5
@@ -64,20 +64,15 @@ namespace GooglePlayGames.Editor
             }
 #endif
 
-#if UNITY_IOS
             #if NO_GPGS
 
             string[] filesToRemove = {
-                "Libraries/Plugins/IOS/GPGSAppController.mm",
                 "Libraries/Plugins/iOS/GPGSAppController.mm",
                 "Libraries/GPGSAppController.mm",
-                "Libraries/Plugins/IOS/GPGSAppController.h",
                 "Libraries/Plugins/iOS/GPGSAppController.h",
                 "Libraries/GPGSAppController.h",
-                "Libraries/Plugins/IOS/CustomWebViewApplication.h",
                 "Libraries/Plugins/iOS/CustomWebViewApplication.h",
                 "Libraries/CustomWebViewApplication.h",
-                "Libraries/Plugins/IOS/CustomWebViewApplication.mm",
                 "Libraries/Plugins/iOS/CustomWebViewApplication.mm",
                 "Libraries/CustomWebViewApplication.mm"
             };
@@ -98,7 +93,7 @@ namespace GooglePlayGames.Editor
 
             File.WriteAllText(pbxprojPath, proj.WriteToString());
 
-            #else
+            #elif UNITY_IOS
 
             if (!GPGSProjectSettings.Instance.GetBool(GPGSUtil.IOSSETUPDONEKEY, false))
             {
@@ -115,15 +110,29 @@ namespace GooglePlayGames.Editor
                 return;
             }
 
+            //Copy the podfile into the project.
+            string podfile = "Assets/GooglePlayGames/Editor/Podfile.txt";
+            string destpodfile = pathToBuiltProject + "/Podfile";
+            if (!System.IO.File.Exists(destpodfile))
+            {
+                FileUtil.CopyFileOrDirectory(podfile, destpodfile);
+            }
+
+            GPGSInstructionWindow w = EditorWindow.GetWindow<GPGSInstructionWindow>(
+                true,
+                "Building for IOS",
+                true);
+            w.minSize = new Vector2(400, 300);
+            w.UsingCocoaPod = CocoaPodHelper.Update(pathToBuiltProject);
+
+            UnityEngine.Debug.Log("Adding URL Types for authentication using PlistBuddy.");
+
             UpdateGeneratedInfoPlistFile(pathToBuiltProject + "/Info.plist");
             UpdateGeneratedPbxproj(pathToBuiltProject + "/Unity-iPhone.xcodeproj/project.pbxproj");
 
-            UnityEngine.Debug.Log("Adding URL Types for authentication using PlistBuddy.");
         #endif
-#endif
         }
 
-#if UNITY_IPHONE && !NO_GPGS
         /// <summary>
         /// Updates the new project's Info.plist file to include an entry for the Url scheme mandated
         /// by the Google+ login. This means that the plist file needs to have an entry in the for
@@ -189,7 +198,7 @@ namespace GooglePlayGames.Editor
             buddy.AddString (PlistBuddyHelper.ToEntryName (UrlTypes, index, UrlScheme, 0),
                 value);
         }
-#endif
+
 
         private static string GetBundleId()
         {
@@ -228,6 +237,15 @@ namespace GooglePlayGames.Editor
 
             string target =
                 proj.TargetGuidByName(PBXProject.GetUnityTargetName());
+            string testTarget =
+                proj.TargetGuidByName(PBXProject.GetUnityTestTargetName());
+
+            proj.AddBuildProperty(target, "OTHER_LDFLAGS", "$(inherited)");
+            proj.AddBuildProperty(testTarget, "OTHER_LDFLAGS", "$(inherited)");
+            proj.AddBuildProperty(target, "HEADER_SEARCH_PATHS", "$(inherited)");
+            proj.AddBuildProperty(testTarget, "HEADER_SEARCH_PATHS", "$(inherited)");
+            proj.AddBuildProperty(target, "OTHER_CFLAGS", "$(inherited)");
+            proj.AddBuildProperty(testTarget, "OTHER_CFLAGS", "$(inherited)");
 
             string fileGuid =
                  proj.FindFileGuidByProjectPath("Libraries/Plugins/iOS/GPGSAppController.mm");
@@ -250,4 +268,4 @@ namespace GooglePlayGames.Editor
 #endif
     }
 }
-#endif
+

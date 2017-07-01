@@ -19,9 +19,6 @@ namespace GooglePlayGames.BasicApi.Nearby
     using System;
     using System.Collections.Generic;
 
-    // move this inside IMessageListener and IDiscoveryListener are always declared.
-    #if (UNITY_ANDROID || (UNITY_IPHONE && !NO_GPGS))
-
     public interface INearbyConnectionClient
     {
 
@@ -64,7 +61,6 @@ namespace GooglePlayGames.BasicApi.Nearby
 
         string GetServiceId();
     }
-#endif
 
     public interface IMessageListener
     {
@@ -81,4 +77,3 @@ namespace GooglePlayGames.BasicApi.Nearby
         void OnEndpointLost(string lostEndpointId);
     }
 }
-

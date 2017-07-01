@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Custom/WaterBlur" {
+﻿Shader "Custom/WaterBlur" {
 	Properties{
 		_blurSizeXY("BlurSizeXY", Range(0,10)) = 0
 	}
@@ -57,7 +55,7 @@ Shader "Custom/WaterBlur" {
 
 		v2f o;
 
-		o.position = UnityObjectToClipPos(i.vertex);
+		o.position = mul(UNITY_MATRIX_MVP, i.vertex);
 
 		o.screenPos = o.position;
 

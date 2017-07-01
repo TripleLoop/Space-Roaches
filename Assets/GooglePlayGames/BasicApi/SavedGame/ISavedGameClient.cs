@@ -344,4 +344,3 @@ public delegate void ConflictCallback(IConflictResolver resolver, ISavedGameMeta
         void ChooseMetadata(ISavedGameMetadata chosenMetadata);
     }
 }
-

@@ -73,7 +73,7 @@ public class WaveManager : MonoBehaviourEx
                 _pizzaCount--;
                 break;
         }
-        if (_roachCount == 0)
+        if (CurrentElementCount() == 0)
         {
             _spaceRoaches.FasterWaveCycle();
         }
@@ -99,10 +99,10 @@ public class WaveManager : MonoBehaviourEx
         return this;
     }
 
-    /*private int CurrentElementCount()
+    private int CurrentElementCount()
     {
         return _roachCount + _spikeBallCount + _pizzaCount;
-    }*/
+    }
 
     private EntityWeight RandomWeightedChooser(List<EntityWeight> entityWeights)
     {
